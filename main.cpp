@@ -92,6 +92,12 @@ int done=0;
 int xres=800, yres=600;
 int state_menu=0;
 
+struct Circle {
+    GLfloat x, y, z;
+    GLfloat radius;
+    GLint numSides;
+};
+
 typedef struct t_bigfoot {
     Vec pos;
     Vec vel;
@@ -970,6 +976,17 @@ void render(void)
 	ggprint8b(&r, 16, 0x00ffff00, "This is my menu");
 	ggprint8b(&r, 16, color, "This is the second line");
     }
+
+	//Circle
+	Circle circle;
+	circle.x = 600;
+	circle.y = 0;
+	circle.z = 0;
+	circle.radius = 160;
+	circle.numSides = 360;
+	glColor3ub(255,255,0);
+    drawCircle(circle.x, circle.y, circle.z, circle.radius, circle.numSides);
+
     //
 
     glEnable(GL_TEXTURE_2D);
