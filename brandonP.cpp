@@ -9,3 +9,8 @@ void helloWorld()
 	cout << "Hello World!\n";
 	return;
 }
+
+void printName()
+{
+	ggprint8b(&r, 16, color, "Brandon Pitcher!!!");
+}
