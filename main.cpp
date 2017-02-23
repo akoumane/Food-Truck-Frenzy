@@ -7,7 +7,6 @@
 // Brandon M
 // Brandon P
 // Jin H
-//
 
 #include <iostream>
 #include <cstdlib>
@@ -198,6 +197,7 @@ int main(void)
     cleanupXWindows();
     cleanup_fonts();
     logClose();
+	helloWorld();
     return 0;
 }
 
