@@ -13,13 +13,13 @@ brandonM: brandonM.cpp ppm.cpp log.cpp
 brandonP: brandonP.cpp
 	g++ brandonP.cpp ppm.cpp log.cpp libggfonts.a -Wall -o brandonP
 
-brandonM: AbdulelahA.cpp ppm.cpp log.cpp
+AbdulelahA: AbdulelahA.cpp ppm.cpp log.cpp
 	g++ $(CFLAGS) AbdulelahA.cpp ppm.cpp log.cpp libggfonts.a -Wall -Wextra $(LFLAGS) -o AbdulelahA
 		
-brandonM: JinH.cpp ppm.cpp log.cpp
+JinH: JinH.cpp ppm.cpp log.cpp
 	g++ $(CFLAGS) JinH.cpp ppm.cpp log.cpp libggfonts.a -Wall -Wextra $(LFLAGS) -o JinH
 		
-brandonM: andyK.cpp ppm.cpp log.cpp
+andyK: andyK.cpp ppm.cpp log.cpp
 	g++ $(CFLAGS) andyK.cpp ppm.cpp log.cpp libggfonts.a -Wall -Wextra $(LFLAGS) -o andyK
 		
 	
