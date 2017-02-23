@@ -24,7 +24,6 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
-#include "fonts.h"
 #include "brandonP.cpp"
 #include "JinH.cpp"
 #include "andyK.cpp"
