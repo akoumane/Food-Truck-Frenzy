@@ -317,10 +317,10 @@ void initOpengl(void)
     //
     //load the images file into a ppm structure.
     //
-    bigfootImage     = ppm6GetImage("./images/bigfoot.ppm");
-    forestImage      = ppm6GetImage("./images/forest.ppm");
-    forestTransImage = ppm6GetImage("./images/forestTrans.ppm");
-    umbrellaImage    = ppm6GetImage("./images/umbrella.ppm");
+    bigfootImage     = ppm6GetImage("./Pixel Sprites/Burger.ppm");
+    forestImage      = ppm6GetImage("./Pixel Sprites/Burger.ppm");
+    forestTransImage = ppm6GetImage("./Pixel Sprites/Burger.ppm");
+    umbrellaImage    = ppm6GetImage("./Pixel Sprites/Burger.ppm");
     //
     //create opengl texture elements
     glGenTextures(1, &bigfootTexture);
