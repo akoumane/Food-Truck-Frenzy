@@ -33,9 +33,9 @@ void helloWorld()
 void printName()
 {
 	Rect r;
-	r.bot = 100;
-	r.left = 100;
-	r.center = 100;
+	r.bot = 420;
+	r.left = 315;
+	r.center = 300;
 	unsigned int color = 0x00dddd00;
 	ggprint8b(&r, 16, color, "Brandon Pitcher!!!");
 }
