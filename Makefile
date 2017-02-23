@@ -11,7 +11,7 @@ brandonM: brandonM.cpp ppm.cpp log.cpp
 	g++ $(CFLAGS) brandonM.cpp ppm.cpp log.cpp libggfonts.a -Wall -Wextra $(LFLAGS) -o brandonM
 	
 brandonP: brandonP.cpp
-	g++ brandonP.cpp -Wall -o brandonP
+	g++ brandonP.cpp ppm.cpp log.cpp libggfonts.a -Wall -o brandonP
 
 clean:
 	rm -f rainforest, brandonM, brandonP
