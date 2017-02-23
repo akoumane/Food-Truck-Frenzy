@@ -1,3 +1,13 @@
+// CMPS 3350 Project
+// Food Truck Frenzy
+// Group 8
+
+// Abdulelah A
+// Andy K
+// Brandon M
+// Brandon P
+// Jin H
+
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
