@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-void helloWorld(()
+void helloWorld()
 {
 	cout << "Hello World!\n";
 	return 0;
