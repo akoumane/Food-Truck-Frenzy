@@ -15,8 +15,7 @@ void drawCircle(GLfloat x, GLfloat y, GLfloat z, GLfloat radius,
     circleVerticesY[0] = y;
     circleVerticesZ[0] = z;
     
-    for(int i = 1; i < numVertices; i++)
-    {   
+    for (int i = 1; i < numVertices; i++) {   
         circleVerticesX[i] = x + (radius * cos(i * doublePi / numSides));      
         circleVerticesY[i] = y + (radius * sin(i * doublePi / numSides));      
         circleVerticesZ[i] = z;
@@ -24,8 +23,7 @@ void drawCircle(GLfloat x, GLfloat y, GLfloat z, GLfloat radius,
 
     GLfloat allCircleVertices[numVertices * 3];
 
-    for(int i = 0; i < numVertices; i++)
-    {
+    for(int i = 0; i < numVertices; i++) {
         allCircleVertices[i * 3] = circleVerticesX[i];
         allCircleVertices[(i * 3) + 1] = circleVerticesY[i];
         allCircleVertices[(i * 3) + 2] = circleVerticesZ[i];
