@@ -24,12 +24,6 @@ extern "C" {
 
 using namespace std;
 
-void helloWorld()
-{
-	cout << "Hello World!\n";
-	return;
-}
-
 void printName()
 {
 	Rect r;

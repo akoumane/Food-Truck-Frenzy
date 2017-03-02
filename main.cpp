@@ -202,7 +202,7 @@ int main(void)
     cleanupXWindows();
     cleanup_fonts();
     logClose();
-	helloWorld();
+
     return 0;
 }
 
