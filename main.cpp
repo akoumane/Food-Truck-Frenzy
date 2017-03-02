@@ -25,7 +25,7 @@
 #include "log.h"
 #include "ppm.h"
 #include "brandonP.h"
-
+#include "jinxuH.h"
 extern "C" {
 #include "fonts.h"
 }
@@ -1003,4 +1003,5 @@ void render(void)
 	ggprint8b(&r, 16, color, "D - Deflection");
 	ggprint8b(&r, 16, color, "N - Sounds");
 	printName();
+	printNameJ();
 }
