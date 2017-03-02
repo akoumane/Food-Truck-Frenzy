@@ -1,22 +1,7 @@
-//modified by:
-//date:
-//purpose:
-//
-//3350
-//program: rainforest
-//author:  Gordon Griesel
-//date:    2013 to present
-//
-//This program demonstrates the use of OpenGL and XWindows
-//
-//Texture maps are displayed.
-//Press B to see bigfoot roaming his forest.
-//
-//The rain builds up like snow on the ground.
-//Fix it by removing each raindrop for the rain linked list.
-//look for the 
-//
-//
+
+//Brandon Martinez 
+//CMPS 3350 lab5
+
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -33,6 +18,7 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
+#include "brandonM.h"
 
 extern "C" {
 #include "fonts.h"
