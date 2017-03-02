@@ -24,6 +24,7 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
+#include "brandonM.h"
 #include "brandonP.h"
 #include "jinxuH.h"
 extern "C" {
@@ -1003,5 +1004,6 @@ void render(void)
 	ggprint8b(&r, 16, color, "D - Deflection");
 	ggprint8b(&r, 16, color, "N - Sounds");
 	printName();
+	printBrandonName();
 	printNameJ();
 }
