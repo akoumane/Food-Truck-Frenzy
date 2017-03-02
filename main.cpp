@@ -27,6 +27,10 @@
 #include "brandonM.h"
 #include "brandonP.h"
 #include "jinxuH.h"
+#include "abdulelahA.h"
+
+
+
 extern "C" {
 #include "fonts.h"
 }
@@ -986,7 +990,8 @@ void render(void)
 	glColor3ub(255,255,0);
     drawCircle(circle.x, circle.y, circle.z, circle.radius, circle.numSides);
 
-    //
+    //Triangle
+
 
     glEnable(GL_TEXTURE_2D);
     r.bot = yres - 20;
