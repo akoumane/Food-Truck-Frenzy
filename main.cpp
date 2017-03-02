@@ -24,11 +24,7 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
-#include "brandonP.cpp"
-#include "JinH.cpp"
-#include "andyK.cpp"
-#include "brandonM.cpp"
-#include "AbdulelahA.cpp"
+#include "brandonP.h"
 
 extern "C" {
 #include "fonts.h"
@@ -67,6 +63,8 @@ void checkKeys(XEvent *e);
 void init();
 void physics(void);
 void render(void);
+extern void drawCircle(GLfloat x, GLfloat y, GLfloat z, GLfloat radius,
+    GLint numSides);
 
 //-----------------------------------------------------------------------------
 //Setup timers

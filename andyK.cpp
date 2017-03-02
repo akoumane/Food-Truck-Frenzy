@@ -1,4 +1,19 @@
 #include <iostream>
+#include <cstdlib>
+#include <iomanip>
+#include <cstring>
+#include <string>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <time.h>
+#include <math.h>
+#include <X11/Xlib.h>
+#include <X11/keysym.h>
+#include <GL/glx.h>
+#include "log.h"
+#include "ppm.h"
 using namespace std;
 
 void drawCircle(GLfloat x, GLfloat y, GLfloat z, GLfloat radius,
