@@ -991,7 +991,7 @@ void render(void)
     drawCircle(circle.x, circle.y, circle.z, circle.radius, circle.numSides);
 
     //Triangle
-
+	drawRect ();
 
     glEnable(GL_TEXTURE_2D);
     r.bot = yres - 20;
