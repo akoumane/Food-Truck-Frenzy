@@ -17,7 +17,7 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
-
+#include "brandonP.h"
 extern "C" {
 #include "fonts.h"
 }
