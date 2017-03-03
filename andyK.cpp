@@ -1,3 +1,6 @@
+//Andy Koumane
+//andyK.cpp
+
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
