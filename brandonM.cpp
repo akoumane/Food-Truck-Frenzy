@@ -35,3 +35,7 @@ void printBrandonName()
 	unsigned int color = 0x00dddd00;
 	ggprint8b(&r, 16, color, "Brandon Martinez!!!");
 }
+void TitleScreen()
+{
+	
+}
