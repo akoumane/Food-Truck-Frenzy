@@ -28,8 +28,24 @@ void printName()
 {
 	Rect r;
 	r.bot = 420;
-	r.left = 315;
+	r.left = 315;	
 	r.center = 300;
 	unsigned int color = 0x00dddd00;
 	ggprint8b(&r, 16, color, "Brandon Pitcher!!!");
+}
+
+void imageConvert()
+{
+	system("convert burger.png burger.ppm");
+	system("convert hamburger.png hamburger.ppm");
+	system("convert hotdog.png hotdog.ppm");
+	system("convert pizza.png pizza.ppm");
+	system("convert plate.png plate.ppm");
+	return;
+}
+
+void cleanUp()
+{
+	system("rm -f *.ppm");
+	return;
 }
