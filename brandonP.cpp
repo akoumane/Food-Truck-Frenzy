@@ -36,16 +36,31 @@ void printName()
 
 void imageConvert()
 {
+	// remove converted ppm files to help with crash recovery
+	system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm
+		burger.png hamburger.png hotdog.png pizza.ppm plate.ppm");
+
+	// copy images to main folder
+	system("cp /pixel-sprites/burger.png .");
+	system("cp /pixel-sprites/hamburger.png .");
+	system("cp /pixel-sprites/hotdog.png .");
+	system("cp /pixel-sprites/pizza.png .");
+	system("cp /pixel-sprites/plate.png .");
+
+	// convert from png to ppm
 	system("convert burger.png burger.ppm");
 	system("convert hamburger.png hamburger.ppm");
 	system("convert hotdog.png hotdog.ppm");
 	system("convert pizza.png pizza.ppm");
 	system("convert plate.png plate.ppm");
+
 	return;
 }
 
 void cleanUp()
 {
-	system("rm -f *.ppm");
+	system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm
+		burger.png hamburger.png hotdog.png pizza.ppm plate.ppm");
+	
 	return;
 }
