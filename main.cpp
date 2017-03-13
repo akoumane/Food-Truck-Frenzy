@@ -162,6 +162,7 @@ int deflection=0;
 int main(void)
 {
     logOpen();
+    imageConvert();
     initXWindows();
     initOpengl();
     init();
@@ -205,6 +206,7 @@ int main(void)
     }
     cleanupXWindows();
     cleanup_fonts();
+    cleanUp();
     logClose();
 
     return 0;
@@ -327,10 +329,10 @@ void initOpengl(void)
     //
     //load the images file into a ppm structure.
     //
-    bigfootImage     = ppm6GetImage("./Pixel Sprites/Burger.ppm");
-    forestImage      = ppm6GetImage("./Pixel Sprites/Burger.ppm");
-    forestTransImage = ppm6GetImage("./Pixel Sprites/Burger.ppm");
-    umbrellaImage    = ppm6GetImage("./Pixel Sprites/Burger.ppm");
+    bigfootImage     = ppm6GetImage("burger.ppm");
+    forestImage      = ppm6GetImage("burger.ppm");
+    forestTransImage = ppm6GetImage("burger.ppm");
+    umbrellaImage    = ppm6GetImage("burger.ppm");
     //
     //create opengl texture elements
     glGenTextures(1, &bigfootTexture);
