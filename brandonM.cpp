@@ -28,14 +28,37 @@ using namespace std;
 
 void printBrandonName()
 {
-	Rect r;
-	r.bot = 100;
-	r.left = 140;
-	r.center = 100;
-	unsigned int color = 0x00dddd00;
-	ggprint8b(&r, 16, color, "Brandon Martinez!!!");
+    Rect r;
+    r.bot = 100;
+    r.left = 140;
+    r.center = 100;
+    unsigned int color = 0x00dddd00;
+    ggprint8b(&r, 16, color, "Brandon Martinez!!!");
 }
+/*
+void input_title_screen()
+{
+    title_screen ^= 1;
+}
+*/
 void TitleScreen()
 {
-	
+    Rect r;
+    glColor3f(1.0, 0.0,0.0);
+    int cx = 800;
+    int cy = 600;
+    glBegin(GL_QUADS);
+    glVertex2i(cx-100, cy+100);
+    glVertex2i(cx+100, cy+100);
+    glVertex2i(cx+100, cy-100);
+    glVertex2i(cx-100, cy-100);
+    glEnd();
+    glEnable(GL_TEXTURE_2D);
+    r.bot = cy + 20;
+    r.left = cx;
+    r.center = 1;
+    unsigned int color = 0x00dddd00;
+    ggprint8b(&r, 16, 0x00ffff00, "This is the title screen");
+    ggprint8b(&r, 16, color, "This is the second line");
+
 }

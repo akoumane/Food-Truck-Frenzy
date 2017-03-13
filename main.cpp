@@ -69,7 +69,7 @@ void init();
 void physics(void);
 void render(void);
 extern void drawCircle(GLfloat x, GLfloat y, GLfloat z, GLfloat radius,
-    GLint numSides);
+	GLint numSides);
 
 //-----------------------------------------------------------------------------
 //Setup timers
@@ -94,6 +94,7 @@ void timeCopy(struct timespec *dest, struct timespec *source) {
 int done=0;
 int xres=800, yres=600;
 int state_menu=0;
+int title_screen=0;
 
 struct Circle {
     GLfloat x, y, z;
@@ -505,7 +506,11 @@ void checkKeys(XEvent *e)
 	    //	state_menu = 0;
 	    state_menu ^= 1;
 	    break;
-//add if state_menu disable or rebind the keys
+	case XK_a:
+	    title_screen ^= 1;
+		//input_title_screen();
+		break;
+	    //add if state_menu disable or rebind the keys
 	case XK_b:
 	    showBigfoot ^= 1;
 	    if (showBigfoot) {
@@ -903,82 +908,85 @@ void render(void)
 	glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
 	glEnd();
     }
-    if (showBigfoot) {
-	glPushMatrix();
-	glTranslatef(bigfoot.pos[0], bigfoot.pos[1], bigfoot.pos[2]);
-	if (!silhouette) {
-	    glBindTexture(GL_TEXTURE_2D, bigfootTexture);
-	} else {
-	    glBindTexture(GL_TEXTURE_2D, silhouetteTexture);
-	    glEnable(GL_ALPHA_TEST);
-	    glAlphaFunc(GL_GREATER, 0.0f);
-	    glColor4ub(255,255,255,255);
-	}
-	glBegin(GL_QUADS);
-	if (bigfoot.vel[0] > 0.0) {
-	    glTexCoord2f(0.0f, 1.0f); glVertex2i(-wid,-wid);
-	    glTexCoord2f(0.0f, 0.0f); glVertex2i(-wid, wid);
-	    glTexCoord2f(1.0f, 0.0f); glVertex2i( wid, wid);
-	    glTexCoord2f(1.0f, 1.0f); glVertex2i( wid,-wid);
-	} else {
-	    glTexCoord2f(1.0f, 1.0f); glVertex2i(-wid,-wid);
-	    glTexCoord2f(1.0f, 0.0f); glVertex2i(-wid, wid);
-	    glTexCoord2f(0.0f, 0.0f); glVertex2i( wid, wid);
-	    glTexCoord2f(0.0f, 1.0f); glVertex2i( wid,-wid);
-	}
-	glEnd();
-	glPopMatrix();
-	//
-	if (trees && silhouette) {
-	    glBindTexture(GL_TEXTURE_2D, forestTransTexture);
+    if(title_screen == 1)
+	TitleScreen();
+    if(title_screen == 0) {
+	if (showBigfoot) {
+	    glPushMatrix();
+	    glTranslatef(bigfoot.pos[0], bigfoot.pos[1], bigfoot.pos[2]);
+	    if (!silhouette) {
+		glBindTexture(GL_TEXTURE_2D, bigfootTexture);
+	    } else {
+		glBindTexture(GL_TEXTURE_2D, silhouetteTexture);
+		glEnable(GL_ALPHA_TEST);
+		glAlphaFunc(GL_GREATER, 0.0f);
+		glColor4ub(255,255,255,255);
+	    }
 	    glBegin(GL_QUADS);
-	    glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
-	    glTexCoord2f(0.0f, 0.0f); glVertex2i(0, yres);
-	    glTexCoord2f(1.0f, 0.0f); glVertex2i(xres, yres);
-	    glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
+	    if (bigfoot.vel[0] > 0.0) {
+		glTexCoord2f(0.0f, 1.0f); glVertex2i(-wid,-wid);
+		glTexCoord2f(0.0f, 0.0f); glVertex2i(-wid, wid);
+		glTexCoord2f(1.0f, 0.0f); glVertex2i( wid, wid);
+		glTexCoord2f(1.0f, 1.0f); glVertex2i( wid,-wid);
+	    } else {
+		glTexCoord2f(1.0f, 1.0f); glVertex2i(-wid,-wid);
+		glTexCoord2f(1.0f, 0.0f); glVertex2i(-wid, wid);
+		glTexCoord2f(0.0f, 0.0f); glVertex2i( wid, wid);
+		glTexCoord2f(0.0f, 1.0f); glVertex2i( wid,-wid);
+	    }
 	    glEnd();
+	    glPopMatrix();
+	    //
+	    if (trees && silhouette) {
+		glBindTexture(GL_TEXTURE_2D, forestTransTexture);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
+		glTexCoord2f(0.0f, 0.0f); glVertex2i(0, yres);
+		glTexCoord2f(1.0f, 0.0f); glVertex2i(xres, yres);
+		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
+		glEnd();
+	    }
+	    glDisable(GL_ALPHA_TEST);
 	}
-	glDisable(GL_ALPHA_TEST);
-    }
 
-    glDisable(GL_TEXTURE_2D);
-    //glColor3f(1.0f, 0.0f, 0.0f);
-    //glBegin(GL_QUADS);
-    //	glVertex2i(10,10);
-    //	glVertex2i(10,60);
-    //	glVertex2i(60,60);
-    //	glVertex2i(60,10);
-    //glEnd();
-    //return;
-    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_BLEND);
-    if (showRain)
-	drawRaindrops();
-    glDisable(GL_BLEND);
-    //glEnable(GL_TEXTURE_2D);
-    //
-    if (showUmbrella)
-	drawUmbrella();
-    glBindTexture(GL_TEXTURE_2D, 0);
-    //
-    if (state_menu == 1) { 
-	glColor3f(1.0, 0.0,0.0);
-	int cx = xres/2;
-	int cy = yres/2;
-	glBegin(GL_QUADS);
-		glVertex2i(cx-100, cy+100);
-		glVertex2i(cx+100, cy+100);
-		glVertex2i(cx+100, cy-100);
-		glVertex2i(cx-100, cy-100);
-	glEnd();
-    	glEnable(GL_TEXTURE_2D);
-    	r.bot = cy + 20;
-	r.left = cx;
-	r.center = 1;
-	unsigned int color = 0x00dddd00;
-	ggprint8b(&r, 16, 0x00ffff00, "This is my menu");
-	ggprint8b(&r, 16, color, "This is the second line");
-    }
+	glDisable(GL_TEXTURE_2D);
+	//glColor3f(1.0f, 0.0f, 0.0f);
+	//glBegin(GL_QUADS);
+	//	glVertex2i(10,10);
+	//	glVertex2i(10,60);
+	//	glVertex2i(60,60);
+	//	glVertex2i(60,10);
+	//glEnd();
+	//return;
+	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	if (showRain)
+	    drawRaindrops();
+	glDisable(GL_BLEND);
+	//glEnable(GL_TEXTURE_2D);
+	//
+	if (showUmbrella)
+	    drawUmbrella();
+	glBindTexture(GL_TEXTURE_2D, 0);
+	//
+	if (state_menu == 1) { 
+	    glColor3f(1.0, 0.0,0.0);
+	    int cx = xres/2;
+	    int cy = yres/2;
+	    glBegin(GL_QUADS);
+	    glVertex2i(cx-100, cy+100);
+	    glVertex2i(cx+100, cy+100);
+	    glVertex2i(cx+100, cy-100);
+	    glVertex2i(cx-100, cy-100);
+	    glEnd();
+	    glEnable(GL_TEXTURE_2D);
+	    r.bot = cy + 20;
+	    r.left = cx;
+	    r.center = 1;
+	    unsigned int color = 0x00dddd00;
+	    ggprint8b(&r, 16, 0x00ffff00, "This is my menu");
+	    ggprint8b(&r, 16, color, "This is the second line");
+	}
 
 	//Circle
 	Circle circle;
@@ -988,13 +996,13 @@ void render(void)
 	circle.radius = 160;
 	circle.numSides = 360;
 	glColor3ub(255,255,0);
-    drawCircle(circle.x, circle.y, circle.z, circle.radius, circle.numSides);
+	drawCircle(circle.x, circle.y, circle.z, circle.radius, circle.numSides);
 
-    //Triangle
+	//Triangle
 	drawRect ();
 
-    glEnable(GL_TEXTURE_2D);
-    r.bot = yres - 20;
+	glEnable(GL_TEXTURE_2D);
+	r.bot = yres - 20;
 	r.left = 10;
 	r.center = 0;
 	unsigned int color = 0x00dddd00;
@@ -1011,4 +1019,5 @@ void render(void)
 	printName();
 	printBrandonName();
 	printNameJ();
+    }
 }
