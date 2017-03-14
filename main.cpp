@@ -222,7 +222,7 @@ void setTitle(void)
 {
     //Set the window title bar.
     XMapWindow(dpy, win);
-    XStoreName(dpy, win, "3350 - OpenGL X11");
+    XStoreName(dpy, win, "Food Truck Frenzy");
 }
 
 void setupScreenRes(const int w, const int h)
