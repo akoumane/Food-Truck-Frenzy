@@ -94,7 +94,7 @@ void timeCopy(struct timespec *dest, struct timespec *source) {
 int done=0;
 int xres=800, yres=600;
 int state_menu=0;
-int title_screen=0;
+int title_screen=1;
 
 struct Circle {
     GLfloat x, y, z;
@@ -141,8 +141,8 @@ Raindrop *ihead=NULL;
 int ndrops=1;
 int totrain=0;
 int maxrain=0;
-void deleteRain(Raindrop *node);
-void cleanupRaindrops(void);
+//void deleteRain(Raindrop *node);
+//void cleanupRaindrops(void);
 //
 #define UMBRELLA_FLAT  0
 #define UMBRELLA_ROUND 1
@@ -510,8 +510,8 @@ void checkKeys(XEvent *e)
 	    break;
 	case XK_a:
 	    title_screen ^= 1;
-		//input_title_screen();
-		break;
+	    //input_title_screen();
+	    break;
 	    //add if state_menu disable or rebind the keys
 	case XK_b:
 	    showBigfoot ^= 1;
@@ -606,48 +606,6 @@ Flt VecNormalize(Vec vec)
     return(len);
 }
 
-void cleanupRaindrops(void)
-{
-    Raindrop *s;
-    while (ihead) {
-	s = ihead->next;
-	free(ihead);
-	ihead = s;
-    }
-    ihead=NULL;
-}
-
-void deleteRain(Raindrop *node)
-{
-    //Demove a node from linked list
-    //This line keeps the compiler happy for now.
-    if (node) {} //you may remove this line
-
-
-    //hints:
-    //check for some special cases:
-    //1. only 1 node in list (it is also the head node)
-    //2. node at beginning of list (it is also the head node)
-    //3. node at end of list.
-    //4. node somewhere else in list.
-
-    //if (node->prev == NULL && node->next == NULL) <--- only node in list.
-
-    //if (node->prev == NULL) <--- node at beginning of list.
-
-    //if (node->next == NULL) <--- node at end of list.
-
-    //else, node is somewhere in the list.
-
-
-
-
-
-
-
-    //At the end of this function, free the node's memory,
-    //and set the node to NULL.
-}
 
 void moveBigfoot()
 {
@@ -674,139 +632,106 @@ void moveBigfoot()
 	bigfoot.vel[1] -= 0.75;
 }
 
-
-void createRaindrop(const int n)
-{
-    //create new rain drops...
-    int i;
-    for (i=0; i<n; i++) {
-	Raindrop *node = (Raindrop *)malloc(sizeof(Raindrop));
-	if (node == NULL) {
-	    Log("error allocating node.\n");
-	    exit(EXIT_FAILURE);
-	}
-	node->prev = NULL;
-	node->next = NULL;
-	node->sound=0;
-	node->pos[0] = rnd() * (float)xres;
-	node->pos[1] = rnd() * 100.0f + (float)yres;
-	VecCopy(node->pos, node->lastpos);
-	node->vel[0] = 
-	    node->vel[1] = 0.0f;
-	node->color[0] = rnd() * 0.2f + 0.8f;
-	node->color[1] = rnd() * 0.2f + 0.8f;
-	node->color[2] = rnd() * 0.2f + 0.8f;
-	node->color[3] = rnd() * 0.5f + 0.3f; //alpha
-	node->linewidth = random(8)+1;
-	//larger linewidth = faster speed
-	node->maxvel[1] = (float)(node->linewidth*16);
-	node->length = node->maxvel[1] * 0.2f + rnd();
-	//put raindrop into linked list
-	node->next = ihead;
-	if (ihead != NULL)
-	    ihead->prev = node;
-	ihead = node;
-	++totrain;
-    }
+/*
+   void createRaindrop(const int n)
+   {
+//create new rain drops...
+int i;
+for (i=0; i<n; i++) {
+Raindrop *node = (Raindrop *)malloc(sizeof(Raindrop));
+if (node == NULL) {
+Log("error allocating node.\n");
+exit(EXIT_FAILURE);
+}
+node->prev = NULL;
+node->next = NULL;
+node->sound=0;
+node->pos[0] = rnd() * (float)xres;
+node->pos[1] = rnd() * 100.0f + (float)yres;
+VecCopy(node->pos, node->lastpos);
+node->vel[0] = 
+node->vel[1] = 0.0f;
+node->color[0] = rnd() * 0.2f + 0.8f;
+node->color[1] = rnd() * 0.2f + 0.8f;
+node->color[2] = rnd() * 0.2f + 0.8f;
+node->color[3] = rnd() * 0.5f + 0.3f; //alpha
+node->linewidth = random(8)+1;
+//larger linewidth = faster speed
+node->maxvel[1] = (float)(node->linewidth*16);
+node->length = node->maxvel[1] * 0.2f + rnd();
+//put raindrop into linked list
+node->next = ihead;
+if (ihead != NULL)
+ihead->prev = node;
+ihead = node;
+++totrain;
+}
 }
 
 void checkRaindrops()
 {
-    if (!showRain)
-	return;
-    if (random(100) < 50) {
-	createRaindrop(ndrops);
-    }
-    //
-    //move rain droplets
-    Raindrop *node = ihead;
-    while (node) {
-	//force is toward the ground
-	node->vel[1] += gravity;
-	VecCopy(node->pos, node->lastpos);
+if (!showRain)
+return;
+if (random(100) < 50) {
+createRaindrop(ndrops);
+}
+//
+//move rain droplets
+Raindrop *node = ihead;
+while (node) {
+//force is toward the ground
+node->vel[1] += gravity;
+VecCopy(node->pos, node->lastpos);
 
-	//----------------------------------------------------------------
-	//The next 2 lines are temporary code just for this assignment.
-	//Comment them out, then fix the raindrop delet function.
-	//----------------------------------------------------------------
-	float test = rnd() * 100.0;
-	if (node->pos[1] > test)
-	{
-	    node->pos[0] += node->vel[0] * timeslice;
-	    node->pos[1] += node->vel[1] * timeslice;
-	    if (fabs(node->vel[1]) > node->maxvel[1])
-		node->vel[1] *= 0.96;
-	    node->vel[0] *= 0.999;
-	}
-	//
-	node = node->next;
-    }
-    //
-    //check rain droplets
-    int n=0;
-    node = ihead;
-    while (node) {
-	n++;
+//----------------------------------------------------------------
+//The next 2 lines are temporary code just for this assignment.
+//Comment them out, then fix the raindrop delet function.
+//----------------------------------------------------------------
+float test = rnd() * 100.0;
+if (node->pos[1] > test)
+{
+node->pos[0] += node->vel[0] * timeslice;
+node->pos[1] += node->vel[1] * timeslice;
+if (fabs(node->vel[1]) > node->maxvel[1])
+node->vel[1] *= 0.96;
+node->vel[0] *= 0.999;
+}
+//
+node = node->next;
+}
+//
+//check rain droplets
+int n=0;
+node = ihead;
+while (node) {
+    n++;
 #ifdef USE_SOUND
-	if (node->pos[1] < 0.0f) {
-	    //raindrop hit ground
-	    if (!node->sound && play_sounds) {
-		//small chance that a sound will play
-		int r = random(50);
-		if (r==1) {
-		    //play sound here...
+    if (node->pos[1] < 0.0f) {
+	//raindrop hit ground
+	if (!node->sound && play_sounds) {
+	    //small chance that a sound will play
+	    int r = random(50);
+	    if (r==1) {
+		//play sound here...
 
 
 
-		}
-		//sound plays once per raindrop
-		node->sound=1;
 	    }
+	    //sound plays once per raindrop
+	    node->sound=1;
 	}
+    }
 #endif //USE_SOUND
-	//collision detection for raindrop on umbrella
-	if (showUmbrella) {
-	    if (umbrella.shape == UMBRELLA_FLAT) {
-		if (node->pos[0] >= (umbrella.pos[0] - umbrella.width2) &&
-			node->pos[0] <= (umbrella.pos[0] + umbrella.width2)) {
-		    if (node->lastpos[1] > umbrella.lastpos[1] ||
-			    node->lastpos[1] > umbrella.pos[1]) {
-			if (node->pos[1] <= umbrella.pos[1] ||
-				node->pos[1] <= umbrella.lastpos[1]) {
-			    if (node->linewidth > 1) {
-				Raindrop *savenode = node->next;
-				deleteRain(node);
-				node = savenode;
-				continue;
-			    }
-			}
-		    }
-		}
-	    }
-	    if (umbrella.shape == UMBRELLA_ROUND) {
-		float d0 = node->pos[0] - umbrella.pos[0];
-		float d1 = node->pos[1] - umbrella.pos[1];
-		float distance = sqrt((d0*d0)+(d1*d1));
-		//Log("distance: %f  umbrella.radius: %f\n",
-		//							distance,umbrella.radius);
-		if (distance <= umbrella.radius &&
-			node->pos[1] > umbrella.pos[1]) {
-		    if (node->linewidth > 1) {
-			if (deflection) {
-			    //deflect raindrop
-			    double dot;
-			    Vec v, up = {0,1,0};
-			    VecSub(node->pos, umbrella.pos, v);
-			    VecNormalize(v);
-			    node->pos[0] =
-				umbrella.pos[0] + v[0] * umbrella.radius;
-			    node->pos[1] =
-				umbrella.pos[1] + v[1] * umbrella.radius;
-			    dot = VecDot(v,up);
-			    dot += 1.0;
-			    node->vel[0] += v[0] * dot * 1.0;
-			    node->vel[1] += v[1] * dot * 1.0;
-			} else {
+    //collision detection for raindrop on umbrella
+    if (showUmbrella) {
+	if (umbrella.shape == UMBRELLA_FLAT) {
+	    if (node->pos[0] >= (umbrella.pos[0] - umbrella.width2) &&
+		    node->pos[0] <= (umbrella.pos[0] + umbrella.width2)) {
+		if (node->lastpos[1] > umbrella.lastpos[1] ||
+			node->lastpos[1] > umbrella.pos[1]) {
+		    if (node->pos[1] <= umbrella.pos[1] ||
+			    node->pos[1] <= umbrella.lastpos[1]) {
+			if (node->linewidth > 1) {
 			    Raindrop *savenode = node->next;
 			    deleteRain(node);
 			    node = savenode;
@@ -816,78 +741,61 @@ void checkRaindrops()
 		}
 	    }
 	}
-	if (node->pos[1] < -20.0f) {
-	    //rain drop is below the visible area
-	    Raindrop *savenode = node->next;
-	    deleteRain(node);
-	    node = savenode;
-	    continue;
+	if (umbrella.shape == UMBRELLA_ROUND) {
+	    float d0 = node->pos[0] - umbrella.pos[0];
+	    float d1 = node->pos[1] - umbrella.pos[1];
+	    float distance = sqrt((d0*d0)+(d1*d1));
+	    //Log("distance: %f  umbrella.radius: %f\n",
+	    //							distance,umbrella.radius);
+	    if (distance <= umbrella.radius &&
+		    node->pos[1] > umbrella.pos[1]) {
+		if (node->linewidth > 1) {
+		    if (deflection) {
+			//deflect raindrop
+			double dot;
+			Vec v, up = {0,1,0};
+			VecSub(node->pos, umbrella.pos, v);
+			VecNormalize(v);
+			node->pos[0] =
+			    umbrella.pos[0] + v[0] * umbrella.radius;
+			node->pos[1] =
+			    umbrella.pos[1] + v[1] * umbrella.radius;
+			dot = VecDot(v,up);
+			dot += 1.0;
+			node->vel[0] += v[0] * dot * 1.0;
+			node->vel[1] += v[1] * dot * 1.0;
+		    } else {
+			Raindrop *savenode = node->next;
+			deleteRain(node);
+			node = savenode;
+			continue;
+		    }
+		}
+	    }
 	}
-	node = node->next;
     }
-    if (maxrain < n)
-	maxrain = n;
+    if (node->pos[1] < -20.0f) {
+	//rain drop is below the visible area
+	Raindrop *savenode = node->next;
+	deleteRain(node);
+	node = savenode;
+	continue;
+    }
+    node = node->next;
 }
-
+if (maxrain < n)
+    maxrain = n;
+    }
+    */
 void physics(void)
 {
     if (state_menu)
 	return;
     if (showBigfoot)
 	moveBigfoot();
-    checkRaindrops();
+    //checkRaindrops();
 }
 
-void drawUmbrella(void)
-{
-    //Log("drawUmbrella()...\n");
-    if (umbrella.shape == UMBRELLA_FLAT) {
-	glColor4f(1.0f, 0.2f, 0.2f, 0.5f);
-	glLineWidth(8);
-	glBegin(GL_LINES);
-	glVertex2f(umbrella.pos[0]-umbrella.width2, umbrella.pos[1]);
-	glVertex2f(umbrella.pos[0]+umbrella.width2, umbrella.pos[1]);
-	glEnd();
-	glLineWidth(1);
-    } else {
-	glColor4f(1.0f, 1.0f, 1.0f, 0.8f);
-	glPushMatrix();
-	glTranslatef(umbrella.pos[0],umbrella.pos[1],umbrella.pos[2]);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, umbrellaTexture);
-	glBegin(GL_QUADS);
-	float w = umbrella.width2;
-	glTexCoord2f(0.0f, 0.0f); glVertex2f(-w,  w);
-	glTexCoord2f(1.0f, 0.0f); glVertex2f( w,  w);
-	glTexCoord2f(1.0f, 1.0f); glVertex2f( w, -w);
-	glTexCoord2f(0.0f, 1.0f); glVertex2f(-w, -w);
-	glEnd();
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glDisable(GL_ALPHA_TEST);
-	glPopMatrix();
-    }
-}
-
-void drawRaindrops(void)
-{
-    //if (ihead) {
-    Raindrop *node = ihead;
-    while (node) {
-	glPushMatrix();
-	glTranslated(node->pos[0],node->pos[1],node->pos[2]);
-	glColor4fv(node->color);
-	glLineWidth(node->linewidth);
-	glBegin(GL_LINES);
-	glVertex2f(0.0f, 0.0f);
-	glVertex2f(0.0f, node->length);
-	glEnd();
-	glPopMatrix();
-	node = node->next;
-    }
-    //}
-    glLineWidth(1);
-}
 
 void render(void)
 {
@@ -899,19 +807,20 @@ void render(void)
     //
     //
     //draw a quad with texture
-    float wid = 120.0f;
-    glColor3f(1.0, 1.0, 1.0);
-    if (forest) {
-	glBindTexture(GL_TEXTURE_2D, forestTexture);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
-	glTexCoord2f(0.0f, 0.0f); glVertex2i(0, yres);
-	glTexCoord2f(1.0f, 0.0f); glVertex2i(xres, yres);
-	glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
-	glEnd();
-    }
-    if(title_screen == 1)
+      float wid = 120.0f;
+      glColor3f(1.0, 1.0, 1.0);
+      if (forest) {
+      glBindTexture(GL_TEXTURE_2D, forestTexture);
+      glBegin(GL_QUADS);
+      glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
+      glTexCoord2f(0.0f, 0.0f); glVertex2i(0, yres);
+      glTexCoord2f(1.0f, 0.0f); glVertex2i(xres, yres);
+      glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
+      glEnd();
+      }
+    if(title_screen == 1) {
 	TitleScreen();
+    }
     if(title_screen == 0) {
 	if (showBigfoot) {
 	    glPushMatrix();
@@ -962,34 +871,10 @@ void render(void)
 	//return;
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
-	if (showRain)
-	    drawRaindrops();
-	glDisable(GL_BLEND);
-	//glEnable(GL_TEXTURE_2D);
-	//
-	if (showUmbrella)
-	    drawUmbrella();
-	glBindTexture(GL_TEXTURE_2D, 0);
-	//
-	if (state_menu == 1) { 
-	    glColor3f(1.0, 0.0,0.0);
-	    int cx = xres/2;
-	    int cy = yres/2;
-	    glBegin(GL_QUADS);
-	    glVertex2i(cx-100, cy+100);
-	    glVertex2i(cx+100, cy+100);
-	    glVertex2i(cx+100, cy-100);
-	    glVertex2i(cx-100, cy-100);
-	    glEnd();
-	    glEnable(GL_TEXTURE_2D);
-	    r.bot = cy + 20;
-	    r.left = cx;
-	    r.center = 1;
-	    unsigned int color = 0x00dddd00;
-	    ggprint8b(&r, 16, 0x00ffff00, "This is my menu");
-	    ggprint8b(&r, 16, color, "This is the second line");
+	if (state_menu == 1) {
+	   Pause_Menu(); 
 	}
-
+	/*
 	//Circle
 	Circle circle;
 	circle.x = 600;
@@ -1002,7 +887,7 @@ void render(void)
 
 	//Triangle
 	drawRect ();
-
+	*/
 	glEnable(GL_TEXTURE_2D);
 	r.bot = yres - 20;
 	r.left = 10;
