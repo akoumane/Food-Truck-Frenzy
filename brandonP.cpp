@@ -37,7 +37,8 @@ void printName()
 void imageConvert()
 {
 	// remove converted ppm files to help with crash recovery
-system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm burger.png hamburger.png hotdog.png pizza.png plate.png");
+system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm \
+		burger.png hamburger.png hotdog.png pizza.png plate.png");
 
 	// copy images to main folder
 	system("cp pixel-sprites/burger.png .");
@@ -58,7 +59,8 @@ system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm burger.png
 
 void cleanUp()
 {
-	system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm burger.png hamburger.png hotdog.png pizza.png plate.png");
+	system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm \
+			burger.png hamburger.png hotdog.png pizza.png plate.png");
 	
 	return;
 }
