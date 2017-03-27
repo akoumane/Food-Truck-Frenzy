@@ -28,7 +28,7 @@
 #include "brandonP.h"
 #include "jinxuH.h"
 #include "abdulelahA.h"
-
+using namespace std;
 
 
 extern "C" {
@@ -88,6 +88,47 @@ void timeCopy(struct timespec *dest, struct timespec *source) {
     memcpy(dest, source, sizeof(struct timespec));
 }
 //-----------------------------------------------------------------------------
+
+//==============================================================================
+// Game Objects
+
+class Game {
+	public:
+		// Grid will be initialized to 0.
+		// If data equals 1, then it is the player.
+		// Computer players will be integers greater than 1.
+		// Array will not be initalized to full 1080p resolution.
+		int grid[1920][1080];
+		int xres, yres;
+		Game(int y, int x) 
+		{
+			yres = y;
+			xres = x;
+			for (int i=0; i<y; i++)
+				for (int j=0; j<x; j++)
+					grid[i][j] = 0;
+		}
+		void printGrid()
+		{
+			for (int i=0; i<yres; i++) {
+				for (int j=0; j<xres; j++)
+					cout << grid[i][j] << " ";
+				cout << endl;
+			}
+
+		}
+};
+
+class Player {
+	
+
+};
+
+
+//==============================================================================
+
+
+
 
 //global variables
 
@@ -193,7 +234,8 @@ int main(void)
 	//              Reducing countdown by physics-rate.
 	//              Break when countdown < physics-rate.
 	//       if no,
-	//           Apply no physics this frame.
+	/
+	Apply no physics this frame.
 	while (physicsCountdown >= physicsRate) {
 	    //6. Apply physics
 	    physics();
@@ -201,6 +243,7 @@ int main(void)
 	    physicsCountdown -= physicsRate;
 	}
 	//Always render every frame.
+
 	render();
 	glXSwapBuffers(dpy, win);
     }
@@ -208,7 +251,12 @@ int main(void)
     cleanup_fonts();
     cleanUp();
     logClose();
-
+	
+	// 	DEBUGGING FOR GRID
+	/*
+	Game *g = new Game(40,40);
+	g->printGrid();
+	*/
     return 0;
 }
 
