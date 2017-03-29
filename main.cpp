@@ -30,6 +30,9 @@
 #include "abdulelahA.h"
 using namespace std;
 
+// Grid Dimensions
+int X_Dem = 50;
+int Y_Dem = 50;
 
 extern "C" {
 #include "fonts.h"
@@ -120,8 +123,45 @@ class Game {
 };
 
 class Player {
-	
-
+	public:
+		int xpos;
+		int ypos;
+		bool user;	// Is the player the user?
+		bool line;	// Is the customer waiting in line?
+		bool served;	// Does the customer have food?
+		bool done;	// Has the customer finished eating?
+		void moveLeft()
+		{
+			if (xpos - 1 < 0)
+				return;
+			xpos = xpos - 1;
+		}
+		void moveRight()
+		{
+			if (ypos - 1 < 0)
+				return;
+			ypos = ypos -1;
+		}
+		void moveDown()
+		{
+			if (ypos + 1 >= Y_Dem)
+				return;
+			ypos = ypos + 1;
+		}
+		void moveUp()
+		{
+			if (ypos - 1 < 0)
+				return;
+			ypos = ypos - 1;
+		}
+		int xPos()
+		{
+			return xpos;
+		}
+		int yPos()
+		{
+			return ypos;
+		}
 };
 
 
@@ -234,8 +274,8 @@ int main(void)
 	//              Reducing countdown by physics-rate.
 	//              Break when countdown < physics-rate.
 	//       if no,
-	/
-	Apply no physics this frame.
+	
+	//Apply no physics this frame.
 	while (physicsCountdown >= physicsRate) {
 	    //6. Apply physics
 	    physics();
