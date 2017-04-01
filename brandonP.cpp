@@ -24,6 +24,84 @@ extern "C" {
 
 using namespace std;
 
+int X_Dem = 50;
+int Y_Dem = 50;
+
+//==============================================================================
+// Game Objects
+
+class Game {
+	public:
+		// Grid will be initialized to 0.
+		// If data equals 1, then it is the player.
+		// Computer players will be integers greater than 1.
+		// Array will not be initalized to full 1080p resolution.
+		int grid[1920][1080];
+		int xres, yres;
+		Game(int y, int x) 
+		{
+			yres = y;
+			xres = x;
+			for (int i=0; i<y; i++)
+				for (int j=0; j<x; j++)
+					grid[i][j] = 0;
+		}
+		void printGrid()
+		{
+			for (int i=0; i<yres; i++) {
+				for (int j=0; j<xres; j++)
+					cout << grid[i][j] << " ";
+				cout << endl;
+			}
+
+		}
+};
+
+class Player {
+	public:
+		int xpos;
+		int ypos;
+		bool user;	// Is the player the user?
+		bool line;	// Is the customer waiting in line?
+		bool served;	// Does the customer have food?
+		bool done;	// Has the customer finished eating?
+		void moveLeft()
+		{
+			if (xpos - 1 < 0)
+				return;
+			xpos = xpos - 1;
+		}
+		void moveRight()
+		{
+			if (ypos + 1 >= X_Dem)
+				return;
+			ypos = ypos -1;
+		}
+		void moveDown()
+		{
+			if (ypos + 1 >= Y_Dem)
+				return;
+			ypos = ypos + 1;
+		}
+		void moveUp()
+		{
+			if (ypos - 1 < 0)
+				return;
+			ypos = ypos - 1;
+		}
+		int xPos()
+		{
+			return xpos;
+		}
+		int yPos()
+		{
+			return ypos;
+		}
+};
+
+
+//==============================================================================
+
 void printName()
 {
 	Rect r;
