@@ -913,8 +913,5 @@ void render(void)
 	ggprint8b(&r, 16, color, "R - Rain (+/-)");
 	ggprint8b(&r, 16, color, "D - Deflection");
 	ggprint8b(&r, 16, color, "N - Sounds");
-	printName();
-	printBrandonName();
-	printNameJ();
     }
 }
