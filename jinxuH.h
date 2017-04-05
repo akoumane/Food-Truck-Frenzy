@@ -3,6 +3,7 @@
 //JinH.h
 //
 void printNameJ();
-
+void makeItem();
+bool isCollision();
 #endif
 
