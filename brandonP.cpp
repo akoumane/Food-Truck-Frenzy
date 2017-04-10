@@ -1,6 +1,7 @@
 // Brandon Pitcher
-// CMPS 3350 Lab 5
-// Created: 23 February 2017
+// CMPS 3350 Spring 2017
+// Food Truck Frenzy
+
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -30,7 +31,7 @@ int Y_Dem = 50;
 //==============================================================================
 // Game Objects
 
-class Game {
+class Grid {
 	public:
 		// Grid will be initialized to 0.
 		// If data equals 1, then it is the player.
@@ -61,7 +62,7 @@ class Player {
 	public:
 		int xpos;
 		int ypos;
-		bool user;	// Is the player the user?
+		int id;		// Integer stored in array to identify each character
 		bool line;	// Is the customer waiting in line?
 		bool served;	// Does the customer have food?
 		bool done;	// Has the customer finished eating?
