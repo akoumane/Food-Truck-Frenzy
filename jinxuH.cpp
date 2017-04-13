@@ -30,7 +30,7 @@ struct Game {
     Shape chairl[4]; //leftside chair
     Shape chairr[4]; //rightside chair
     Shape truck;
-    Shape trashcan;
+    Shape trushcan;
     int n;
 };
 void makeItem()
@@ -100,7 +100,7 @@ bool isCollision(SDL_Rect& obj1, Game *game)
        return false;
        */
     //need replace p->.s with the charlector object
-    for (int j=0;j<4;j++){
+    for (int j=0;j<4;j++) {
         t = &game->table[j];
         cl = &game -> chairl[j];
         cr = &game -> chairr[j];
