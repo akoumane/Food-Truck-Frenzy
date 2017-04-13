@@ -1,6 +1,10 @@
 
 //Brandon Martinez 
 //CMPS 3350 lab5
+//
+//UPDATES over Spring break so far
+//Finished up the alphabet assets which can be viewable in the alphabet folder
+//usage in program comming soon
 
 #include <iostream>
 #include <cstdlib>
