@@ -39,7 +39,7 @@ class Grid {
 		// Array will not be initalized to full 1080p resolution.
 		int grid[1920][1080];
 		int xres, yres;
-		Game(int y, int x) 
+		Grid(int y, int x) 
 		{
 			yres = y;
 			xres = x;
@@ -117,7 +117,10 @@ void imageConvert()
 {
 	// remove converted ppm files to help with crash recovery
 system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm \
-		burger.png hamburger.png hotdog.png pizza.png plate.png");
+		burger.png hamburger.png hotdog.png pizza.png plate.png \
+		background.png background.ppm customer1.png customer1.ppm \
+		customer2.png customer2.ppm customer3.png customer3.ppm \
+		customer4.png customer4.ppm");
 
 	// copy images to main folder
 	system("cp pixel-sprites/burger.png .");
@@ -125,6 +128,11 @@ system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm \
 	system("cp pixel-sprites/hotdog.png .");
 	system("cp pixel-sprites/pizza.png .");
 	system("cp pixel-sprites/plate.png .");
+	system("cp pixel-sprites/background.png .");
+	system("cp pixel-sprites/customer1.png .");
+	system("cp pixel-sprites/customer2.png .");
+	system("cp pixel-sprites/customer3.png .");
+	system("cp pixel-sprites/customer4.png .");
 
 	// convert from png to ppm
 	system("convert burger.png burger.ppm");
@@ -132,6 +140,11 @@ system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm \
 	system("convert hotdog.png hotdog.ppm");
 	system("convert pizza.png pizza.ppm");
 	system("convert plate.png plate.ppm");
+	system("convert background.png background.ppm");
+	system("convert customer1.png customer1.ppm");
+	system("convert customer2.png customer2.ppm");
+	system("convert customer3.png customer3.ppm");
+	system("convert customer4.png customer4.ppm");
 
 	return;
 }
@@ -139,7 +152,10 @@ system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm \
 void cleanUp()
 {
 	system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm \
-			burger.png hamburger.png hotdog.png pizza.png plate.png");
+			burger.png hamburger.png hotdog.png pizza.png plate.png \
+			background.png background.ppm customer1.png customer1.ppm \
+			customer2.png customer2.ppm customer3.png customer3.ppm \
+			customer4.png customer4.ppm");
 	
 	return;
 }

@@ -25,15 +25,16 @@ using namespace std;
 
 void makeItem();//make Item box
 
-struct Game {
+/*struct Game {
     Shape table[4];
     Shape chairl[4]; //leftside chair
     Shape chairr[4]; //rightside chair
     Shape truck;
     Shape trushcan;
     int n;
-};
-void makeItem()
+};*/
+
+/*void makeItem()
 {
     Game game;
     game.n=0;
@@ -72,8 +73,9 @@ void makeItem()
     game.trushcan.center.x = 300;
     game.trushcan.center.y = 200;
 
-}
-void printNameJ()
+}*/
+
+/*void printNameJ()
 {
     Rect r;
     r.bot =200;
@@ -81,14 +83,14 @@ void printNameJ()
     r.left = 200;
     unsigned int color = 0x80B7EE;
     ggprint8b(&r, 16, color, "Jinxu Han");
-}
+}*/
 
-bool isCollision(SDL_Rect& obj1, Game *game)
+/*bool isCollision(SDL_Rect& obj1, Game *game)
 {
     //check collision with table
     Shape *s;
     //left1 < right2 && right1>left2 && top1 < bottom2 && bottom1 > top2
-    /*
+    
        if (obj1.center < obj2.x +obj2.w &&
        obj1.x + obj1.w > obj2.x &&
        obj1.y < obj2.y + obj2.h &&
@@ -98,7 +100,7 @@ bool isCollision(SDL_Rect& obj1, Game *game)
        }
        else
        return false;
-       */
+       
     //need replace p->.s with the charlector object
     for (int j=0;j<4;j++) {
         t = &game->table[j];
@@ -124,4 +126,5 @@ bool isCollision(SDL_Rect& obj1, Game *game)
         else
             return false;
     }
-}
+}*/
+
