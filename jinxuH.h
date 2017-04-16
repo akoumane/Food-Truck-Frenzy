@@ -2,8 +2,8 @@
 #define _JinH_H_
 //JinH.h
 //
-void printNameJ();
-void makeItem();
+void object();
+void drawbox();
 bool isCollision();
 #endif
 
