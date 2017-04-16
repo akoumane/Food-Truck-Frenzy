@@ -17,38 +17,61 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
+#include <time.h>
 using namespace std;
 
-void drawCircle(GLfloat x, GLfloat y, GLfloat z, GLfloat radius,
-    GLint numSides)
+class Customer
 {
-	GLint numVertices = numSides + 2;
-    GLfloat doublePi = 2.0f * M_PI;
+	private:
+		int xpos;
+		int ypos;
+		//random number will be chosen for foodChoice
+		int foodChoice;
 
-    GLfloat circleVerticesX[numVertices];
-    GLfloat circleVerticesY[numVertices];
-    GLfloat circleVerticesZ[numVertices];
+		//random number will be chosen for model
+		int modelNum;
 
-    circleVerticesX[0] = x;
-    circleVerticesY[0] = y;
-    circleVerticesZ[0] = z;
-    
-    for (int i = 1; i < numVertices; i++) {   
-        circleVerticesX[i] = x + (radius * cos(i * doublePi / numSides));      
-        circleVerticesY[i] = y + (radius * sin(i * doublePi / numSides));      
-        circleVerticesZ[i] = z;
-    }
+		bool inLine;
+		bool inSeat;
+		bool hasFood;
+		bool isEating;
+		bool finishFood;
 
-    GLfloat allCircleVertices[numVertices * 3];
+	public:
+		Customer()
+		{
+			srand(time(NULL));
+			foodChoice = rand() % 4 + 1;
+			modelNum = rand() % 4 + 1;
+			inLine = true;
+			inSeat = false;
+			hasFood = false;
+			isEating = false;
+			finishFood = false;
+		}
+		void renderModel()
+		{
+			//reserved for rendering character model
+		}
+};
 
-    for(int i = 0; i < numVertices; i++) {
-        allCircleVertices[i * 3] = circleVerticesX[i];
-        allCircleVertices[(i * 3) + 1] = circleVerticesY[i];
-        allCircleVertices[(i * 3) + 2] = circleVerticesZ[i];
-    }
-
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, allCircleVertices);
-    glDrawArrays(GL_TRIANGLE_FAN, 0, numVertices);
-    glDisableClientState(GL_VERTEX_ARRAY);
-}
+class Level
+{
+	private:
+		int levelNum;
+		int serveCount;
+		bool start;
+		Customer customers[];
+	public:
+		Level(int numLevel)
+		{
+			levelNum = numLevel;
+			serveCount = 0;
+			start = false;
+		}
+		
+		void renderFood()
+		{
+			//reserved to render food images
+		}
+};
