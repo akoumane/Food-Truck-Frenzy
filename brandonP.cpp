@@ -116,7 +116,7 @@ void printName()
 void imageConvert()
 {
 	// remove converted ppm files to help with crash recovery
-system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm \
+	system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm \
 		burger.png hamburger.png hotdog.png pizza.png plate.png \
 		background.png background.ppm customer1.png customer1.ppm \
 		customer2.png customer2.ppm customer3.png customer3.ppm \
