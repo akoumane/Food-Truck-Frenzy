@@ -68,17 +68,20 @@ void TitleScreen()
 
 
 }
-//void Option_Menu()
-//{
+void Option_Menu()
+{
 //music on and off
 //starting difficulty
-//}
-//void Help_Menu()
-//{
+}
+void Help_Menu()
+{
 //controls
 //main purpose of game
 // ?credits?
-//}
+}
+void LeaderBoard_Menu()
+{
+}
 void Pause_Menu() 
 {	
     Rect r;
