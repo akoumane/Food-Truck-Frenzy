@@ -1,9 +1,33 @@
-#ifndef _JinH_H_
-#define _JinH_H_
+#ifndef JINXUH_H
+#define JINXUH_H
 //JinH.h
 //
-void object();
-void drawbox();
+struct JinVec {
+    float x, y, z;
+};
+
+struct Shape {
+    float width, height;
+    float radius;
+    JinVec center;
+};
+
+struct Box {
+    Shape table[3];
+    Shape truck;
+    Shape circle;
+    int n;
+    int bubbler;
+    int mouse[2];
+    Box() {
+	n=0;
+	bubbler=0;
+
+    }
+};
+
+void object(Box box);
+void drawbox(Box *box);
 bool isCollision();
 #endif
 
