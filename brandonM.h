@@ -5,3 +5,4 @@ void Pause_Menu();
 void Option_Menu();
 void Help_Menu();
 void LeaderBoard_Menu();
+void checkKeys(XEvent *e);

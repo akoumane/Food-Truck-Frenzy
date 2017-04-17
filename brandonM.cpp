@@ -27,6 +27,19 @@
 extern "C" {
 #include "fonts.h"
 }
+struct Vec {
+    float x,y,z;
+};
+struct Shape {
+    float width, height;
+    float radius;
+    Vec center;
+};
+struct Game {
+    Shape box[5];
+    int n;
+    int mouse[2];
+};
 
 using namespace std;
 
@@ -39,12 +52,7 @@ void printBrandonName()
     unsigned int color = 0x00dddd00;
     ggprint8b(&r, 16, color, "Brandon Martinez!!!");
 }
-/*
-   void input_title_screen()
-   {
-   title_screen ^= 1;
-   }
-   */
+
 void TitleScreen()
 {
     glDisable(GL_TEXTURE_2D);
@@ -53,10 +61,6 @@ void TitleScreen()
     int cx = 800/2;
     int cy = 600/2;
     glBegin(GL_QUADS);
-    //glVertex2i(cx-400, cy+400);
-    //glVertex2i(cx+300, cy+400);
-    //glVertex2i(cx+300, cy-400);
-    //glVertex2i(cx-400, cy-400);
     glEnd();
     glEnable(GL_TEXTURE_2D);
     t.bot = cy;
@@ -65,8 +69,57 @@ void TitleScreen()
     unsigned int color = 0x00dddd00;
     ggprint16(&t, 16, 0x00ffff00, "Food Truck Frenzy!!!");
     ggprint8b(&t, 16, color, "This is the second line");
+/*
+    //Boxes to use for menu input
+    Game game;
+    game.n=0;
 
+    //declare a box shape
+    game.box[4].width = 100;
+    game.box[4].height = 10;
+    game.box[4].center.x = 120 + 5*65;
+    game.box[4].center.y = 500 - 5*60;
 
+    game.box[3].width = 100;
+    game.box[3].height = 10;
+    game.box[3].center.x = 120 + 4*65;
+    game.box[3].center.y = 500 - 4*60;
+
+    game.box[2].width = 100;
+    game.box[2].height = 10;
+    game.box[2].center.x = 120 + 3*65;
+    game.box[2].center.y = 500 - 3*60;
+
+    game.box[1].width = 100;
+    game.box[1].height = 10;
+    game.box[1].center.x = 120 + 2*65;
+    game.box[1].center.y = 500 - 2*60;
+
+    game.box[0].width = 100;
+    game.box[0].height = 10;
+    game.box[0].center.x = 120 + 1*65;
+    game.box[0].center.y = 500 - 1*60;
+
+    float w, h;
+
+ for(int i=0; i<=5; i++)
+    {
+    Shape *s;
+    glColor3ub(90,140,90);
+    s = game.box[i];
+    glPushMatrix();
+    glTranslatef(s->center.x, s->center.y, s->center.z);
+    w = s->width;
+    h = s->height;
+    glBegin(GL_QUADS);
+    glVertex2i(-w,-h);
+    glVertex2i(-w, h);
+    glVertex2i( w, h);
+    glVertex2i( w,-h);
+    glEnd();
+    glPopMatrix();
+    }
+*/
 }
 void Option_Menu()
 {
