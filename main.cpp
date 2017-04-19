@@ -367,7 +367,7 @@ void checkResize(XEvent *e)
     XConfigureEvent xce = e->xconfigure;
     if (xce.width != xres || xce.height != yres) {
 	//Window size did change.
-	reshapeWindow(xce.width, xce.height);
+	reshapeWindow(xres, yres);
     }
 }
 
@@ -481,9 +481,6 @@ void physics(void)
 void render(void)
 {
     Box box;
-    //Rect r;
-    //float custSizeY = 90/yres;
-    //float custSizeX = 63/xres;
 
     //Clear the screen
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -496,22 +493,21 @@ void render(void)
     //float wid = 120.0f;
     //glColor3f(1.0, 1.0, 1.0);
     if (background) {
-	glBindTexture(GL_TEXTURE_2D, backgroundTexture);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
-	glTexCoord2f(0.0f, 0.0f); glVertex2i(0, yres);
-	glTexCoord2f(1.0f, 0.0f); glVertex2i(xres, yres);
-	glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
-	glEnd();
+		glBindTexture(GL_TEXTURE_2D, backgroundTexture);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
+		glTexCoord2f(0.0f, 0.0f); glVertex2i(0, yres);
+		glTexCoord2f(1.0f, 0.0f); glVertex2i(xres, yres);
+		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
+		glEnd();
     }
-	//object(&box);
-	//drawbox(&box);
 
 	renderCustomers();
 	renderFoods();
-//	object(&box);
-//	drawbox(&box);
-    /*glPushMatrix();
+	object(&box);
+	drawbox(&box);
+    
+	/*glPushMatrix();
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
     glBegin(GL_QUADS);
@@ -568,7 +564,7 @@ void render(void)
 	//drawbox(&box);
 
     if(title_screen == 1) {
-	TitleScreen();
+		TitleScreen();
     }
     if(title_screen == 0) {
 
