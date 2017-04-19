@@ -1,5 +1,6 @@
 void printBrandonName();
 void TitleScreen();
+void renderTitleScreen();
 void input_title_screen();
 void Pause_Menu();
 void Option_Menu();

@@ -3,9 +3,10 @@
 //CMPS 3350 lab5
 //
 //UPDATES over Spring break so far
-//Finished up the alphabet assets which can be viewable in the alphabet folder
-//usage in program comming soon
-
+//***********************
+//Start menu added PRESS A to turn on and off
+//temp turned off on start
+//************************
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -46,15 +47,6 @@ struct Game {
     int mouse[2];
 };
 
-void printBrandonName()
-{
-    Rect r;
-    r.bot = 100;
-    r.left = 140;
-    r.center = 100;
-    unsigned int color = 0x00dddd00;
-    ggprint8b(&r, 16, color, "Brandon Martinez!!!");
-}
 
 void TitleScreen()
 {
@@ -67,22 +59,7 @@ void TitleScreen()
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
 	    StartMenu->width, StartMenu->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, StartMenu->data);
-    /*
-    glDisable(GL_TEXTURE_2D);
-    Rect t;
-    glColor3ub(255, 0, 0);
-    int cx = 800/2;
-    int cy = 600/2;
-    glBegin(GL_QUADS);
-    glEnd();
-    glEnable(GL_TEXTURE_2D);
-    t.bot = cy;
-    t.left = cx-150;
-    t.center = 0;
-    unsigned int color = 0x00dddd00;
-    ggprint16(&t, 16, 0x00ffff00, "Food Truck Frenzy!!!");
-    ggprint8b(&t, 16, color, "This is the second line");
-
+/*
     //Boxes to use for menu input
     Game game;
     game.n=0;
@@ -115,7 +92,7 @@ void TitleScreen()
 
     float w, h;
 
- for(int i=0; i<=5; i++)
+    for(int i=0; i<=5; i++)
     {
     Shape *s;
     glColor3ub(90,140,90);
@@ -132,8 +109,23 @@ void TitleScreen()
     glEnd();
     glPopMatrix();
     }
-*/
+    */
 }
+
+void renderTitleScreen()
+{
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, StartMenuTexture1);
+    glBegin(GL_QUADS); 
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(768, 768);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(768, 0);
+    glEnd();
+    glPopMatrix();
+}
+
 void Option_Menu()
 {
 //music on and off

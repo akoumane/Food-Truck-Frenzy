@@ -507,8 +507,8 @@ void render(void)
 
 	renderCustomers();
 	renderFoods();
-object(box);
-drawbox(box);
+//object(box);
+//drawbox(box);
     /*glPushMatrix();
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
@@ -567,9 +567,9 @@ drawbox(box);
 
     if(title_screen == 1) {
 	TitleScreen();
+	renderTitleScreen();
     }
     if(title_screen == 0) {
-
 	glDisable(GL_TEXTURE_2D);
 	//glColor3f(1.0f, 0.0f, 0.0f);
 	//glBegin(GL_QUADS);
