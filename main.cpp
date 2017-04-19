@@ -24,6 +24,7 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
+#include "andyK.h"
 #include "brandonM.h"
 #include "brandonP.h"
 #include "jinxuH.h"
@@ -101,15 +102,16 @@ int title_screen=0;
 Ppmimage *backgroundImage = NULL;
 
 //customer spawn testing
-Ppmimage *customerStanding1 = NULL;
-/*Ppmimage *customerImage2 = NULL;
-Ppmimage *customerImage3 = NULL;
-Ppmimage *customerImage4 = NULL;*/
+/*Ppmimage *customerStanding1 = NULL;
+Ppmimage *customerSitting1 = NULL;
+Ppmimage *customerSitting2 = NULL;
+Ppmimage *customerSitting3 = NULL;
+Ppmimage *customerSitting4 = NULL;
 GLuint customerStandingTexture1;
-/*GLuint customerTexture2;
-GLuint customerTexture3;
-GLuint customerTexture4;
-*/
+GLuint customerSittingTexture1;
+GLuint customerSittingTexture2;
+GLuint customerSittingTexture3;
+GLuint customerSittingTexture4;*/
 GLuint backgroundTexture;
 int background=1;
 
@@ -290,21 +292,8 @@ void initOpengl(void)
     //Do this to allow fonts
     glEnable(GL_TEXTURE_2D);
     initialize_fonts();
-    //
-    //load the images file into a ppm structure.
-    //
     backgroundImage = ppm6GetImage("background.ppm");
-    customerStanding1 = ppm6GetImage("customer1standing.ppm");
-    //customerImage2 = ppm6GetImage("customer2.ppm");
-    //customerImage3 = ppm6GetImage("customer3.ppm");
-    //customerImage4 = ppm6GetImage("customer4.ppm");
-    //
-    //create opengl texture elements
     glGenTextures(1, &backgroundTexture);
-    glGenTextures(1, &customerStandingTexture1);
-    //glGenTextures(1, &customerTexture2);
-    //glGenTextures(1, &customerTexture3);
-    //glGenTextures(1, &customerTexture4);
     //background
     glBindTexture(GL_TEXTURE_2D, backgroundTexture);
     //
@@ -313,7 +302,20 @@ void initOpengl(void)
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
 	    backgroundImage->width, backgroundImage->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, backgroundImage->data);
-    //customer1
+
+	makeCustomers();
+
+    /*customerStanding1 = ppm6GetImage("customer1standing.ppm");
+    customerSitting1 = ppm6GetImage("customer1sitting.ppm");
+    customerSitting2 = ppm6GetImage("customer2sitting.ppm");
+    customerSitting3 = ppm6GetImage("customer3sitting.ppm");
+    customerSitting4 = ppm6GetImage("customer4sitting.ppm");
+    glGenTextures(1, &customerStandingTexture1);
+    glGenTextures(1, &customerSittingTexture1);
+    glGenTextures(1, &customerSittingTexture2);
+    glGenTextures(1, &customerSittingTexture3);
+    glGenTextures(1, &customerSittingTexture4);
+    //customer1Standing
     glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
     //
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
@@ -321,30 +323,38 @@ void initOpengl(void)
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
 	    customerStanding1->width, customerStanding1->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, customerStanding1->data);
-    //customer2
-    /*glBindTexture(GL_TEXTURE_2D, customerTexture2);
+    //customer1Sitting
+    glBindTexture(GL_TEXTURE_2D, customerSittingTexture1);
     //
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
-	    customerImage2->width, customerImage2->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, customerImage2->data);
-    //customer3
-    glBindTexture(GL_TEXTURE_2D, customerTexture3);
+	    customerSitting1->width, customerSitting1->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, customerSitting1->data);
+    //customer2Sitting
+    glBindTexture(GL_TEXTURE_2D, customerSittingTexture2);
     //
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
-	    customerImage3->width, customerImage3->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, customerImage3->data);
-    //customer4
-    glBindTexture(GL_TEXTURE_2D, customerTexture4);
+	    customerSitting2->width, customerSitting2->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, customerSitting2->data);
+    //customer3Sitting
+    glBindTexture(GL_TEXTURE_2D, customerSittingTexture3);
     //
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
-	    customerImage4->width, customerImage4->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, customerImage4->data);*/
+	    customerSitting3->width, customerSitting3->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, customerSitting3->data);
+    //customer4Sitting
+    glBindTexture(GL_TEXTURE_2D, customerSittingTexture4);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    customerSitting4->width, customerSitting4->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, customerSitting4->data);*/
 }
 
 void checkResize(XEvent *e)
@@ -493,51 +503,63 @@ void render(void)
 	glEnd();
     }
 
-    glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
-    glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 96);
-    glTexCoord2f(1.0f, 0.0f); glVertex2i(96, 96);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(96, 0);
-    glEnd();
-    glPopMatrix();
+	renderCustomers();
 
     /*glPushMatrix();
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, customerTexture2);
+    glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
     glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f); glVertex2i(375, 170);
-    glTexCoord2f(0.0f, 0.0f); glVertex2i(375, 267);
-    glTexCoord2f(1.0f, 0.0f); glVertex2i(430, 267);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(430, 170);
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(74, 498);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(74, 594);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(170, 594);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(170, 498);
     glEnd();
     glPopMatrix();
 
     glPushMatrix();
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, customerTexture3);
+    glBindTexture(GL_TEXTURE_2D, customerSittingTexture1);
     glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f); glVertex2i(70, 40);
-    glTexCoord2f(0.0f, 0.0f); glVertex2i(70, 136);
-    glTexCoord2f(1.0f, 0.0f); glVertex2i(130, 136);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(130, 40);
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(4, 253);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(4, 347);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(98, 347);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 253);
     glEnd();
     glPopMatrix();
-
+    
+	glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, customerSittingTexture2);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(526, 253);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(526, 347);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(620, 347);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(620, 253);
+    glEnd();
+    glPopMatrix();
+    
     glPushMatrix();
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, customerTexture4);
+    glBindTexture(GL_TEXTURE_2D, customerSittingTexture3);
     glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f); glVertex2i(373, 40);
-    glTexCoord2f(0.0f, 0.0f); glVertex2i(373, 130);
-    glTexCoord2f(1.0f, 0.0f); glVertex2i(430, 130);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(430, 40);
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(4, 48);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(4, 142);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(98, 142);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 48);
+    glEnd();
+	glPopMatrix();
+	
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, customerSittingTexture4);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(526, 48);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(526, 142);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(620, 142);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(620, 48);
     glEnd();
     glPopMatrix();*/
-
-    //drawbox(&box);
+	//drawbox(&box);
 
     if(title_screen == 1) {
 	TitleScreen();

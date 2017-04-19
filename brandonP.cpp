@@ -130,6 +130,10 @@ void imageConvert()
 	system("cp pixel-sprites/background.png .");
 	system("cp pixel-sprites/menu.png .");
 	system("cp pixel-sprites/customer1standing.png .");
+	system("cp pixel-sprites/customer1sitting.png .");
+	system("cp pixel-sprites/customer2sitting.png .");
+	system("cp pixel-sprites/customer3sitting.png .");
+	system("cp pixel-sprites/customer4sitting.png .");
 	
 
 	// convert from png to ppm
@@ -141,6 +145,10 @@ void imageConvert()
 	system("convert menu.png menu.ppm");
 	system("convert background.png background.ppm");
 	system("convert customer1standing.png customer1standing.ppm");
+	system("convert customer1sitting.png customer1sitting.ppm");
+	system("convert customer2sitting.png customer2sitting.ppm");
+	system("convert customer3sitting.png customer3sitting.ppm");
+	system("convert customer4sitting.png customer4sitting.ppm");
 
 	return;
 }
@@ -150,7 +158,10 @@ void cleanUp()
 	system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm \
 			plate.ppm burger.png hamburger.png hotdog.png pizza.png \
 			plate.png background.png background.ppm customer1standing.png \
-			customer1standing.ppm menu.png menu.ppm");
+			customer1standing.ppm customer1sitting.png customer1sitting.ppm \
+			customer2sitting.png customer2sitting.pp \
+			customer3sitting.png customer3sitting.ppm \
+			customer4sitting.png customer4sitting.ppm menu.png menu.ppm");
 	
 	return;
 }

@@ -1,0 +1,2 @@
+void makeCustomers();
+void renderCustomers();
