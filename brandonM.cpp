@@ -24,6 +24,11 @@
 #include "ppm.h"
 #include "brandonM.h"
 
+using namespace std;
+
+Ppmimage *StartMenu = NULL;
+GLuint StartMenuTexture1;
+
 extern "C" {
 #include "fonts.h"
 }
@@ -41,8 +46,6 @@ struct Game {
     int mouse[2];
 };
 
-using namespace std;
-
 void printBrandonName()
 {
     Rect r;
@@ -55,6 +58,16 @@ void printBrandonName()
 
 void TitleScreen()
 {
+    StartMenu = ppm6GetImage("menu.ppm");
+    glGenTextures(1, &StartMenuTexture1);
+    glBindTexture(GL_TEXTURE_2D, StartMenuTexture1);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    StartMenu->width, StartMenu->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, StartMenu->data);
+    /*
     glDisable(GL_TEXTURE_2D);
     Rect t;
     glColor3ub(255, 0, 0);
@@ -69,7 +82,7 @@ void TitleScreen()
     unsigned int color = 0x00dddd00;
     ggprint16(&t, 16, 0x00ffff00, "Food Truck Frenzy!!!");
     ggprint8b(&t, 16, color, "This is the second line");
-/*
+
     //Boxes to use for menu input
     Game game;
     game.n=0;
