@@ -44,28 +44,32 @@ void object(Box *box)
     //box.n=0;
     //declare a box shape
     for (int i = 0; i < 4; i++) {
-	box->table[i].width = 50;
-	box->table[i].height = 50;
+	box->table[i].width = 80;
+	box->table[i].height = 80;
     }
     //position of the table
-    box->table[0].center.x = 200;
-    box->table[0].center.y = 500;
-    box->table[1].center.x = 200;
+    //table 1
+    box->table[0].center.x = 100;
+    box->table[0].center.y = 300;
+    //table 2
+    box->table[1].center.x = 600;
     box->table[1].center.y = 300;
-    box->table[2].center.x = 400;
-    box->table[2].center.y = 500;
-    box->table[3].center.x = 400;
-    box->table[3].center.y = 300;
+    //table 3
+    box->table[2].center.x = 100;
+    box->table[2].center.y = 100;
+    //table 4
+    box->table[3].center.x = 600;
+    box->table[3].center.y = 100;
     //declare the stable shape
     for (int i=0; i<2;i++){
-	box->stable[i].width = 10;
-	box->stable[i].height = 5;
+	box->stable[i].width = 58;
+	box->stable[i].height =36;
     }
     //position of the sidetable
-    box->stable[0].center.x = 10;
-    box->stable[0].center.y = 0;
-    box->stable[1].center.x = 10;
-    box->stable[1].center.y = 0;
+    box->stable[0].center.x = 527;
+    box->stable[0].center.y = 576;
+    box->stable[1].center.x = 643;
+    box->stable[1].center.y = 576;
 
 }
 
@@ -77,7 +81,7 @@ void drawbox(Box *box)
 
     //draw table box
     Shape *s;
-    for (int i=0; i<3;i++){
+    for (int i=0; i<4;i++){
 	//glColor3ub(246,29,88);
 	s = &box->table[i];
 	glPushMatrix();

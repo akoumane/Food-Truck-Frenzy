@@ -13,7 +13,7 @@ struct Shape {
 };
 
 struct Box {
-    Shape table[3];
+    Shape table[5];
     Shape stable[1];
     Shape circle;
     int n;

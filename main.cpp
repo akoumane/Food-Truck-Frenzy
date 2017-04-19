@@ -480,7 +480,7 @@ void physics(void)
 
 void render(void)
 {
-    Box *box;
+    Box box;
     //Rect r;
     //float custSizeY = 90/yres;
     //float custSizeX = 63/xres;
@@ -504,11 +504,13 @@ void render(void)
 	glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
 	glEnd();
     }
+	//object(&box);
+	//drawbox(&box);
 
 	renderCustomers();
 	renderFoods();
-//object(box);
-//drawbox(box);
+//	object(&box);
+//	drawbox(&box);
     /*glPushMatrix();
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
@@ -567,9 +569,9 @@ void render(void)
 
     if(title_screen == 1) {
 	TitleScreen();
-	renderTitleScreen();
     }
     if(title_screen == 0) {
+
 	glDisable(GL_TEXTURE_2D);
 	//glColor3f(1.0f, 0.0f, 0.0f);
 	//glBegin(GL_QUADS);
