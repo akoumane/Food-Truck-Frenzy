@@ -118,9 +118,9 @@ void imageConvert()
 	// remove converted ppm files to help with crash recovery
 	system("rm -f background.png background.ppm customer1standing.png \
 		customer1standing.ppm customer1sitting.png customer1sitting.ppm \
-		customer2sitting.png customer2sitting.pp \
+		customer2sitting.png customer2sitting.ppm \
 		customer3sitting.png customer3sitting.ppm \
-	    customer4sitting.png customer4sitting.ppm \
+	    	customer4sitting.png customer4sitting.ppm \
 		burgeronplateonside.png burgeronplateonside menu.png menu.ppm");
 
 	// copy images to main folder
@@ -153,7 +153,7 @@ void cleanUp()
 			plate.ppm burger.png hamburger.png hotdog.png pizza.png \
 			plate.png background.png background.ppm customer1standing.png \
 			customer1standing.ppm customer1sitting.png customer1sitting.ppm \
-			customer2sitting.png customer2sitting.pp \
+			customer2sitting.png customer2sitting.ppm \
 			customer3sitting.png customer3sitting.ppm \
 			customer4sitting.png customer4sitting.ppm \
 			burgeronplateonside.png burgeronplateonside.ppm menu.png menu.ppm");
