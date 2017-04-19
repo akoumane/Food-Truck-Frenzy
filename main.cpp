@@ -480,9 +480,10 @@ void physics(void)
 
 void render(void)
 {
+    Box *box;
     //Rect r;
-    float custSizeY = 90/yres;
-    float custSizeX = 63/xres;
+    //float custSizeY = 90/yres;
+    //float custSizeX = 63/xres;
 
     //Clear the screen
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -492,7 +493,7 @@ void render(void)
     //Box box;
     //drawbox(&box);
     //draw a quad with texture
-    float wid = 120.0f;
+    //float wid = 120.0f;
     //glColor3f(1.0, 1.0, 1.0);
     if (background) {
 	glBindTexture(GL_TEXTURE_2D, backgroundTexture);
@@ -506,7 +507,8 @@ void render(void)
 
 	renderCustomers();
 	renderFoods();
-
+object(box);
+drawbox(box);
     /*glPushMatrix();
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);

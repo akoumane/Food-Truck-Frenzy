@@ -14,7 +14,7 @@ struct Shape {
 
 struct Box {
     Shape table[3];
-    Shape truck;
+    Shape stable[1];
     Shape circle;
     int n;
     int bubbler;
@@ -26,7 +26,7 @@ struct Box {
     }
 };
 
-void object(Box box);
+void object(Box *box);
 void drawbox(Box *box);
 bool isCollision();
 #endif
