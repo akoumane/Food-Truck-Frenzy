@@ -116,17 +116,14 @@ void printName()
 void imageConvert()
 {
 	// remove converted ppm files to help with crash recovery
-	system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm \
-		burger.png hamburger.png hotdog.png pizza.png plate.png \
-		background.png background.ppm customer1standing.png \
-		customer1standing.ppm menu.ppm");
+	system("rm -f background.png background.ppm customer1standing.png \
+		customer1standing.ppm customer1sitting.png customer1sitting.ppm \
+		customer2sitting.png customer2sitting.pp \
+		customer3sitting.png customer3sitting.ppm \
+	    customer4sitting.png customer4sitting.ppm \
+		burgeronplateonside.png burgeronplateonside menu.png menu.ppm");
 
 	// copy images to main folder
-	system("cp pixel-sprites/burger.png .");
-	system("cp pixel-sprites/hamburger.png .");
-	system("cp pixel-sprites/hotdog.png .");
-	system("cp pixel-sprites/pizza.png .");
-	system("cp pixel-sprites/plate.png .");
 	system("cp pixel-sprites/background.png .");
 	system("cp pixel-sprites/menu.png .");
 	system("cp pixel-sprites/customer1standing.png .");
@@ -134,14 +131,10 @@ void imageConvert()
 	system("cp pixel-sprites/customer2sitting.png .");
 	system("cp pixel-sprites/customer3sitting.png .");
 	system("cp pixel-sprites/customer4sitting.png .");
+	system("cp pixel-sprites/burgeronplateonside.png .");
 	
 
 	// convert from png to ppm
-	system("convert burger.png burger.ppm");
-	system("convert hamburger.png hamburger.ppm");
-	system("convert hotdog.png hotdog.ppm");
-	system("convert pizza.png pizza.ppm");
-	system("convert plate.png plate.ppm");
 	system("convert menu.png menu.ppm");
 	system("convert background.png background.ppm");
 	system("convert customer1standing.png customer1standing.ppm");
@@ -149,6 +142,7 @@ void imageConvert()
 	system("convert customer2sitting.png customer2sitting.ppm");
 	system("convert customer3sitting.png customer3sitting.ppm");
 	system("convert customer4sitting.png customer4sitting.ppm");
+	system("convert burgeronplateonside.png burgeronplateonside.ppm");
 
 	return;
 }
@@ -161,7 +155,8 @@ void cleanUp()
 			customer1standing.ppm customer1sitting.png customer1sitting.ppm \
 			customer2sitting.png customer2sitting.pp \
 			customer3sitting.png customer3sitting.ppm \
-			customer4sitting.png customer4sitting.ppm menu.png menu.ppm");
+			customer4sitting.png customer4sitting.ppm \
+			burgeronplateonside.png burgeronplateonside.ppm menu.png menu.ppm");
 	
 	return;
 }

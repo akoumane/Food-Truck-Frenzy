@@ -25,11 +25,13 @@ Ppmimage *customerSitting1 = NULL;
 Ppmimage *customerSitting2 = NULL;
 Ppmimage *customerSitting3 = NULL;
 Ppmimage *customerSitting4 = NULL;
+Ppmimage *burgerOnSide = NULL;
 GLuint customerStandingTexture1;
 GLuint customerSittingTexture1;
 GLuint customerSittingTexture2;
 GLuint customerSittingTexture3;
 GLuint customerSittingTexture4;
+GLuint burgerOnSideTexture;
 
 class Customer
 {
@@ -142,6 +144,21 @@ void makeCustomers()
 	    0, GL_RGB, GL_UNSIGNED_BYTE, customerSitting4->data);
 }
 
+void makeFoods()
+{
+    burgerOnSide = ppm6GetImage("burgeronplateonside.ppm");
+    glGenTextures(1, &burgerOnSideTexture);
+    
+	//Burger on side of truck
+    glBindTexture(GL_TEXTURE_2D, burgerOnSideTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    burgerOnSide->width, burgerOnSide->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, burgerOnSide->data);
+}
+
 void renderCustomers()
 {
 
@@ -197,6 +214,31 @@ void renderCustomers()
     glTexCoord2f(0.0f, 0.0f); glVertex2i(526, 142);
     glTexCoord2f(1.0f, 0.0f); glVertex2i(620, 142);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(620, 48);
+    glEnd();
+	glPopMatrix();
+}
+
+void renderFoods()
+{
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, burgerOnSideTexture);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(482, 555);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(482, 651);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(578, 651);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(578, 555);
+    glEnd();
+	glPopMatrix();
+    
+	glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, burgerOnSideTexture);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(590, 555);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(590, 651);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(686, 651);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(686, 555);
     glEnd();
 	glPopMatrix();
 }

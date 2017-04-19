@@ -304,6 +304,7 @@ void initOpengl(void)
 	    0, GL_RGB, GL_UNSIGNED_BYTE, backgroundImage->data);
 
 	makeCustomers();
+	makeFoods();
 
     /*customerStanding1 = ppm6GetImage("customer1standing.ppm");
     customerSitting1 = ppm6GetImage("customer1sitting.ppm");
@@ -504,6 +505,7 @@ void render(void)
     }
 
 	renderCustomers();
+	renderFoods();
 
     /*glPushMatrix();
     glEnable(GL_TEXTURE_2D);
