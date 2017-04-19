@@ -1,6 +1,15 @@
 //Andy Koumane
 //andyK.cpp
 
+/**
+ * As of 4/19/2017, I've rendered the character models and foods
+ * in their appropiate places, leaving them for Jin to added
+ * collision boxes for them. Now that I have the base model for the
+ * rendering, I will apply them to the appropiate classes made below
+ * in order for them to operate with the AI that I plan to program
+ * in the near future.
+ */
+
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
