@@ -118,9 +118,8 @@ void imageConvert()
 	// remove converted ppm files to help with crash recovery
 	system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm plate.ppm \
 		burger.png hamburger.png hotdog.png pizza.png plate.png \
-		background.png background.ppm customer1.png customer1.ppm \
-		customer2.png customer2.ppm customer3.png customer3.ppm \
-		customer4.png customer4.ppm menu.ppm");
+		background.png background.ppm customer1standing.png \
+		customer1standing.ppm menu.ppm");
 
 	// copy images to main folder
 	system("cp pixel-sprites/burger.png .");
@@ -130,10 +129,8 @@ void imageConvert()
 	system("cp pixel-sprites/plate.png .");
 	system("cp pixel-sprites/background.png .");
 	system("cp pixel-sprites/menu.png .");
-	system("cp pixel-sprites/customer1.png .");
-	system("cp pixel-sprites/customer2.png .");
-	system("cp pixel-sprites/customer3.png .");
-	system("cp pixel-sprites/customer4.png .");
+	system("cp pixel-sprites/customer1standing.png .");
+	
 
 	// convert from png to ppm
 	system("convert burger.png burger.ppm");
@@ -143,10 +140,7 @@ void imageConvert()
 	system("convert plate.png plate.ppm");
 	system("convert menu.png menu.ppm");
 	system("convert background.png background.ppm");
-	system("convert customer1.png customer1.ppm");
-	system("convert customer2.png customer2.ppm");
-	system("convert customer3.png customer3.ppm");
-	system("convert customer4.png customer4.ppm");
+	system("convert customer1standing.png customer1standing.ppm");
 
 	return;
 }
@@ -155,9 +149,8 @@ void cleanUp()
 {
 	system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm \
 			plate.ppm burger.png hamburger.png hotdog.png pizza.png \
-			plate.png background.png background.ppm customer1.png \
-			customer1.ppm customer2.png customer2.ppm customer3.png \
-			customer3.ppm customer4.png customer4.ppm menu.ppm");
+			plate.png background.png background.ppm customer1standing.png \
+			customer1standing.ppm menu.png menu.ppm");
 	
 	return;
 }
