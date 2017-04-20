@@ -26,56 +26,165 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
+#include "andyK.h"
 #include <time.h>
 using namespace std;
 
 Ppmimage *customerStanding1 = NULL;
+Ppmimage *customerStanding2 = NULL;
+Ppmimage *customerStanding3 = NULL;
+Ppmimage *customerStanding4 = NULL;
 Ppmimage *customerSitting1 = NULL;
 Ppmimage *customerSitting2 = NULL;
 Ppmimage *customerSitting3 = NULL;
 Ppmimage *customerSitting4 = NULL;
 Ppmimage *burgerOnSide = NULL;
 GLuint customerStandingTexture1;
+GLuint customerStandingTexture2;
+GLuint customerStandingTexture3;
+GLuint customerStandingTexture4;
 GLuint customerSittingTexture1;
 GLuint customerSittingTexture2;
 GLuint customerSittingTexture3;
 GLuint customerSittingTexture4;
 GLuint burgerOnSideTexture;
 
-class Customer
+Customer::Customer()		
 {
-	private:
-		int xpos;
-		int ypos;
-		//random number will be chosen for foodChoice
-		int foodChoice;
+	xPos1 = 74;
+	xPos2 = 170;
+	yPos1 = 498;
+	yPos2 = 594;
+	srand(time(NULL));
+	foodChoice = rand() % 4 + 1;
+	modelNum = rand() % 4 + 1;
+	seatNum = rand() % 4 + 1;
+	inLine = true;
+	inSeat = false;
+	hasFood = false;
+	isEating = false;
+	finishFood = false;
+}
 
-		//random number will be chosen for model
-		int modelNum;
+void Customer::setInLine(bool a) {
+	inLine = a;
+}
 
-		bool inLine;
-		bool inSeat;
-		bool hasFood;
-		bool isEating;
-		bool finishFood;
+void Customer::setInSeat (bool a) {
+	inSeat = a;
+}
 
-	public:
-		Customer()
-		{
-			srand(time(NULL));
-			foodChoice = rand() % 4 + 1;
-			modelNum = rand() % 4 + 1;
-			inLine = true;
-			inSeat = false;
-			hasFood = false;
-			isEating = false;
-			finishFood = false;
+void Customer::setHasFood (bool a) {
+	hasFood = a;
+}
+
+void Customer::setIsEating (bool a) {
+	isEating = a;
+}
+
+void Customer::setFinishFood (bool a) {
+	finishFood = a;
+}
+
+void Customer::renderModel()
+{
+	if (inLine) {
+		glPushMatrix();
+		glEnable(GL_TEXTURE_2D);
+
+		switch(modelNum) {
+			case 1:
+				glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
+				break;
+			case 2:
+				glBindTexture(GL_TEXTURE_2D, customerStandingTexture2);
+				break;
+			case 3:
+				glBindTexture(GL_TEXTURE_2D, customerStandingTexture3);
+				break;
+			case 4:
+				glBindTexture(GL_TEXTURE_2D, customerStandingTexture4);
+				break;
 		}
-		void renderModel()
-		{
-			//reserved for rendering character model
+
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
+		glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
+		glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
+		glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
+		glEnd();
+		glPopMatrix();
+	}
+	else {
+		inSeat = true;
+		glPushMatrix();
+		glEnable(GL_TEXTURE_2D);
+		
+		switch(modelNum) {
+			case 1:
+				glBindTexture(GL_TEXTURE_2D, customerSittingTexture1);
+				break;
+			case 2:
+				glBindTexture(GL_TEXTURE_2D, customerSittingTexture2);
+				break;
+			case 3:
+				glBindTexture(GL_TEXTURE_2D, customerSittingTexture3);
+				break;
+			case 4:
+				glBindTexture(GL_TEXTURE_2D, customerSittingTexture4);
+				break;
 		}
-};
+
+		glBegin(GL_QUADS);
+	
+		switch(seatNum) {
+			case 1:
+				xPos1 = 4;
+				xPos2 = 98;
+				yPos1 = 253;
+				yPos2 = 347;
+				glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
+				glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
+				glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
+				glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
+				break;
+			case 2:
+				xPos1 = 526;
+				xPos2 = 620;
+				yPos1 = 253;
+				yPos2 = 347;
+				glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
+				glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
+				glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
+				glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
+				break;
+			case 3:
+				xPos1 = 4;
+				xPos2 = 98;
+				yPos1 = 48;
+				yPos2 = 142;
+				glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
+				glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
+				glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
+				glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
+				break;
+			case 4:
+				xPos1 = 526;
+				xPos2 = 620;
+				yPos1 = 48;
+				yPos2 = 142;
+				glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
+				glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
+				glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
+				glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
+				break;
+		}
+
+		glEnd();
+		glPopMatrix();
+	}
+
+}
 
 class Level
 {
@@ -102,11 +211,17 @@ void makeCustomers()
 {
 
     customerStanding1 = ppm6GetImage("customer1standing.ppm");
+    customerStanding2 = ppm6GetImage("customer2standing.ppm");
+    customerStanding3 = ppm6GetImage("customer3standing.ppm");
+    customerStanding4 = ppm6GetImage("customer4standing.ppm");
     customerSitting1 = ppm6GetImage("customer1sitting.ppm");
     customerSitting2 = ppm6GetImage("customer2sitting.ppm");
     customerSitting3 = ppm6GetImage("customer3sitting.ppm");
     customerSitting4 = ppm6GetImage("customer4sitting.ppm");
     glGenTextures(1, &customerStandingTexture1);
+    glGenTextures(1, &customerStandingTexture2);
+    glGenTextures(1, &customerStandingTexture3);
+    glGenTextures(1, &customerStandingTexture4);
     glGenTextures(1, &customerSittingTexture1);
     glGenTextures(1, &customerSittingTexture2);
     glGenTextures(1, &customerSittingTexture3);
@@ -119,6 +234,30 @@ void makeCustomers()
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
 	    customerStanding1->width, customerStanding1->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, customerStanding1->data);
+    //customer2Standing
+    glBindTexture(GL_TEXTURE_2D, customerStandingTexture2);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    customerStanding2->width, customerStanding2->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, customerStanding2->data);
+    //customer3Standing
+    glBindTexture(GL_TEXTURE_2D, customerStandingTexture3);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    customerStanding3->width, customerStanding3->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, customerStanding3->data);
+    //customer4Standing
+    glBindTexture(GL_TEXTURE_2D, customerStandingTexture4);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    customerStanding4->width, customerStanding4->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, customerStanding4->data);
     //customer1Sitting
     glBindTexture(GL_TEXTURE_2D, customerSittingTexture1);
     //
@@ -168,6 +307,7 @@ void makeFoods()
 	    0, GL_RGB, GL_UNSIGNED_BYTE, burgerOnSide->data);
 }
 
+#ifdef RENDERTEST
 void renderCustomers()
 {
 
@@ -251,4 +391,4 @@ void renderFoods()
     glEnd();
 	glPopMatrix();
 }
-
+#endif

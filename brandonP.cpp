@@ -116,8 +116,12 @@ void printName()
 void imageConvert()
 {
 	// remove converted ppm files to help with crash recovery
-	system("rm -f background.png background.ppm customer1standing.png \
-		customer1standing.ppm customer1sitting.png customer1sitting.ppm \
+	system("rm -f background.png background.ppm \
+		customer1standing.png customer1standing.ppm \
+		customer2standing.png customer2standing.ppm \
+		customer3standing.png customer3standing.ppm \
+		customer4standing.png customer4standing.ppm \
+		customer1sitting.png customer1sitting.ppm \
 		customer2sitting.png customer2sitting.ppm \
 		customer3sitting.png customer3sitting.ppm \
 	    	customer4sitting.png customer4sitting.ppm \
@@ -127,6 +131,9 @@ void imageConvert()
 	system("cp pixel-sprites/background.png .");
 	system("cp pixel-sprites/menu.png .");
 	system("cp pixel-sprites/customer1standing.png .");
+	system("cp pixel-sprites/customer2standing.png .");
+	system("cp pixel-sprites/customer3standing.png .");
+	system("cp pixel-sprites/customer4standing.png .");
 	system("cp pixel-sprites/customer1sitting.png .");
 	system("cp pixel-sprites/customer2sitting.png .");
 	system("cp pixel-sprites/customer3sitting.png .");
@@ -138,6 +145,9 @@ void imageConvert()
 	system("convert menu.png menu.ppm");
 	system("convert background.png background.ppm");
 	system("convert customer1standing.png customer1standing.ppm");
+	system("convert customer2standing.png customer2standing.ppm");
+	system("convert customer3standing.png customer3standing.ppm");
+	system("convert customer4standing.png customer4standing.ppm");
 	system("convert customer1sitting.png customer1sitting.ppm");
 	system("convert customer2sitting.png customer2sitting.ppm");
 	system("convert customer3sitting.png customer3sitting.ppm");
@@ -149,10 +159,12 @@ void imageConvert()
 
 void cleanUp()
 {
-	system("rm -f burger.ppm hamburger.ppm hotdog.ppm pizza.ppm \
-			plate.ppm burger.png hamburger.png hotdog.png pizza.png \
-			plate.png background.png background.ppm customer1standing.png \
-			customer1standing.ppm customer1sitting.png customer1sitting.ppm \
+	system("rm -f 	background.png background.ppm \
+			customer1standing.png customer1standing.ppm \
+			customer2standing.png customer2standing.ppm \
+			customer3standing.png customer3standing.ppm \
+			customer4standing.png customer4standing.ppm \
+			customer1sitting.png customer1sitting.ppm \
 			customer2sitting.png customer2sitting.ppm \
 			customer3sitting.png customer3sitting.ppm \
 			customer4sitting.png customer4sitting.ppm \
