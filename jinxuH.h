@@ -14,8 +14,8 @@ struct Shape {
 
 struct Box {
     Shape table[5];
-    Shape stable[1];
-    Shape circle;
+    Shape stable[2];
+    Shape waiter[1];
     int n;
     int bubbler;
     int mouse[2];
