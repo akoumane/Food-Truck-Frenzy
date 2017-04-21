@@ -399,7 +399,11 @@ void checkKeys(XEvent *e)
 	    break;
 	#ifdef RENDERTEST
 	case XK_q:
-	    customer->setInLine(false);
+		clock_gettime(CLOCK_REALTIME, &timeStart);
+		clock_gettime(CLOCK_REALTIME, &timePause);
+		while(timeDiff(&timeStart, &timePause) < 1.0)
+			clock_gettime(CLOCK_REALTIME, &timePause);
+		customer->setInLine(false);
 	    break;
 	#endif
 	case XK_Escape:
