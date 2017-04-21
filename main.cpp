@@ -471,6 +471,7 @@ void render(void)
     
 
     if(title_screen == 1) {
+	    	renderTitleScreen();
 		TitleScreen();
     }
     if(title_screen == 0) {
