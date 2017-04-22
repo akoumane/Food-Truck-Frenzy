@@ -30,6 +30,9 @@ using namespace std;
 Ppmimage *StartMenu = NULL;
 GLuint StartMenuTexture1;
 
+Ppmimage *PauseMenu = NULL;
+GLuint PauseMenuTexture1;
+
 extern "C" {
 #include "fonts.h"
 }
@@ -136,28 +139,45 @@ void Help_Menu()
 //controls
 //main purpose of game
 // ?credits?
+/*
+	StartMenu = ppm6GetImage("menu.ppm");
+    glGenTextures(1, &StartMenuTexture1);
+    glBindTexture(GL_TEXTURE_2D, StartMenuTexture1);
+    
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    StartMenu->width, StartMenu->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, StartMenu->data);
+	    */
 }
 void LeaderBoard_Menu()
 {
 }
 void Pause_Menu() 
 {	
-    Rect r;
-    glColor3f(1.0, 0.0,0.0);
-    int cx = 800/2;
-    int cy = 600/2;
-    glBegin(GL_QUADS);
-    glVertex2i(cx-100, cy+100);
-    glVertex2i(cx+100, cy+100);
-    glVertex2i(cx+100, cy-100);
-    glVertex2i(cx-100, cy-100);
-    glEnd();
-    glEnable(GL_TEXTURE_2D);
-    r.bot = cy + 20;
-    r.left = cx;
-    r.center = 1;
-    unsigned int color = 0x00dddd00;
-    ggprint8b(&r, 16, 0x00ffff00, "This is my menu");
-    ggprint8b(&r, 16, color, "This is the second line");
+    PauseMenu = ppm6GetImage("menu_pause.ppm");
+    glGenTextures(1, &PauseMenuTexture1);
+    glBindTexture(GL_TEXTURE_2D, PauseMenuTexture1);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    PauseMenu->width, PauseMenu->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, PauseMenu->data);
 
+}
+
+void renderPauseScreen()
+{
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, PauseMenuTexture1);
+    glBegin(GL_QUADS); 
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(768, 768);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(768, 0);
+    glEnd();
+    glPopMatrix();
 }
