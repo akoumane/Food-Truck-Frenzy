@@ -125,11 +125,16 @@ void imageConvert()
 		customer2sitting.png customer2sitting.ppm \
 		customer3sitting.png customer3sitting.ppm \
 	    	customer4sitting.png customer4sitting.ppm \
-		burgeronplateonside.png burgeronplateonside menu.png menu.ppm");
+		burgeronplateonside.png burgeronplateonside \
+		menu.png menu.ppm \
+		menu_defeat.png menu_defeat.ppm \
+		menu_pause.png menu_pause.ppm");
 
 	// copy images to main folder
 	system("cp pixel-sprites/background.png .");
 	system("cp pixel-sprites/menu.png .");
+	system("cp pixel-sprites/menu_pause.png .");
+	system("cp pixel-sprites/menu_defeat.png .");
 	system("cp pixel-sprites/customer1standing.png .");
 	system("cp pixel-sprites/customer2standing.png .");
 	system("cp pixel-sprites/customer3standing.png .");
@@ -143,6 +148,8 @@ void imageConvert()
 
 	// convert from png to ppm
 	system("convert menu.png menu.ppm");
+	system("convert menu_defeat.png menu_defeat.ppm");
+	system("convert menu_pause.png menu_pause.ppm");
 	system("convert background.png background.ppm");
 	system("convert customer1standing.png customer1standing.ppm");
 	system("convert customer2standing.png customer2standing.ppm");
@@ -168,7 +175,10 @@ void cleanUp()
 			customer2sitting.png customer2sitting.ppm \
 			customer3sitting.png customer3sitting.ppm \
 			customer4sitting.png customer4sitting.ppm \
-			burgeronplateonside.png burgeronplateonside.ppm menu.png menu.ppm");
+			burgeronplateonside.png burgeronplateonside.ppm \
+			menu.png menu.ppm \
+			menu_defeat.png menu_defeat.ppm \
+			menu_pause.png menu_pause.ppm");
 	
 	return;
 }
