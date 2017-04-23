@@ -100,7 +100,8 @@ int title_screen=0;
 
 Customer *customer;
 Ppmimage *backgroundImage = NULL;
-
+Grid *grid;
+Player *p1;
 //customer spawn testing
 /*Ppmimage *customerStanding1 = NULL;
 Ppmimage *customerSitting1 = NULL;
@@ -123,6 +124,7 @@ int main(void)
     initXWindows();
     initOpengl();
     customer = new Customer();
+	grid = new Grid(8,8);
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
 
@@ -146,7 +148,7 @@ int main(void)
 	timeCopy(&timeStart, &timeCurrent);
 	//4. Add time-span to our countdown amount.
 	physicsCountdown += timeSpan;
-	//5. Has countdown gone beyond our physics rate? 
+	//5. Has countdown gone beyond our physics rate?
 	//       if yes,
 	//           In a loop...
 	//              Apply physics
@@ -215,7 +217,7 @@ void initXWindows(void)
     if (vi == NULL) {
 	printf("\n\tno appropriate visual found\n\n");
 	exit(EXIT_FAILURE);
-    } 
+    }
     Colormap cmap = XCreateColormap(dpy, root, vi->visual, AllocNone);
     swa.colormap = cmap;
     swa.event_mask = ExposureMask | KeyPressMask | KeyReleaseMask |
@@ -373,30 +375,34 @@ void checkKeys(XEvent *e)
 	    return;
 	}
     } else {
-	return;
+		return;
     }
     switch(key) {
-	case XK_m:
-	    //optimized below
-	    //if(state_menu == 0)
-	    //	state_menu = 1;
-	    //  else
-	    //	state_menu = 0;
-	    state_menu ^= 1;
-	    break;
-	case XK_a:
-	    title_screen ^= 1;
-	    //input_title_screen();
-	    break;
-	    //add if state_menu disable or rebind the keys
-	case XK_Left:
-	    break;
-	case XK_Right:
-	    break;
-	case XK_Up:
-	    break;
-	case XK_Down:
-	    break;
+		case XK_m:
+		    //optimized below
+		    //if(state_menu == 0)
+		    //	state_menu = 1;
+		    //  else
+		    //	state_menu = 0;
+		    state_menu ^= 1;
+		    break;
+
+		case XK_a:
+		    title_screen ^= 1;
+		    //input_title_screen();
+		    break;
+		    //add if state_menu disable or rebind the keys
+		case XK_Left:
+		    break;
+		case XK_Right:
+		    break;
+		case XK_Up:
+		    break;
+		case XK_Down:
+		    break;
+		case XK_g:
+			grid->printGrid();
+			break;
 	#ifdef RENDERTEST
 	case XK_q:
 		clock_gettime(CLOCK_REALTIME, &timeStart);
@@ -468,7 +474,7 @@ void render(void)
 	#endif
 	//object(&box);
 	//drawbox(&box);
-    
+
 
     if(title_screen == 1) {
 	    	renderTitleScreen();
@@ -489,7 +495,7 @@ void render(void)
 	glEnable(GL_BLEND);
 
 	/*if (state_menu == 1) {
-	  Pause_Menu(); 
+	  Pause_Menu();
 	  }*/
 
 	glEnable(GL_TEXTURE_2D);
@@ -498,5 +504,3 @@ void render(void)
 	  r.center = 0;*/
     }
 }
-
-

@@ -1,7 +1,6 @@
 // Brandon Pitcher
 // CMPS 3350 Spring 2017
 // Food Truck Frenzy
-
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -22,92 +21,80 @@
 extern "C" {
 #include "fonts.h"
 }
-
 using namespace std;
 
-int X_Dem = 50;
-int Y_Dem = 50;
-
 //==============================================================================
-// Game Objects
-
-class Grid {
-	public:
-		// Grid will be initialized to 0.
-		// If data equals 1, then it is the player.
-		// Computer players will be integers greater than 1.
-		// Array will not be initalized to full 1080p resolution.
-		int grid[1920][1080];
-		int xres, yres;
-		Grid(int y, int x) 
-		{
-			yres = y;
-			xres = x;
-			for (int i=0; i<y; i++)
-				for (int j=0; j<x; j++)
-					grid[i][j] = 0;
-		}
-		void printGrid()
-		{
-			for (int i=0; i<yres; i++) {
-				for (int j=0; j<xres; j++)
-					cout << grid[i][j] << " ";
-				cout << endl;
-			}
-
-		}
-};
-
-class Player {
-	public:
-		int xpos;
-		int ypos;
-		int id;		// Integer stored in array to identify each character
-		bool line;	// Is the customer waiting in line?
-		bool served;	// Does the customer have food?
-		bool done;	// Has the customer finished eating?
-		void moveLeft()
-		{
-			if (xpos - 1 < 0)
-				return;
-			xpos = xpos - 1;
-		}
-		void moveRight()
-		{
-			if (ypos + 1 >= X_Dem)
-				return;
-			ypos = ypos -1;
-		}
-		void moveDown()
-		{
-			if (ypos + 1 >= Y_Dem)
-				return;
-			ypos = ypos + 1;
-		}
-		void moveUp()
-		{
-			if (ypos - 1 < 0)
-				return;
-			ypos = ypos - 1;
-		}
-		int xPos()
-		{
-			return xpos;
-		}
-		int yPos()
-		{
-			return ypos;
-		}
-};
-
-
+// Game Object Functions
+Grid::Grid(int y, int x)
+{
+	yres = y;
+	xres = x;
+	for (int i=0; i<y; i++)
+		for (int j=0; j<x; j++)
+			grid[i][j] = 0;
+}
+void Grid::printGrid()
+{
+	// Press 'g' in game to view in terminal
+	for (int i=0; i<yres; i++) {
+		for (int j=0; j<xres; j++)
+			cout << grid[i][j] << " ";
+		cout << endl;
+	}
+	cout << "\n\n\n";
+}
+int Grid::xdem()
+{
+	return xres;
+}
+int Grid::ydem()
+{
+	return yres;
+}
+Player::Player(int y, int x)
+{
+	xpos = x;
+	ypos = y;
+}
+void Player::moveLeft()
+{
+	if (xpos - 1 < 0)
+		return;
+	xpos = xpos - 1;
+}
+void Player::moveRight()
+{
+	if (ypos + 1 >= X_Dem)
+		return;
+	ypos = ypos -1;
+}
+void Player::moveDown()
+{
+	if (ypos + 1 >= Y_Dem)
+		return;
+	ypos = ypos + 1;
+}
+void Player::moveUp()
+{
+	if (ypos - 1 < 0)
+		return;
+	ypos = ypos - 1;
+}
+int Player::xPos()
+{
+	return xpos;
+}
+int Player::yPos()
+{
+	return ypos;
+}
 //==============================================================================
 
 void printName()
 {
 	Rect r;
 	r.bot = 420;
-	r.left = 315;	
+	r.left = 315;
 	r.center = 300;
 	unsigned int color = 0x00dddd00;
 	ggprint8b(&r, 16, color, "Brandon Pitcher!!!");
@@ -124,7 +111,7 @@ void imageConvert()
 		customer1sitting.png customer1sitting.ppm \
 		customer2sitting.png customer2sitting.ppm \
 		customer3sitting.png customer3sitting.ppm \
-	    	customer4sitting.png customer4sitting.ppm \
+	    customer4sitting.png customer4sitting.ppm \
 		burgeronplateonside.png burgeronplateonside \
 		menu.png menu.ppm \
 		menu_defeat.png menu_defeat.ppm \
@@ -144,7 +131,6 @@ void imageConvert()
 	system("cp pixel-sprites/customer3sitting.png .");
 	system("cp pixel-sprites/customer4sitting.png .");
 	system("cp pixel-sprites/burgeronplateonside.png .");
-	
 
 	// convert from png to ppm
 	system("convert menu.png menu.ppm");
@@ -179,6 +165,6 @@ void cleanUp()
 			menu.png menu.ppm \
 			menu_defeat.png menu_defeat.ppm \
 			menu_pause.png menu_pause.ppm");
-	
+
 	return;
 }
