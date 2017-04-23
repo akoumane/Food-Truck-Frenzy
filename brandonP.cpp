@@ -30,19 +30,42 @@ Grid::Grid(int y, int x)
 {
 	yres = y;
 	xres = x;
-	for (int i=0; i<y; i++)
-		for (int j=0; j<x; j++)
+	for (int i=0; i<y; i++) {
+		for (int j=0; j<x; j++) {
 			grid[i][j] = 0;
+		}
+	}
+	// Set tables
+	grid[1][1] = 9;
+	grid[3][1] = 9;
+	grid[1][5] = 9;
+	grid[3][5] = 9;
+	// Set chairs
+	grid[1][0] = 8;
+	grid[3][0] = 8;
+	grid[1][6] = 8;
+	grid[3][6] = 8;
+	// Set restriced area
+	grid[2][0] = 7;
+	grid[2][1] = 7;
+	grid[2][5] = 7;
+	grid[2][6] = 7;
 }
 void Grid::printGrid()
 {
 	// Press 'g' in game to view in terminal
 	for (int i=0; i<yres; i++) {
-		for (int j=0; j<xres; j++)
+		for (int j=0; j<xres; j++) {
 			cout << grid[i][j] << " ";
+		}
 		cout << endl;
 	}
 	cout << "\n\n\n";
+}
+void Grid::gridItem(int y, int x, int id)
+{
+	grid[y][x] = id;
+	return;
 }
 int Grid::xdem()
 {

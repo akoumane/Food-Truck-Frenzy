@@ -130,7 +130,7 @@ int main(void)
     customer = new Customer();
 	grid = new Grid(Y_Dem,X_Dem);
 	p1 = new Player(grid->ydem()/2, grid->xdem()/2);
-
+	
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
 
