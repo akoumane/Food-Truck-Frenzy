@@ -25,6 +25,7 @@ using namespace std;
 
 //==============================================================================
 // Game Object Functions
+
 Grid::Grid(int y, int x)
 {
 	yres = y;
@@ -62,15 +63,15 @@ void Player::moveLeft()
 		return;
 	xpos = xpos - 1;
 }
-void Player::moveRight()
+void Player::moveRight(int x)	// Parameter is X_Dem
 {
-	if (ypos + 1 >= X_Dem)
+	if (ypos + 1 >= x)
 		return;
 	ypos = ypos -1;
 }
-void Player::moveDown()
+void Player::moveDown(int y)	// Parameter is Y_Dem
 {
-	if (ypos + 1 >= Y_Dem)
+	if (ypos + 1 >= y)
 		return;
 	ypos = ypos + 1;
 }
@@ -103,6 +104,7 @@ void printName()
 void imageConvert()
 {
 	// remove converted ppm files to help with crash recovery
+	cout << "\n*** Removing any images left behind... ***\n\n";
 	system("rm -f background.png background.ppm \
 		customer1standing.png customer1standing.ppm \
 		customer2standing.png customer2standing.ppm \
@@ -116,8 +118,10 @@ void imageConvert()
 		menu.png menu.ppm \
 		menu_defeat.png menu_defeat.ppm \
 		menu_pause.png menu_pause.ppm");
+	cout << "\n*** Image removal complete.***\n\n";
 
 	// copy images to main folder
+	cout << "\n*** Copying images to main folder... ***\n\n";
 	system("cp pixel-sprites/background.png .");
 	system("cp pixel-sprites/menu.png .");
 	system("cp pixel-sprites/menu_pause.png .");
@@ -131,8 +135,10 @@ void imageConvert()
 	system("cp pixel-sprites/customer3sitting.png .");
 	system("cp pixel-sprites/customer4sitting.png .");
 	system("cp pixel-sprites/burgeronplateonside.png .");
+	cout << "\n*** Copying images complete. ***\n\n";
 
 	// convert from png to ppm
+	cout << "\n*** Converting .png images to .ppm... ***\n\n";
 	system("convert menu.png menu.ppm");
 	system("convert menu_defeat.png menu_defeat.ppm");
 	system("convert menu_pause.png menu_pause.ppm");
@@ -146,25 +152,27 @@ void imageConvert()
 	system("convert customer3sitting.png customer3sitting.ppm");
 	system("convert customer4sitting.png customer4sitting.ppm");
 	system("convert burgeronplateonside.png burgeronplateonside.ppm");
-
+	cout << "\n*** Image conversion complete. ***\n\n";
 	return;
 }
 
 void cleanUp()
 {
+	cout << "\n*** Cleaning up images... ***\n\n";
 	system("rm -f 	background.png background.ppm \
-			customer1standing.png customer1standing.ppm \
-			customer2standing.png customer2standing.ppm \
-			customer3standing.png customer3standing.ppm \
-			customer4standing.png customer4standing.ppm \
-			customer1sitting.png customer1sitting.ppm \
-			customer2sitting.png customer2sitting.ppm \
-			customer3sitting.png customer3sitting.ppm \
-			customer4sitting.png customer4sitting.ppm \
-			burgeronplateonside.png burgeronplateonside.ppm \
-			menu.png menu.ppm \
-			menu_defeat.png menu_defeat.ppm \
-			menu_pause.png menu_pause.ppm");
+		customer1standing.png customer1standing.ppm \
+		customer2standing.png customer2standing.ppm \
+		customer3standing.png customer3standing.ppm \
+		customer4standing.png customer4standing.ppm \
+		customer1sitting.png customer1sitting.ppm \
+		customer2sitting.png customer2sitting.ppm \
+		customer3sitting.png customer3sitting.ppm \
+		customer4sitting.png customer4sitting.ppm \
+		burgeronplateonside.png burgeronplateonside.ppm \
+		menu.png menu.ppm \
+		menu_defeat.png menu_defeat.ppm \
+		menu_pause.png menu_pause.ppm");
+	cout << "\n*** Image clean up complete. ***\n\n";
 
 	return;
 }

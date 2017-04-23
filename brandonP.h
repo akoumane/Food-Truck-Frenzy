@@ -5,7 +5,7 @@ void cleanUp();
 class Grid
 {
     private:
-        int grid[100][100];
+        int grid[768][768];
         int xres, yres;
     public:
         Grid(int y, int x);
@@ -21,8 +21,8 @@ class Player
     public:
         Player(int y, int x);
         void moveLeft();
-        void moveRight();
-        void moveDown();
+        void moveRight(int x);
+        void moveDown(int y);
         void moveUp();
         int xPos();
         int yPos();

@@ -97,6 +97,8 @@ int done=0;
 int xres=768, yres=768;
 int state_menu=0;
 int title_screen=0;
+const int X_Dem = 8;	// Dimension for Grid
+const int Y_Dem = 8;	// Dimension for Grid
 
 Customer *customer;
 Ppmimage *backgroundImage = NULL;
@@ -118,13 +120,17 @@ int background=1;
 
 int main(void)
 {
+	// Clear terminal
+	system("clear");
     //Box box;
     logOpen();
     imageConvert();
     initXWindows();
     initOpengl();
     customer = new Customer();
-	grid = new Grid(8,8);
+	grid = new Grid(Y_Dem,X_Dem);
+	p1 = new Player(grid->ydem()/2, grid->xdem()/2);
+
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
 
