@@ -97,8 +97,8 @@ int done=0;
 int xres=768, yres=768;
 int state_menu=0;
 int title_screen=0;
-const int X_Dem = 8;	// Dimension for Grid
-const int Y_Dem = 8;	// Dimension for Grid
+const int X_Dem = 7;	// Dimension for Grid
+const int Y_Dem = 4;	// Dimension for Grid
 
 Customer *customer;
 Ppmimage *backgroundImage = NULL;

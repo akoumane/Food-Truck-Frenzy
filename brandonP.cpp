@@ -117,7 +117,10 @@ void imageConvert()
 		burgeronplateonside.png burgeronplateonside \
 		menu.png menu.ppm \
 		menu_defeat.png menu_defeat.ppm \
-		menu_pause.png menu_pause.ppm");
+		menu_pause.png menu_pause.ppm \
+		waiter.png waiter.ppm \
+		waiterleftstep.png waiterleftstep.ppm \
+		waiterrightstep.png waiterrightstep.ppm");
 	cout << "\n*** Image removal complete.***\n\n";
 
 	// copy images to main folder
@@ -135,9 +138,12 @@ void imageConvert()
 	system("cp pixel-sprites/customer3sitting.png .");
 	system("cp pixel-sprites/customer4sitting.png .");
 	system("cp pixel-sprites/burgeronplateonside.png .");
+	system("cp pixel-sprites/waiter.png .");
+	system("cp pixel-sprites/waiterleftstep.png .");
+	system("cp pixel-sprites/waiterrightstep.png .");
 	cout << "\n*** Copying images complete. ***\n\n";
 
-	// convert from png to ppm
+	// convert from png to ppm using terminal GIMP
 	cout << "\n*** Converting .png images to .ppm... ***\n\n";
 	system("convert menu.png menu.ppm");
 	system("convert menu_defeat.png menu_defeat.ppm");
@@ -152,6 +158,9 @@ void imageConvert()
 	system("convert customer3sitting.png customer3sitting.ppm");
 	system("convert customer4sitting.png customer4sitting.ppm");
 	system("convert burgeronplateonside.png burgeronplateonside.ppm");
+	system("convert waiter.png waiter.ppm");
+	system("convert waiterleftstep.png waiterleftstep.ppm");
+	system("convert waiterrightstep.png waiterrightstep.ppm");
 	cout << "\n*** Image conversion complete. ***\n\n";
 	return;
 }
@@ -171,7 +180,10 @@ void cleanUp()
 		burgeronplateonside.png burgeronplateonside.ppm \
 		menu.png menu.ppm \
 		menu_defeat.png menu_defeat.ppm \
-		menu_pause.png menu_pause.ppm");
+		menu_pause.png menu_pause.ppm \
+		waiter.png waiter.ppm \
+		waiterleftstep.png waiterleftstep.ppm \
+		waiterrightstep.png waiterrightstep.ppm");
 	cout << "\n*** Image clean up complete. ***\n\n";
 
 	return;
