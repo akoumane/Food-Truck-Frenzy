@@ -36,27 +36,31 @@ Grid::Grid(int y, int x)
 		}
 	}
 	// Set tables
-	grid[1][1] = 9;
-	grid[3][1] = 9;
-	grid[1][5] = 9;
-	grid[3][5] = 9;
+	grid[2][1] = 9;
+	grid[4][1] = 9;
+	grid[2][5] = 9;
+	grid[4][5] = 9;
 	// Set chairs
-	grid[1][0] = 8;
-	grid[3][0] = 8;
-	grid[1][6] = 8;
-	grid[3][6] = 8;
+	grid[2][0] = 8;
+	grid[4][0] = 8;
+	grid[2][6] = 8;
+	grid[4][6] = 8;
 	// Set restriced area
-	grid[2][0] = 7;
-	grid[2][1] = 7;
-	grid[2][5] = 7;
-	grid[2][6] = 7;
+	grid[3][0] = 7;
+	grid[3][1] = 7;
+	grid[3][5] = 7;
+	grid[3][6] = 7;
+	for (int i=0; i<7; i++) {
+		grid[0][i] = 7;
+	}
+	grid[0][1] =0;
 }
 void Grid::printGrid()
 {
 	// Press 'g' in game to view in terminal
 	for (int i=0; i<yres; i++) {
 		for (int j=0; j<xres; j++) {
-			cout << grid[i][j] << " ";
+			cout << grid[i][j] << "   ";
 		}
 		cout << endl;
 	}
@@ -90,7 +94,7 @@ void Player::moveRight(int x)	// Parameter is X_Dem
 {
 	if (ypos + 1 >= x)
 		return;
-	ypos = ypos -1;
+	ypos = ypos + 1;
 }
 void Player::moveDown(int y)	// Parameter is Y_Dem
 {
@@ -136,7 +140,7 @@ void imageConvert()
 		customer1sitting.png customer1sitting.ppm \
 		customer2sitting.png customer2sitting.ppm \
 		customer3sitting.png customer3sitting.ppm \
-	    customer4sitting.png customer4sitting.ppm \
+		customer4sitting.png customer4sitting.ppm \
 		burgeronplateonside.png burgeronplateonside \
 		menu.png menu.ppm \
 		menu_defeat.png menu_defeat.ppm \
