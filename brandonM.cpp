@@ -2,10 +2,11 @@
 //Brandon Martinez 
 //CMPS 3350 lab5
 //
-//UPDATES over Spring break so far
+//UPDATES 
 //***********************
 //Start menu added PRESS A to turn on and off
 //temp turned off on start
+//more render functions added
 //************************
 #include <iostream>
 #include <cstdlib>
@@ -181,3 +182,35 @@ void renderPauseScreen()
     glEnd();
     glPopMatrix();
 }
+/*
+unsigned char *buildAlphaData2(Ppmimage *img, unsigned char col[3])
+{
+    //col - color that should be transparent
+    //add 4th component to RGB stream...
+    int i;
+    int a,b,c;
+    unsigned char *newdata, *ptr;
+    unsigned char *data = (unsigned char *)img->data;
+    newdata = (unsigned char *)malloc(img->width * img->height * 4);
+    ptr = newdata;
+    for (i=0; i<img->width * img->height * 3; i+=3) {
+	a = *(data+0);
+	b = *(data+1);
+	c = *(data+2);
+	*(ptr+0) = a;
+	*(ptr+1) = b;
+	*(ptr+2) = c;
+	//continue to use glEnable(GL_ALPHA_TEST);
+	//and		glAlphaFunc(GL_GREATER, 0.0f);i
+	*(ptr+3) = 1;
+	if (	a == col[0] &&
+	    	b == col[1] && 
+		c == col[2]) {
+	    *(ptr+3);
+	}
+	ptr += 4;
+	data += 3;
+    }
+    return newdata;
+}
+*/
