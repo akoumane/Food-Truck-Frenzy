@@ -29,10 +29,13 @@
 using namespace std;
 
 Ppmimage *StartMenu = NULL;
-GLuint StartMenuTexture1;
-
 Ppmimage *PauseMenu = NULL;
+
+GLuint silhouTexture;
+GLuint StartMenuTexture1;
 GLuint PauseMenuTexture1;
+
+int silhou=1;
 
 extern "C" {
 #include "fonts.h"
@@ -55,15 +58,20 @@ struct Game {
 void TitleScreen()
 {
     StartMenu = ppm6GetImage("menu.ppm");
-    glGenTextures(1, &StartMenuTexture1);
-    glBindTexture(GL_TEXTURE_2D, StartMenuTexture1);
+    /*
+	glGenTextures(1, &StartMenuTexture1);
+		glGenTextures(1, &silhouTexture);
+    glBindTexture(GL_TEXTURE_2D, silhouTexture);
     //
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	//unsigned char *silhouData = buildAlphaData(StartMenu, 255);
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
 	    StartMenu->width, StartMenu->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, StartMenu->data);
-/*
+	//free(silhoudata);
+	*/
+#ifdef BOXES
     //Boxes to use for menu input
     Game game;
     game.n=0;
@@ -113,7 +121,7 @@ void TitleScreen()
     glEnd();
     glPopMatrix();
     }
-    */
+#endif
 }
 
 void renderTitleScreen()
