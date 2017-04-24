@@ -1,10 +1,13 @@
 void printBrandonName();
 void TitleScreen();
 void renderTitleScreen();
+void Pause_Menu();
 void renderPauseScreen();
 void input_title_screen();
-void Pause_Menu();
 void Option_Menu();
 void Help_Menu();
+void renderHelpScreen();
+void Defeat_Menu();
+void renderDefeatScreen();
 void LeaderBoard_Menu();
 void checkKeys(XEvent *e);

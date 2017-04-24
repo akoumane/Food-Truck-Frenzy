@@ -29,13 +29,16 @@
 using namespace std;
 
 Ppmimage *StartMenu = NULL;
-Ppmimage *PauseMenu = NULL;
-
-GLuint silhouTexture;
 GLuint StartMenuTexture1;
+
+Ppmimage *PauseMenu = NULL;
 GLuint PauseMenuTexture1;
 
-int silhou=1;
+Ppmimage *HelpMenu = NULL;
+GLuint HelpMenuTexture1;
+
+Ppmimage *DefeatMenu = NULL;
+GLuint DefeatMenuTexture1;
 
 extern "C" {
 #include "fonts.h"
@@ -54,23 +57,45 @@ struct Game {
     int mouse[2];
 };
 
+unsigned char *Transparent(Ppmimage *img, unsigned char col[3])
+{
+    int i;
+    int a,b,c;
+    unsigned char *newdata, *ptr;
+    unsigned char *data = (unsigned char *)img->data;
+    newdata = (unsigned char *)malloc(img->width * img->height * 4);
+    ptr = newdata;
+    for (i=0; i<img->width * img->height * 3; i+=3) {
+	a = *(data+0);
+	b = *(data+1);
+	c = *(data+2);
+	*(ptr+0) = a;
+	*(ptr+1) = b;
+	*(ptr+2) = c;
+	*(ptr+3) = 1;
+	if (	a == col[0] &&
+		b == col[1] && 
+		c == col[2]) {
+	    // * (ptr+3);
+	}
+	ptr += 4;
+	data += 3;
+    }
+    return newdata;
+}
 
 void TitleScreen()
 {
     StartMenu = ppm6GetImage("menu.ppm");
-    /*
-	glGenTextures(1, &StartMenuTexture1);
-		glGenTextures(1, &silhouTexture);
-    glBindTexture(GL_TEXTURE_2D, silhouTexture);
-    //
+    glGenTextures(1, &StartMenuTexture1);
+    glBindTexture(GL_TEXTURE_2D, StartMenuTexture1);
+
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	//unsigned char *silhouData = buildAlphaData(StartMenu, 255);
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
 	    StartMenu->width, StartMenu->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, StartMenu->data);
-	//free(silhoudata);
-	*/
+
 #ifdef BOXES
     //Boxes to use for menu input
     Game game;
@@ -106,20 +131,20 @@ void TitleScreen()
 
     for(int i=0; i<=5; i++)
     {
-    Shape *s;
-    glColor3ub(90,140,90);
-    s = game.box[i];
-    glPushMatrix();
-    glTranslatef(s->center.x, s->center.y, s->center.z);
-    w = s->width;
-    h = s->height;
-    glBegin(GL_QUADS);
-    glVertex2i(-w,-h);
-    glVertex2i(-w, h);
-    glVertex2i( w, h);
-    glVertex2i( w,-h);
-    glEnd();
-    glPopMatrix();
+	Shape *s;
+	glColor3ub(90,140,90);
+	s = game.box[i];
+	glPushMatrix();
+	glTranslatef(s->center.x, s->center.y, s->center.z);
+	w = s->width;
+	h = s->height;
+	glBegin(GL_QUADS);
+	glVertex2i(-w,-h);
+	glVertex2i(-w, h);
+	glVertex2i( w, h);
+	glVertex2i( w,-h);
+	glEnd();
+	glPopMatrix();
     }
 #endif
 }
@@ -138,31 +163,55 @@ void renderTitleScreen()
     glPopMatrix();
 }
 
-void Option_Menu()
-{
-//music on and off
-//starting difficulty
-}
 void Help_Menu()
 {
-//controls
-//main purpose of game
-// ?credits?
-/*
-	StartMenu = ppm6GetImage("menu.ppm");
-    glGenTextures(1, &StartMenuTexture1);
-    glBindTexture(GL_TEXTURE_2D, StartMenuTexture1);
-    
+       StartMenu = ppm6GetImage("menu_help.ppm");
+       glGenTextures(1, &HelpMenuTexture1);
+       glBindTexture(GL_TEXTURE_2D, HelpMenuTexture1);
+
+       glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+       glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+       glTexImage2D(GL_TEXTURE_2D, 0, 3,
+       HelpMenu->width, HelpMenu->height,
+       0, GL_RGB, GL_UNSIGNED_BYTE, HelpMenu->data);
+}
+
+void renderHelpScreen()
+{
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, HelpMenuTexture1);
+    glBegin(GL_QUADS); 
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(768, 768);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(768, 0);
+}
+
+void Defeat_Menu() 
+{	
+    DefeatMenu = ppm6GetImage("menu_defeat.ppm");
+    glGenTextures(1, &DefeatMenuTexture1);
+    glBindTexture(GL_TEXTURE_2D, DefeatMenuTexture1);
+    //
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
-	    StartMenu->width, StartMenu->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, StartMenu->data);
-	    */
+	    DefeatMenu->width, DefeatMenu->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, DefeatMenu->data);
+
 }
-void LeaderBoard_Menu()
+
+void renderDefeatScreen()
 {
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, DefeatMenuTexture1);
+    glBegin(GL_QUADS); 
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
 }
+
 void Pause_Menu() 
 {	
     PauseMenu = ppm6GetImage("menu_pause.ppm");
@@ -190,35 +239,4 @@ void renderPauseScreen()
     glEnd();
     glPopMatrix();
 }
-/*
-unsigned char *buildAlphaData2(Ppmimage *img, unsigned char col[3])
-{
-    //col - color that should be transparent
-    //add 4th component to RGB stream...
-    int i;
-    int a,b,c;
-    unsigned char *newdata, *ptr;
-    unsigned char *data = (unsigned char *)img->data;
-    newdata = (unsigned char *)malloc(img->width * img->height * 4);
-    ptr = newdata;
-    for (i=0; i<img->width * img->height * 3; i+=3) {
-	a = *(data+0);
-	b = *(data+1);
-	c = *(data+2);
-	*(ptr+0) = a;
-	*(ptr+1) = b;
-	*(ptr+2) = c;
-	//continue to use glEnable(GL_ALPHA_TEST);
-	//and		glAlphaFunc(GL_GREATER, 0.0f);i
-	*(ptr+3) = 1;
-	if (	a == col[0] &&
-	    	b == col[1] && 
-		c == col[2]) {
-	    *(ptr+3);
-	}
-	ptr += 4;
-	data += 3;
-    }
-    return newdata;
-}
-*/
+
