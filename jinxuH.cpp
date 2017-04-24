@@ -36,7 +36,7 @@ bubbler=0;
 }
 };
 
-*/
+ */
 void object(Box *box)
 {
     //declare game object
@@ -44,8 +44,8 @@ void object(Box *box)
     //box.n=0;
     //declare a box shape
     for (int i = 0; i < 4; i++) {
-	box->table[i].width = 95;
-	box->table[i].height = 68;
+        box->table[i].width = 95;
+        box->table[i].height = 68;
     }
     //position of the table
     //table 1
@@ -62,8 +62,8 @@ void object(Box *box)
     box->table[3].center.y = 97;
     //declare the stable shape
     for (int i=0; i<2;i++){
-	box->stable[i].width = 58;
-	box->stable[i].height =36;
+        box->stable[i].width = 58;
+        box->stable[i].height =36;
     }
     //position of the sidetable
     box->stable[0].center.x = 527;
@@ -71,12 +71,12 @@ void object(Box *box)
     box->stable[1].center.x = 643;
     box->stable[1].center.y = 576;
 
-   //declare the waiter box
-   box->waiter[1].width = 5;
-   box->waiter[1].height =40;
-   //position of the waiter
-   box->waiter[1].center.x = 527;
-   box->waiter[1].center.y = 300;
+    //declare the waiter box
+    box->waiter[0].width = 5;
+    box->waiter[0].height =40;
+    //position of the waiter
+    box->waiter[0].center.x = 527;
+    box->waiter[0].center.y = 300;
 
 
 
@@ -91,25 +91,39 @@ void drawbox(Box *box)
     //draw table box
     Shape *s;
     for (int i=0; i<4;i++){
-	//glColor3ub(246,29,88);
-	s = &box->table[i];
-	glPushMatrix();
-	glTranslatef(s->center.x, s->center.y, s->center.z);
-	w = s->width;
-	h = s->height;
-	glBegin(GL_QUADS);
-	glVertex2i(-w,-h);
-	glVertex2i(-w, h);
-	glVertex2i( w, h);
-	glVertex2i( w,-h);
-	glEnd();
-	glPopMatrix();
+        //glColor3ub(246,29,88);
+        s = &box->table[i];
+        glPushMatrix();
+        glTranslatef(s->center.x, s->center.y, s->center.z);
+        w = s->width;
+        h = s->height;
+        glBegin(GL_QUADS);
+        glVertex2i(-w,-h);
+        glVertex2i(-w, h);
+        glVertex2i( w, h);
+        glVertex2i( w,-h);
+        glEnd();
+        glPopMatrix();
     }
     //draw truck box
-for (int i=0; i<2; i++)
-{
-    //glColor3ub(246,29,29);
-    s = &box->stable[i];
+    for (int i=0; i<2; i++)
+    {
+        //glColor3ub(246,29,29);
+        s = &box->stable[i];
+        glPushMatrix();
+        glTranslatef(s->center.x, s->center.y, s->center.z);
+        w = s->width;
+        h = s->height;
+        glBegin(GL_QUADS);
+        glVertex2i(-w,-h);
+        glVertex2i(-w, h);
+        glVertex2i( w, h);
+        glVertex2i( w,-h);
+        glEnd();
+        glPopMatrix();
+    }
+    //draw waiter box
+    s = &box->waiter[0];
     glPushMatrix();
     glTranslatef(s->center.x, s->center.y, s->center.z);
     w = s->width;
@@ -121,6 +135,55 @@ for (int i=0; i<2; i++)
     glVertex2i( w,-h);
     glEnd();
     glPopMatrix();
+
 }
+
+bool iscolisionwithtable(Box *box)
+{
+    bool col=false;
+    //Shape *s;
+    Shape *t;
+    Shape *w;
+    for (int i = 0; i<5;i++)
+    {
+       //s = &box -> sidetalbe[j];
+        t = &box -> table[i];
+        w = &box -> waiter[0];
+        if (w->center.y < t->center.y + t->height &&
+            w->center.y > t->center.y - t->height && 
+            w->center.x >= t->center.x - t->width && 
+            w->center.x <= t->center.x + t->width  
+            )
+        {
+            col = true;
+        }
+        else
+            col = false;
+    }
+    return col;
+}
+
+bool isclolisionwithstable(Box *box)
+{
+    bool col=false;
+    Shape *s;
+    Shape *w;
+    for (int i=0; i< 2; i++)
+    {
+        s = &box->stable[i];
+        w = &box -> waiter[0];
+        if (w->center.y < s->center.y + s->height &&
+            w->center.y > s->center.y - s->height && 
+            w->center.x >= s->center.x - s->width &&  
+            w->center.x <= s->center.x + s->width  
+            )
+        {
+            col =  true;
+        }
+        else 
+        col = false;
+
+    }
+    return col;
 
 }
