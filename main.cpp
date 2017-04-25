@@ -130,7 +130,7 @@ int main(void)
     initOpengl();
     customer = new Customer();
 	grid = new Grid(Y_Dem,X_Dem);
-	p1 = new Player(grid->ydem()/2, grid->xdem()/2);
+	p1 = new Player(4, 357);
 
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
@@ -313,7 +313,6 @@ void initOpengl(void)
 	    backgroundImage->width, backgroundImage->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, backgroundImage->data);
 
-    makeCustomers();
     makeFoods();
 
 }
@@ -403,21 +402,29 @@ void checkKeys(XEvent *e)
 			p1->moveLeft();
 			cout << "Move Left\n";
 			makeWaiter(p1);
+			cout << "xpos: " << p1->xpos;
+			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Right:
 			p1->moveRight(X_Dem);
 			cout << "Move Right\n";
 			makeWaiter(p1);
+			cout << "xpos: " << p1->xpos;
+			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Up:
 			p1->moveUp();
 			cout << "Move Up\n";
 			makeWaiter(p1);
+			cout << "xpos: " << p1->xpos;
+			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Down:
 			p1->moveDown(Y_Dem);
 			cout << "Move Down\n";
 			makeWaiter(p1);
+			cout << "xpos: " << p1->xpos;
+			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_g:
 			grid->printGrid();

@@ -24,9 +24,10 @@ class Grid
 
 class Player
 {
-    private:
-        int xpos, ypos;
     public:
+    //private:
+        int xpos, ypos;
+    //public:
         Player(int y, int x);
         void moveLeft();
         void moveRight(int x);

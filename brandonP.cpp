@@ -32,20 +32,25 @@ void makeWaiter(Player *p)
 	cout << "makeWaiter(Player *p) called\n";
 	waiter = ppm6GetImage("waiter.ppm");
 	glGenTextures(1, &waiterTexture);
-	glBindTexture(GL_TEXTURE_2D, waiterTexture);
+//	glBindTexture(GL_TEXTURE_2D, waiterTexture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, waiter->width, waiter->height, 0,
 		GL_RGB, GL_UNSIGNED_BYTE, waiter->data);
-	glTexCoord2f(0.0f, 1.0f); glVertex2i(4, 253);
-	glTexCoord2f(0.0f, 0.0f); glVertex2i(4,347);
-	glTexCoord2f(1.0f, 0.0f); glVertex2i(98,347);
-	glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 253);
 
-//	glTexCoord2f(0.0f, 1.0f); glVertex2i(p->xpos, p->ypos);
-//	glTexCoord2f(0.0f, 0.0f); glVertex2i(p->xpos, p->ypos+94);
-//	glTexCoord2f(1.0f, 0.0f); glVertex2i(p->xpos+94, p->ypos+94);
-//	glTexCoord2f(1.0f, 1.0f); glVertex2i(p->xpos+94, p->ypos);
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, waiterTexture);
+	glBegin(GL_QUADS);
+//	glTexCoord2f(0.0f, 1.0f); glVertex2i(4, 253);
+//	glTexCoord2f(0.0f, 0.0f); glVertex2i(4,347);
+//	glTexCoord2f(1.0f, 0.0f); glVertex2i(98,347);
+//	glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 253);
+
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(p->xpos, p->ypos);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(p->xpos, p->ypos+94);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(p->xpos+94, p->ypos+94);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(p->xpos+94, p->ypos);
 
 	glEnd();
 	glPopMatrix();
@@ -113,26 +118,26 @@ Player::Player(int y, int x)
 }
 void Player::moveLeft()
 {
-	if (xpos - 1 < 0)
-		return;
+//	if (xpos - 1 < 0)
+//		return;
 	xpos = xpos - 1;
 }
 void Player::moveRight(int x)	// Parameter is X_Dem
 {
-	if (ypos + 1 >= x)
-		return;
+//	if (ypos + 1 >= x)
+//		return;
 	ypos = ypos + 1;
 }
 void Player::moveDown(int y)	// Parameter is Y_Dem
 {
-	if (ypos + 1 >= y)
-		return;
+//	if (ypos + 1 >= y)
+//		return;
 	ypos = ypos + 1;
 }
 void Player::moveUp()
 {
-	if (ypos - 1 < 0)
-		return;
+//	if (ypos - 1 < 0)
+//		return;
 	ypos = ypos - 1;
 }
 int Player::xPos()
