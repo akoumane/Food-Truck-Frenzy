@@ -23,6 +23,33 @@ extern "C" {
 }
 using namespace std;
 
+// Rendering waiter
+Ppmimage *waiter = NULL;
+GLuint waiterTexture;
+
+void makeWaiter(Player *p)
+{
+	cout << "makeWaiter(Player *p) called\n";
+	waiter = ppm6GetImage("waiter.ppm");
+	glGenTextures(1, &waiterTexture);
+	glBindTexture(GL_TEXTURE_2D, waiterTexture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, waiter->width, waiter->height, 0,
+		GL_RGB, GL_UNSIGNED_BYTE, waiter->data);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(4, 253);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(4,347);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(98,347);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 253);
+
+//	glTexCoord2f(0.0f, 1.0f); glVertex2i(p->xpos, p->ypos);
+//	glTexCoord2f(0.0f, 0.0f); glVertex2i(p->xpos, p->ypos+94);
+//	glTexCoord2f(1.0f, 0.0f); glVertex2i(p->xpos+94, p->ypos+94);
+//	glTexCoord2f(1.0f, 1.0f); glVertex2i(p->xpos+94, p->ypos);
+
+	glEnd();
+	glPopMatrix();
+}
 //==============================================================================
 // Game Object Functions
 

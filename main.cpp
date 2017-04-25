@@ -66,6 +66,7 @@ void checkMouse(XEvent *e);
 void checkKeys(XEvent *e);
 void physics(void);
 void render(void);
+void makeWaiter(Player *p);
 GLuint png_texture_load(const char * file_name, int * width, int * height);
 
 //-----------------------------------------------------------------------------
@@ -399,13 +400,25 @@ void checkKeys(XEvent *e)
 		    break;
 		    //add if state_menu disable or rebind the keys
 		case XK_Left:
-		    break;
+			p1->moveLeft();
+			cout << "Move Left\n";
+			makeWaiter(p1);
+			break;
 		case XK_Right:
-		    break;
+			p1->moveRight(X_Dem);
+			cout << "Move Right\n";
+			makeWaiter(p1);
+			break;
 		case XK_Up:
-		    break;
+			p1->moveUp();
+			cout << "Move Up\n";
+			makeWaiter(p1);
+			break;
 		case XK_Down:
-		    break;
+			p1->moveDown(Y_Dem);
+			cout << "Move Down\n";
+			makeWaiter(p1);
+			break;
 		case XK_g:
 			grid->printGrid();
 			break;
