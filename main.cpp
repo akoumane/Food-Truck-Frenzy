@@ -128,12 +128,10 @@ int main(void)
     imageConvert();
     initXWindows();
     initOpengl();
-	makeWaiter();
 
     customer = new Customer();
 	grid = new Grid(Y_Dem,X_Dem);
 	p1 = new Player(4, 253);
-	renderWaiter(4, 253);
 
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
@@ -316,6 +314,7 @@ void initOpengl(void)
 	    backgroundImage->width, backgroundImage->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, backgroundImage->data);
 
+	makeWaiter();
     makeFoods();
 }
 
@@ -495,6 +494,9 @@ void render(void)
 		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
 		glEnd();
     }
+
+	renderWaiter(253, 4);
+
 	#ifdef RENDERTEST
 	//renderCustomers();
 	//renderFoods();
