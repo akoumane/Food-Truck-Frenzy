@@ -66,7 +66,7 @@ void checkMouse(XEvent *e);
 void checkKeys(XEvent *e);
 void physics(void);
 void render(void);
-void makeWaiter(Player *p);
+//void makeWaiter();
 GLuint png_texture_load(const char * file_name, int * width, int * height);
 
 //-----------------------------------------------------------------------------
@@ -128,9 +128,12 @@ int main(void)
     imageConvert();
     initXWindows();
     initOpengl();
+	makeWaiter();
+
     customer = new Customer();
 	grid = new Grid(Y_Dem,X_Dem);
-	p1 = new Player(4, 357);
+	p1 = new Player(4, 253);
+	renderWaiter(4, 253);
 
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
@@ -314,7 +317,6 @@ void initOpengl(void)
 	    0, GL_RGB, GL_UNSIGNED_BYTE, backgroundImage->data);
 
     makeFoods();
-
 }
 
 void checkResize(XEvent *e)
@@ -401,28 +403,28 @@ void checkKeys(XEvent *e)
 		case XK_Left:
 			p1->moveLeft();
 			cout << "Move Left\n";
-			makeWaiter(p1);
+			renderWaiter(4,253);
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Right:
 			p1->moveRight(X_Dem);
 			cout << "Move Right\n";
-			makeWaiter(p1);
+			renderWaiter(p1->ypos, p1->xpos);
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Up:
 			p1->moveUp();
 			cout << "Move Up\n";
-			makeWaiter(p1);
+			renderWaiter(p1->ypos, p1->xpos);
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Down:
 			p1->moveDown(Y_Dem);
 			cout << "Move Down\n";
-			makeWaiter(p1);
+			renderWaiter(p1->ypos, p1->xpos);
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;

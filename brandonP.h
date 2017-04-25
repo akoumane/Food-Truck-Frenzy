@@ -1,6 +1,8 @@
 void printName();
 void imageConvert();
 void cleanUp();
+void makeWaiter();
+void renderWaiter(int ypos, int xpos);
 
 class Grid
 {

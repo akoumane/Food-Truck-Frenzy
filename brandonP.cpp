@@ -27,15 +27,46 @@ using namespace std;
 Ppmimage *waiter = NULL;
 GLuint waiterTexture;
 
-void makeWaiter(Player *p)
+void renderWaiter(int ypos, int xpos)
 {
-	cout << "makeWaiter(Player *p) called\n";
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, waiterTexture);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+94);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+94, ypos+94);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+94, ypos);
+    glEnd();
+    glPopMatrix();
+	return;
+}
+
+void makeWaiter()
+{
 	waiter = ppm6GetImage("waiter.ppm");
 	glGenTextures(1, &waiterTexture);
-//	glBindTexture(GL_TEXTURE_2D, waiterTexture);
+	glBindTexture(GL_TEXTURE_2D, waiterTexture);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    waiter->width, waiter->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, waiter->data);
+	return;
+}
+/*
+void makeWaiter(Player *p)
+{
+	glPushMatrix();
+	cout << "makeWaiter(Player *p) called\n";
+	waiter = ppm6GetImage("waiter.ppm");
+	int w = waiter->width;
+	int h = waiter->height;
+	glGenTextures(1, &waiterTexture);
+	glBindTexture(GL_TEXTURE_2D, waiterTexture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, waiter->width, waiter->height, 0,
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, w, h, 0,
 		GL_RGB, GL_UNSIGNED_BYTE, waiter->data);
 
 	glPushMatrix();
@@ -46,15 +77,16 @@ void makeWaiter(Player *p)
 //	glTexCoord2f(0.0f, 0.0f); glVertex2i(4,347);
 //	glTexCoord2f(1.0f, 0.0f); glVertex2i(98,347);
 //	glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 253);
-
+	cout << "waiter->width: " << waiter->width << "\n";
 	glTexCoord2f(0.0f, 1.0f); glVertex2i(p->xpos, p->ypos);
-	glTexCoord2f(0.0f, 0.0f); glVertex2i(p->xpos, p->ypos+94);
-	glTexCoord2f(1.0f, 0.0f); glVertex2i(p->xpos+94, p->ypos+94);
-	glTexCoord2f(1.0f, 1.0f); glVertex2i(p->xpos+94, p->ypos);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(p->xpos, (p->ypos)+94);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i((p->xpos)+94, (p->ypos)+94);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i((p->xpos)+94, p->ypos);
 
 	glEnd();
 	glPopMatrix();
 }
+*/
 //==============================================================================
 // Game Object Functions
 
@@ -126,7 +158,7 @@ void Player::moveRight(int x)	// Parameter is X_Dem
 {
 //	if (ypos + 1 >= x)
 //		return;
-	ypos = ypos + 1;
+	xpos = xpos + 1;
 }
 void Player::moveDown(int y)	// Parameter is Y_Dem
 {
