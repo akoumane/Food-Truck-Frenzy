@@ -171,7 +171,7 @@ int main(void)
 		while (physicsCountdown >= physicsRate) {
 			//6. Apply physics
 			physics();
-			renderWaiter(p1->ypos, p1->xpos);
+			//renderWaiter(p1->ypos, p1->xpos);
 			//7. Reduce the countdown by our physics-rate
 			physicsCountdown -= physicsRate;
 		}
@@ -185,7 +185,7 @@ int main(void)
 			level->renderCustomers();
 		}
 
-		//renderCustomers();
+		renderCustomers();
 		//renderFoods();
 		//customer->renderModel();
 		#endif
