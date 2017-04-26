@@ -102,6 +102,7 @@ const int X_Dem = 7;	// Dimension for Grid
 const int Y_Dem = 5;	// Dimension for Grid
 
 //Customer *customer;
+Level *level;
 Ppmimage *backgroundImage = NULL;
 Grid *grid;
 Player *p1;
@@ -130,6 +131,8 @@ int main(void)
     initOpengl();
 
     //customer = new Customer();
+	level = new Level();
+	level->makeNewLevel(1);
 	grid = new Grid(Y_Dem,X_Dem);
 	p1 = new Player(4, 253);
 
@@ -176,6 +179,11 @@ int main(void)
 		render();
 
 		#ifdef RENDERTEST
+
+		if (level->getStart()) {
+			level->renderCustomers();
+		}		
+
 		//renderCustomers();
 		//renderFoods();
 		//customer->renderModel();
@@ -439,12 +447,14 @@ void checkKeys(XEvent *e)
 			break;
 		#ifdef RENDERTEST
 		case XK_q:
-        	//customer->setModelNum(1);
-        	//customer->setFinishFood(true);
+			level->startGame(true);
        		break;
     	case XK_w:
-        	//customer->reset();
-        break;	
+			level->printLine();	
+			break;
+		case XK_e:
+			level->printSeat();
+			break;	
 		#endif
 		case XK_Escape:
 	    	done=1;

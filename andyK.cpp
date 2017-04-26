@@ -61,13 +61,14 @@ Customer::Customer()
 	srand(time(NULL));
 	foodChoice = rand() % 4 + 1;
 	modelNum = rand() % 4 + 1;
-	seatNum = rand() % 4 + 1;
-	inLine = true;
+	seatNum = 1;
+	inLine = false;
 	inSeat = false;
 	hasFood = false;
 	isEating = false;
 	finishFood = false;
-	leave = false;
+	leave = true;
+	assignSeat = true;
 
 	clock_gettime(CLOCK_REALTIME, &custStart);
 	clock_gettime(CLOCK_REALTIME, &custPause);
@@ -84,13 +85,14 @@ void Customer::reset()
     srand(time(NULL));
     foodChoice = rand() % 4 + 1;
     modelNum = rand() % 4 + 1;
-    seatNum = rand() % 4 + 1;
-    inLine = true;
+    seatNum = 1;
+    inLine = false;
     inSeat = false;
     hasFood = false;
     isEating = false;
     finishFood = false;
     leave = false;
+	assignSeat = true;
 
     clock_gettime(CLOCK_REALTIME, &custStart);
     clock_gettime(CLOCK_REALTIME, &custPause);
@@ -118,11 +120,41 @@ void Customer::setFinishFood (bool a) {
 	finishFood = a;
 }
 
-void Customer::renderModel(bool line, bool seat[])
+void Customer::renderModel(bool &line, bool seat[])
 {
-	double waitTime = pauseTime - startTime;
+	double waitTime;
+
+	if (inSeat == false) {
+		if (!line) {
+			inLine = true;
+			line = true;
+			leave = false;
+			clock_gettime(CLOCK_REALTIME, &custStart);
+			clock_gettime(CLOCK_REALTIME, &custPause);
+			startTime = (double)custStart.tv_sec;
+			pauseTime = (double)custPause.tv_sec;
+			
+		}
+	}
+
+	if (assignSeat) {
+		if (seat[seatNum-1] == false) {
+			seat[seatNum-1] = true;
+			assignSeat = false;
+		}
+		else {
+			seatNum++;
+			if (seatNum > 4)
+				seatNum = 1;
+		}
+	}
+
+	waitTime = pauseTime - startTime;
+
+
     if (!leave) {
         if (inLine) {
+			line = true;
             finishFood = false;
             glPushMatrix();
             glEnable(GL_TEXTURE_2D);
@@ -150,13 +182,18 @@ void Customer::renderModel(bool line, bool seat[])
             glEnd();
             glPopMatrix();
         }
+
+
         if (waitTime < 5.0) {
             clock_gettime(CLOCK_REALTIME, &custPause);
             pauseTime = (double)custPause.tv_sec;
         }
         else {
-            inLine = false;
-            inSeat = true;
+			if (seat[seatNum-1] == true) {
+				inLine = false;
+				inSeat = true;
+				line = false;
+			}
         }
 
 		if (inSeat) {
@@ -177,6 +214,8 @@ void Customer::renderModel(bool line, bool seat[])
                 case 4:
                     glBindTexture(GL_TEXTURE_2D, customerSittingTexture4);
                     break;
+				default:
+					break;
             }
 
 			glBegin(GL_QUADS);
@@ -277,12 +316,42 @@ bool Level::checkTables()
 	return seatOccupied;
 }
 
+bool Level::getStart()
+{
+	return start;
+}
+
+void Level::startGame(bool a)
+{
+	start = a;
+}
+
 void Level::renderCustomers()
 {
-	for (int i = 0; i < 5; i++) {
+	/*for (int i = 0; i < 5; i++) {
 		customers[i].renderModel(lineOccupied, seatOccupied);
-	}
+	}*/
+
+	customers[0].renderModel(lineOccupied, seatOccupied);
+	//customers[1].renderModel(lineOccupied, seatOccupied);
 }
+
+void Level::printLine()
+{
+	cout << lineOccupied << endl;
+
+}
+
+void Level::printSeat()
+{
+	cout << seatOccupied[0];
+	cout << seatOccupied[1];
+	cout << seatOccupied[2];
+	cout << seatOccupied[3];
+
+	cout << endl;
+}
+
 
 void makeCustomers()
 {

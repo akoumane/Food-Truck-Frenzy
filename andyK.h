@@ -25,6 +25,7 @@ class Customer
         bool isEating;
         bool finishFood;
 		bool leave;
+		bool assignSeat;
 
 	public:
 		Customer();
@@ -34,7 +35,7 @@ class Customer
 		void setHasFood (bool a);
 		void setIsEating (bool a);
 		void setFinishFood (bool a);
-		void renderModel(bool line, bool seat[]);
+		void renderModel(bool &line, bool seat[]);
 };
 
 class Level
@@ -58,4 +59,9 @@ class Level
 		void renderCustomers();
         void renderFood();
 		void increaseServeCount();
+		void setLine(bool a);
+		bool getStart();
+		void startGame(bool a);
+		void printLine();
+		void printSeat();
 };
