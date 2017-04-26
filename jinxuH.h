@@ -2,7 +2,7 @@
 #define JINXUH_H
 //JinH.h
 //
-struct JinVec {
+/*struct JinVec {
     float x, y, z;
 };
 
@@ -28,6 +28,6 @@ struct Box {
 
 void object(Box *box);
 void drawbox(Box *box);
-bool isCollision();
+bool isCollision();*/
 #endif
 

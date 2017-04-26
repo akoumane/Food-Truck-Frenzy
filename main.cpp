@@ -28,6 +28,7 @@
 #include "brandonM.h"
 #include "brandonP.h"
 #include "jinxuH.h"
+#include "jinxuHN.h"
 #include "abdulelahA.h"
 using namespace std;
 
@@ -124,7 +125,6 @@ int main(void)
 {
 	// Clear terminal
 	system("clear");
-    //Box box;
     logOpen();
     imageConvert();
     initXWindows();
@@ -139,8 +139,6 @@ int main(void)
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
 
-    //object(box);
-    //drawbox(&box);
     while (!done) {
 		while (XPending(dpy)) {
 			XEvent e;
@@ -453,6 +451,21 @@ void checkKeys(XEvent *e)
 		case XK_e:
 			level->printSeat();
 			break;
+		case XK_r:
+			level->setCustomerLeave(0);
+			break;
+		case XK_t:
+			level->setCustomerLeave(1);
+			break;
+		case XK_y:
+			level->setCustomerLeave(2);
+			break;
+		case XK_u:
+			level->setCustomerLeave(3);
+			break;
+		case XK_i:
+			level->setCustomerLeave(4);
+			break;
 		#endif
 		case XK_Escape:
 	    	done=1;
@@ -488,15 +501,12 @@ void physics(void)
 
 void render(void)
 {
-    Box box;
 
     //Clear the screen
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     //
     //
-    //Box box;
-    //drawbox(&box);
     //draw a quad with texture
     //float wid = 120.0f;
     //glColor3f(1.0, 1.0, 1.0);
@@ -511,8 +521,6 @@ void render(void)
     }
 
 
-	//object(&box);
-	//drawbox(&box);
 
 
     if(title_screen == 1) {

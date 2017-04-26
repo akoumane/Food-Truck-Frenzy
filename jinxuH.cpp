@@ -37,7 +37,7 @@ bubbler=0;
 };
 
  */
-void object(Box *box)
+/*void object(Box *box)
 {
     //declare game object
     //Box box;
@@ -186,4 +186,4 @@ bool isclolisionwithstable(Box *box)
     }
     return col;
 
-}
+}*/
