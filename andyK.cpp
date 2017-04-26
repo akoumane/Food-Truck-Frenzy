@@ -183,46 +183,48 @@ void Customer::renderModel()
 
             switch(seatNum) {
                 case 1:
-                    xPos1 = 4;
+                    xPos1 = 3;
                     xPos2 = 98;
                     yPos1 = 253;
-                    yPos2 = 347;
-                    glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
-                    glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
-                    glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
-                    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
+                    yPos2 = 348;
+					glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
+					glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
+					glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
+					glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
                     break;
                 case 2:
-                    xPos1 = 526;
-                    xPos2 = 620;
+                    xPos1 = 669;
+                    xPos2 = 764;
                     yPos1 = 253;
-                    yPos2 = 347;
-                    glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
-                    glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
-                    glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
-                    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
+                    yPos2 = 348;
+					glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos2, yPos1);
+					glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos2, yPos2);
+					glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos1, yPos2);
+					glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos1);
                     break;
                 case 3:
-                    xPos1 = 4;
+                    xPos1 = 3;
                     xPos2 = 98;
-                    yPos1 = 48;
-                    yPos2 = 142;
-                    glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
-                    glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
-                    glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
-                    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
+                    yPos1 = 49;
+                    yPos2 = 144;
+					glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
+					glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
+					glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
+					glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
                     break;
                 case 4:
-                    xPos1 = 526;
-                    xPos2 = 620;
-                    yPos1 = 48;
-                    yPos2 = 142;
-                    glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
-                    glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
-                    glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
-                    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
+                    xPos1 = 669;
+                    xPos2 = 764;
+                    yPos1 = 49;
+                    yPos2 = 144;
+					glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos2, yPos1);
+					glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos2, yPos2);
+					glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos1, yPos2);
+					glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos1);
                     break;
             }
+
+
 
             glEnd();
             glPopMatrix();
