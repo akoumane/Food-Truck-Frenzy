@@ -133,8 +133,8 @@ int main(void)
 	grid = new Grid(Y_Dem,X_Dem);
 	p1 = new Player(4, 253);
 
-    clock_gettime(CLOCK_REALTIME, &timePause);
-    clock_gettime(CLOCK_REALTIME, &timeStart);
+    //clock_gettime(CLOCK_REALTIME, &timePause);
+    //clock_gettime(CLOCK_REALTIME, &timeStart);
 
     //object(box);
     //drawbox(&box);
