@@ -178,14 +178,14 @@ int main(void)
 		//Always render every frame.
 
 		render();
-		//renderWaiter(p1->ypos, p1->xpos);
+		renderWaiter(p1->ypos, p1->xpos);
 		#ifdef RENDERTEST
 
 		if (level->getStart()) {
 			level->renderCustomers();
 		}
 
-		renderCustomers();
+		//renderCustomers();
 		//renderFoods();
 		//customer->renderModel();
 		#endif
