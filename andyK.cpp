@@ -57,7 +57,7 @@ Customer::Customer()
 	yPos1 = 498;
 	yPos2 = 594;
 	foodChoice = rand() % 4 + 1;
-	modelNum = (rand() % 100 + 1) % 4 + 1;
+	modelNum = (rand() % 1000) % 4 + 1;
 	seatNum = 1;
 	inLine = false;
 	inSeat = false;
@@ -77,7 +77,7 @@ void Customer::reset()
     yPos1 = 498;
     yPos2 = 594; 
     foodChoice = rand() % 4 + 1;
-    modelNum = (rand() % 100 + 1) % 4 + 1;
+    modelNum = (rand() % 1000 + 1) % 4 + 1;
     seatNum = 1;
     inLine = false;
     inSeat = false;
@@ -89,23 +89,28 @@ void Customer::reset()
     moveToSeat = false;
 }
 
-void Customer::setInLine(bool a) {
+void Customer::setInLine(bool a) 
+{
 	inLine = a;
 }
 
-void Customer::setInSeat (bool a) {
+void Customer::setInSeat (bool a) 
+{
 	inSeat = a;
 }
 
-void Customer::setHasFood (bool a) {
+void Customer::setHasFood (bool a) 
+{
 	hasFood = a;
 }
 
-void Customer::setIsEating (bool a) {
+void Customer::setIsEating (bool a) 
+{
 	isEating = a;
 }
 
-void Customer::setFinishFood (bool a) {
+void Customer::setFinishFood (bool a) 
+{
 	finishFood = a;
 }
 
