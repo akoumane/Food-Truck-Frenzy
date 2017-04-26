@@ -17,6 +17,9 @@ class Customer
 		//random number will be chosen for seat
 		int seatNum;
 
+		struct timespec custStart;
+		struct timespec custPause;
+
 		double startTime, pauseTime;
 
         bool inLine;
@@ -26,6 +29,7 @@ class Customer
         bool finishFood;
 		bool leave;
 		bool assignSeat;
+		bool moveToSeat;
 
 	public:
 		Customer();

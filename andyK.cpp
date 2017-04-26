@@ -49,8 +49,6 @@ GLuint customerSittingTexture3;
 GLuint customerSittingTexture4;
 GLuint burgerOnSideTexture;
 
-struct timespec custStart;
-struct timespec custPause;
 
 Customer::Customer()		
 {
@@ -58,9 +56,8 @@ Customer::Customer()
 	xPos2 = 170;
 	yPos1 = 498;
 	yPos2 = 594;
-	srand(time(NULL));
 	foodChoice = rand() % 4 + 1;
-	modelNum = rand() % 4 + 1;
+	modelNum = (rand() % 100 + 1) % 4 + 1;
 	seatNum = 1;
 	inLine = false;
 	inSeat = false;
@@ -69,11 +66,8 @@ Customer::Customer()
 	finishFood = false;
 	leave = true;
 	assignSeat = true;
+	moveToSeat = false;
 
-	clock_gettime(CLOCK_REALTIME, &custStart);
-	clock_gettime(CLOCK_REALTIME, &custPause);
-	startTime = (double)custStart.tv_sec;
-	pauseTime = (double)custPause.tv_sec;
 }
 
 void Customer::reset()
@@ -94,10 +88,6 @@ void Customer::reset()
     leave = false;
 	assignSeat = true;
 
-    clock_gettime(CLOCK_REALTIME, &custStart);
-    clock_gettime(CLOCK_REALTIME, &custPause);
-    startTime = (double)custStart.tv_sec;
-    pauseTime = (double)custPause.tv_sec;
 }
 
 void Customer::setInLine(bool a) {
@@ -124,7 +114,7 @@ void Customer::renderModel(bool &line, bool seat[])
 {
 	double waitTime;
 
-	if (inSeat == false) {
+	if (inSeat == false && inLine == false) {
 		if (!line) {
 			inLine = true;
 			line = true;
@@ -137,17 +127,6 @@ void Customer::renderModel(bool &line, bool seat[])
 		}
 	}
 
-	if (assignSeat) {
-		if (seat[seatNum-1] == false) {
-			seat[seatNum-1] = true;
-			assignSeat = false;
-		}
-		else {
-			seatNum++;
-			if (seatNum > 4)
-				seatNum = 1;
-		}
-	}
 
 	waitTime = pauseTime - startTime;
 
@@ -189,10 +168,24 @@ void Customer::renderModel(bool &line, bool seat[])
             pauseTime = (double)custPause.tv_sec;
         }
         else {
-			if (seat[seatNum-1] == true) {
+			if (assignSeat) {
+				if (seat[seatNum-1] == false) {
+					seat[seatNum-1] = true;
+					assignSeat = false;
+				}
+				else {
+					seatNum++;
+					if (seatNum > 4)
+						seatNum = 1;
+				}
+			}
+			if (assignSeat == false && seat[seatNum-1] == true) {
 				inLine = false;
+				if (moveToSeat == false) {
+					moveToSeat = true;
+					line = false;
+				}
 				inSeat = true;
-				line = false;
 			}
         }
 
@@ -328,11 +321,11 @@ void Level::startGame(bool a)
 
 void Level::renderCustomers()
 {
-	/*for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 5; i++) {
 		customers[i].renderModel(lineOccupied, seatOccupied);
-	}*/
+	}
 
-	customers[0].renderModel(lineOccupied, seatOccupied);
+	//customers[0].renderModel(lineOccupied, seatOccupied);
 	//customers[1].renderModel(lineOccupied, seatOccupied);
 }
 
