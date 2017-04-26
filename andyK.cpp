@@ -72,22 +72,21 @@ Customer::Customer()
 
 void Customer::reset()
 {
-    xPos1 = 74;
+	xPos1 = 74;
     xPos2 = 170;
     yPos1 = 498;
-    yPos2 = 594;
-    srand(time(NULL));
+    yPos2 = 594; 
     foodChoice = rand() % 4 + 1;
-    modelNum = rand() % 4 + 1;
+    modelNum = (rand() % 100 + 1) % 4 + 1;
     seatNum = 1;
     inLine = false;
     inSeat = false;
     hasFood = false;
     isEating = false;
     finishFood = false;
-    leave = false;
-	assignSeat = true;
-
+    leave = true;
+    assignSeat = true;
+    moveToSeat = false;
 }
 
 void Customer::setInLine(bool a) {
@@ -131,7 +130,7 @@ void Customer::renderModel(bool &line, bool seat[])
 	waitTime = pauseTime - startTime;
 
 
-    if (!leave) {
+    if (leave == false) {
         if (inLine) {
 			line = true;
             finishFood = false;
@@ -259,6 +258,8 @@ void Customer::renderModel(bool &line, bool seat[])
 
 
             if (finishFood) {
+				seat[seatNum-1] = false;
+				reset();
                 //inLine = true;
 				/*glTexCoord2f(0.0f, 0.0f); 
 				glTexCoord2f(0.0f, 0.0f);
@@ -272,6 +273,7 @@ void Customer::renderModel(bool &line, bool seat[])
             glPopMatrix();
         }
     }
+
 }
 
 Level::Level()
@@ -299,6 +301,16 @@ void Level::makeNewLevel(int n)
 
 }
 
+Customer Level::getCustomer(int n)
+{
+	return customers[n];
+}
+
+void Level::setCustomerLeave(int n)
+{
+	customers[n].setFinishFood(true);
+}
+
 bool Level::checkLine()
 {
 	return lineOccupied;
@@ -321,12 +333,8 @@ void Level::startGame(bool a)
 
 void Level::renderCustomers()
 {
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 5; i++)
 		customers[i].renderModel(lineOccupied, seatOccupied);
-	}
-
-	//customers[0].renderModel(lineOccupied, seatOccupied);
-	//customers[1].renderModel(lineOccupied, seatOccupied);
 }
 
 void Level::printLine()

@@ -54,10 +54,13 @@ class Level
 		bool complete;
 		bool lineOccupied; 
 		bool seatOccupied[4]; 
-        Customer *customers;
+		Customer *customers;
+
     public:
         Level();
 		void makeNewLevel(int n);
+		Customer getCustomer(int n);
+		void setCustomerLeave(int n);
 		bool checkLine();
 		bool checkTables();
 		void renderCustomers();
