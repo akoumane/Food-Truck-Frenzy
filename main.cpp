@@ -101,7 +101,7 @@ int title_screen=0;
 const int X_Dem = 7;	// Dimension for Grid
 const int Y_Dem = 5;	// Dimension for Grid
 
-Customer *customer;
+//Customer *customer;
 Ppmimage *backgroundImage = NULL;
 Grid *grid;
 Player *p1;
@@ -129,12 +129,12 @@ int main(void)
     initXWindows();
     initOpengl();
 
-    customer = new Customer();
+    //customer = new Customer();
 	grid = new Grid(Y_Dem,X_Dem);
 	p1 = new Player(4, 253);
 
-    //clock_gettime(CLOCK_REALTIME, &timePause);
-    //clock_gettime(CLOCK_REALTIME, &timeStart);
+    clock_gettime(CLOCK_REALTIME, &timePause);
+    clock_gettime(CLOCK_REALTIME, &timeStart);
 
     //object(box);
     //drawbox(&box);
@@ -440,10 +440,10 @@ void checkKeys(XEvent *e)
 		#ifdef RENDERTEST
 		case XK_q:
         	//customer->setModelNum(1);
-        	customer->setFinishFood(true);
+        	//customer->setFinishFood(true);
        		break;
     	case XK_w:
-        	customer->reset();
+        	//customer->reset();
         break;	
 		#endif
 		case XK_Escape:
