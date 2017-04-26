@@ -33,9 +33,9 @@ void Box::makebox(int x1, int x2, int y1, int y2)
     xPos2=x2;
     yPos1=y1;
     yPos2=y2;
-    glTexCoord2f(0.0f, 1.0f); glVertex2i(xPos1, yPos1);
-    glTexCoord2f(0.0f, 0.0f); glVertex2i(xPos1, yPos2);
-    glTexCoord2f(1.0f, 0.0f); glVertex2i(xPos2, yPos2);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos1);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos2);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos2);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
 }
 
@@ -45,9 +45,9 @@ void Box::drawtable(int x1, int x2, int y1, int y2)
     glEnable(GL_TEXTURE_2D);
     //glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
     glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f); glVertex2i(x2, y1);
-    glTexCoord2f(0.0f, 0.0f); glVertex2i(x2, y2);
-    glTexCoord2f(1.0f, 0.0f); glVertex2i(x1, y2);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(x2, y1);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(x2, y2);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y2);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
     glEnd();
     glPopMatrix();
@@ -57,7 +57,7 @@ void Box::drawtable(int x1, int x2, int y1, int y2)
 
 void Box::gettable()
 {
-    for (int i; i<4; i++)
+    for (int i=0; i<4; i++)
     {
 	switch (i) {
 	    case 0:
@@ -66,15 +66,15 @@ void Box::gettable()
 		break;
 	    case 1:
 		makebox(669, 764, 253, 348);
-		drawtable(3, 98, 253, 348);
+		drawtable(669, 764, 253, 348);
 		break;
 	    case 2:
 		makebox(3, 98, 49, 144);
-		drawtable(3, 98, 253, 348);
+		drawtable(3, 98, 49, 144);
 		break;
 	    case 3:
 		makebox(669, 764, 49, 144);
-		drawtable(3, 98, 253, 348);
+		drawtable(669, 764, 49, 144);
 		break;
 
 	}
