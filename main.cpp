@@ -71,7 +71,7 @@ GLuint png_texture_load(const char * file_name, int * width, int * height);
 
 //-----------------------------------------------------------------------------
 //Setup timers
-const double physicsRate = 1.0 / 30.0;
+const double physicsRate = 1.0 / 60.0;
 const double oobillion = 1.0 / 1e9;
 struct timespec timeStart, timeCurrent;
 struct timespec timePause;
@@ -171,18 +171,19 @@ int main(void)
 		while (physicsCountdown >= physicsRate) {
 			//6. Apply physics
 			physics();
+			renderWaiter(p1->ypos, p1->xpos);
 			//7. Reduce the countdown by our physics-rate
 			physicsCountdown -= physicsRate;
 		}
 		//Always render every frame.
 
 		render();
-
+		//renderWaiter(p1->ypos, p1->xpos);
 		#ifdef RENDERTEST
 
 		if (level->getStart()) {
 			level->renderCustomers();
-		}		
+		}
 
 		//renderCustomers();
 		//renderFoods();
@@ -331,6 +332,7 @@ void initOpengl(void)
 
 	makeCustomers();
     makeFoods();
+	makeWaiter();
 }
 
 void checkResize(XEvent *e)
@@ -417,28 +419,24 @@ void checkKeys(XEvent *e)
 		case XK_Left:
 			p1->moveLeft();
 			cout << "Move Left\n";
-			renderWaiter(4,253);
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Right:
 			p1->moveRight(X_Dem);
 			cout << "Move Right\n";
-			renderWaiter(p1->ypos, p1->xpos);
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Up:
-			p1->moveUp();
-			cout << "Move Up\n";
-			renderWaiter(p1->ypos, p1->xpos);
+			p1->moveDown(Y_Dem);
+			cout << "Move Down\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Down:
-			p1->moveDown(Y_Dem);
+			p1->moveUp();
 			cout << "Move Down\n";
-			renderWaiter(p1->ypos, p1->xpos);
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
@@ -450,11 +448,11 @@ void checkKeys(XEvent *e)
 			level->startGame(true);
        		break;
     	case XK_w:
-			level->printLine();	
+			level->printLine();
 			break;
 		case XK_e:
 			level->printSeat();
-			break;	
+			break;
 		#endif
 		case XK_Escape:
 	    	done=1;
