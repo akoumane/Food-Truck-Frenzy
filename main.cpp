@@ -178,7 +178,7 @@ int main(void)
 		#ifdef RENDERTEST
 		//renderCustomers();
 		//renderFoods();
-		customer->renderModel();
+		//customer->renderModel();
 		#endif
 
 		glXSwapBuffers(dpy, win);

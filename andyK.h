@@ -34,5 +34,28 @@ class Customer
 		void setHasFood (bool a);
 		void setIsEating (bool a);
 		void setFinishFood (bool a);
-		void renderModel();
+		void renderModel(bool line, bool seat[]);
+};
+
+class Level
+{
+    private:
+        int levelNum;
+		int customerGoal;
+        int serveCount;
+		int custCount;
+		double custMultiplier;
+        bool start;
+		bool complete;
+		bool lineOccupied; 
+		bool seatOccupied[4]; 
+        Customer *customers;
+    public:
+        Level();
+		void makeNewLevel(int n);
+		bool checkLine();
+		bool checkTables();
+		void renderCustomers();
+        void renderFood();
+		void increaseServeCount();
 };

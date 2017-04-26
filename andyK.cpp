@@ -118,7 +118,7 @@ void Customer::setFinishFood (bool a) {
 	finishFood = a;
 }
 
-void Customer::renderModel()
+void Customer::renderModel(bool line, bool seat[])
 {
 	double waitTime = pauseTime - startTime;
     if (!leave) {
@@ -242,26 +242,47 @@ void Customer::renderModel()
     }
 }
 
-class Level
+Level::Level()
 {
-	private:
-		int levelNum;
-		int serveCount;
-		bool start;
-		Customer customers[];
-	public:
-		Level(int numLevel)
-		{
-			levelNum = numLevel;
-			serveCount = 0;
-			start = false;
-		}
-		
-		void renderFood()
-		{
-			//reserved to render food images
-		}
-};
+	custCount = 30;
+	customers = new Customer[5];
+}
+
+void Level::makeNewLevel(int n)
+{
+	levelNum = n;
+	custMultiplier = 0.5 * n;
+	customerGoal = (int)custMultiplier * custCount;
+	start = false;
+	complete = false;
+
+	serveCount = 0;
+
+	lineOccupied = false;
+
+	for (int i = 0; i < 4; i++) {
+		seatOccupied[i] = false;
+	}
+
+
+}
+
+bool Level::checkLine()
+{
+	return lineOccupied;
+}
+
+bool Level::checkTables()
+{
+	return seatOccupied;
+}
+
+void Level::renderCustomers()
+{
+	for (int i = 0; i < 5; i++) {
+		customers[i].renderModel(lineOccupied, seatOccupied);
+	}
+}
 
 void makeCustomers()
 {
