@@ -223,18 +223,21 @@ void Customer::renderModel()
 					glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos1);
                     break;
             }
+			
 
-
-
-            glEnd();
-            glPopMatrix();
 
             if (finishFood) {
                 //inLine = true;
-                glDisable(GL_TEXTURE_2D);
+				/*glTexCoord2f(0.0f, 0.0f); 
+				glTexCoord2f(0.0f, 0.0f);
+				glTexCoord2f(0.0f, 0.0f);
+				glTexCoord2f(0.0f, 0.0f);*/
+				glDisable(GL_TEXTURE_2D);
                 leave = true;
             }
-
+            
+			glEnd();
+            glPopMatrix();
         }
     }
 }
