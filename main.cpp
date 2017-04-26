@@ -139,42 +139,49 @@ int main(void)
     //object(box);
     //drawbox(&box);
     while (!done) {
-	while (XPending(dpy)) {
-	    XEvent e;
-	    XNextEvent(dpy, &e);
-	    checkResize(&e);
-	    checkMouse(&e);
-	    checkKeys(&e);
-	}
-	//
-	//Below is a process to apply physics at a consistent rate.
-	//1. Get the time right now.
-	clock_gettime(CLOCK_REALTIME, &timeCurrent);
-	//2. How long since we were here last?
-	timeSpan = timeDiff(&timeStart, &timeCurrent);
-	//3. Save the current time as our new starting time.
-	timeCopy(&timeStart, &timeCurrent);
-	//4. Add time-span to our countdown amount.
-	physicsCountdown += timeSpan;
-	//5. Has countdown gone beyond our physics rate?
-	//       if yes,
-	//           In a loop...
-	//              Apply physics
-	//              Reducing countdown by physics-rate.
-	//              Break when countdown < physics-rate.
-	//       if no,
+		while (XPending(dpy)) {
+			XEvent e;
+			XNextEvent(dpy, &e);
+			checkResize(&e);
+			checkMouse(&e);
+			checkKeys(&e);
+		}
+		//
+		//Below is a process to apply physics at a consistent rate.
+		//1. Get the time right now.
+		clock_gettime(CLOCK_REALTIME, &timeCurrent);
+		//2. How long since we were here last?
+		timeSpan = timeDiff(&timeStart, &timeCurrent);
+		//3. Save the current time as our new starting time.
+		timeCopy(&timeStart, &timeCurrent);
+		//4. Add time-span to our countdown amount.
+		physicsCountdown += timeSpan;
+		//5. Has countdown gone beyond our physics rate?
+		//       if yes,
+		//           In a loop...
+		//              Apply physics
+		//              Reducing countdown by physics-rate.
+		//              Break when countdown < physics-rate.
+		//       if no,
 
-	//Apply no physics this frame.
-	while (physicsCountdown >= physicsRate) {
-	    //6. Apply physics
-	    physics();
-	    //7. Reduce the countdown by our physics-rate
-	    physicsCountdown -= physicsRate;
-	}
-	//Always render every frame.
+		//Apply no physics this frame.
+		while (physicsCountdown >= physicsRate) {
+			//6. Apply physics
+			physics();
+			//7. Reduce the countdown by our physics-rate
+			physicsCountdown -= physicsRate;
+		}
+		//Always render every frame.
 
-	render();
-	glXSwapBuffers(dpy, win);
+		render();
+
+		#ifdef RENDERTEST
+		//renderCustomers();
+		//renderFoods();
+		customer->renderModel();
+		#endif
+
+		glXSwapBuffers(dpy, win);
     }
     cleanupXWindows();
     cleanup_fonts();
@@ -314,7 +321,7 @@ void initOpengl(void)
 	    backgroundImage->width, backgroundImage->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, backgroundImage->data);
 
-	makeWaiter();
+	makeCustomers();
     makeFoods();
 }
 
@@ -430,17 +437,17 @@ void checkKeys(XEvent *e)
 		case XK_g:
 			grid->printGrid();
 			break;
-	#ifdef RENDERTEST
-	case XK_q:
-		clock_gettime(CLOCK_REALTIME, &timeStart);
-		clock_gettime(CLOCK_REALTIME, &timePause);
-		while(timeDiff(&timeStart, &timePause) < 1.0)
-			clock_gettime(CLOCK_REALTIME, &timePause);
-		customer->setInLine(false);
-	    break;
-	#endif
-	case XK_Escape:
-	    done=1;
+		#ifdef RENDERTEST
+		case XK_q:
+        	//customer->setModelNum(1);
+        	customer->setFinishFood(true);
+       		break;
+    	case XK_w:
+        	customer->reset();
+        break;	
+		#endif
+		case XK_Escape:
+	    	done=1;
 	    break;
     }
 }
@@ -495,13 +502,7 @@ void render(void)
 		glEnd();
     }
 
-	renderWaiter(253, 4);
 
-	#ifdef RENDERTEST
-	//renderCustomers();
-	//renderFoods();
-	customer->renderModel();
-	#endif
 	//object(&box);
 	//drawbox(&box);
 

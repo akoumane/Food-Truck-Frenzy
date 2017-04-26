@@ -14,17 +14,21 @@ class Customer
         //random number will be chosen for model
         int modelNum;
 
-	//random number will be chosen for seat
-	int seatNum;
+		//random number will be chosen for seat
+		int seatNum;
+
+		double startTime, pauseTime;
 
         bool inLine;
         bool inSeat;
         bool hasFood;
         bool isEating;
         bool finishFood;
+		bool leave;
 
 	public:
 		Customer();
+		void reset();
 		void setInLine(bool a); 
 		void setInSeat (bool a); 
 		void setHasFood (bool a);
