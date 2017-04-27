@@ -122,6 +122,7 @@ Level *level;
 Ppmimage *backgroundImage = NULL;
 Grid *grid;
 Player *p1;
+Box *b1;
 //customer spawn testing
 /*Ppmimage *customerStanding1 = NULL;
   Ppmimage *customerSitting1 = NULL;
@@ -153,7 +154,7 @@ int main(void)
     level->makeNewLevel(1);
     grid = new Grid(Y_Dem,X_Dem);
     p1 = new Player(4, 253);
-
+	b1= new Box();
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
 
@@ -209,6 +210,7 @@ int main(void)
 	    else{
 		render();
 		renderWaiter(p1->ypos, p1->xpos);
+		//b1->getwaiter(); //need it when acture use
 		#ifdef RENDERTEST
 
 		if (level->getStart()) {
@@ -463,24 +465,29 @@ void checkKeys(XEvent *e)
 
 		case XK_Left:
 			p1->moveLeft();
+			b1->movewLeft();
+			
 			cout << "Move Left\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Right:
 			p1->moveRight();
+			b1->movewRight();
 			cout << "Move Right\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Up:
 			p1->moveDown();
+			b1->movewDown();
 			cout << "Move Down\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Down:
 			p1->moveUp();
+			b1->movewUp();
 			cout << "Move Down\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
@@ -566,8 +573,7 @@ void render(void)
 		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
 		glEnd();
     }
-
-
+//b1->gettable(); //need it when acture use
 
 /*
     if(title_screen == true) {

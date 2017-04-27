@@ -19,221 +19,279 @@
 #include <time.h>
 using namespace std;
 Box::Box() {
-    xPos1 = 100;
-    xPos2 = 100;
-    yPos1 = 100;
-    yPos2 = 100;
+	xPos1 = 100;
+	xPos2 = 100;
+	yPos1 = 100;
+	yPos2 = 100;
+	col = false;
+	//x1pos for table
+	tablexpos1[0]=13;
+	tablexpos1[1]=536;
+	tablexpos1[2]=13;
+	tablexpos1[3]=536;
+	//x2pos for table
+	tablexpos2[0]=225;
+	tablexpos2[1]=754;
+	tablexpos2[2]=225;
+	tablexpos2[3]=754;
+	//y1pos for table
+	tableypos1[0]=225;
+	tableypos1[1]=225;
+	tableypos1[2]=25;
+	tableypos1[3]=25;
+	//y2pos for table
+	tableypos2[0]=370;
+	tableypos2[1]=370;
+	tableypos2[2]=170;
+	tableypos2[3]=170;
+	//pos for stable;
+	//x1pos for stable
+	stablexpos1[0]=467;
+	stablexpos1[1]=585;
+	//x2pos for stable
+	stablexpos2[0]=584;
+	stablexpos2[1]=705;
+	//y1pos for stable
+	stableypos1[0]=533;
+	stableypos1[1]=533;
+	//y2pos for stable
+	stableypos2[0]=623;
+	stableypos2[1]=623;
+	//start pos for waiter
+	wxpos1=253;
+	wypos1=4;
 }
-/*
-void Box::gettableposition(int x1, int x2, int y1, int y2)
-{
-    for(int i =0; i < 4; i++)
-    {
-	tablexpos1[i]=x1;
-	tablexpos2[i]=x2;
-	tableypos1[i]=y1;
-	tableypos2[i]=y2;
-	gettx1();
-	gettx2();
-	getty1();
-	getty2();
-    }
-}
-
-void Box::getstableposition(int x1, int x2, int y1, int y2)
-{
-    for(int i =0; i < 2; i++)
-    {
-	stablexpos1[i]=x1;
-	stablexpos2[i]=x2;
-	stableypos1[i]=y1;
-	stableypos2[i]=y2;
-	//getstx1();
-	//getstx2();
-	//getsty1();
-	//getsty2();
-    }
-
-}
-
-void Box::getwposition(int x1, int y1)
-{
-    wxpos1=x1;
-    wypos1=y1;
-    getwx1();
-    getwy1();
-
-}
-*/
 void Box::makebox(int x1, int x2, int y1, int y2)
 {
-    //Position.p;
-    xPos1=x1;
-    xPos2=x2;
-    yPos1=y1;
-    yPos2=y2;
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos1);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos2);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos2);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
+	xPos1=x1;
+	xPos2=x2;
+	yPos1=y1;
+	yPos2=y2;
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos1);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos2);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos2);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
 }
 
 
 void Box::makewaiter(int x1, int y1)
 {
-    //Position.p;
-    xPos1=x1;
-    //xPos2=x2;
-    yPos1=y1;
-    //yPos2=y2;
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1+95);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1+95);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1);
-    //glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos1);
-    //glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos2);
-    //glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos2);
-    //glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
-    // gettableposition(xPos1, xPos2, yPos1, yPos2);
+	xPos1=x1;
+	yPos1=y1;
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1+95);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1+95);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1);
 }
 void Box::drawtable(int x1, int x2, int y1, int y2)
 {
-    glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
-    //glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
-    glBegin(GL_QUADS);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x2, y1);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x2, y2);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y2);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
-    glEnd();
-    glPopMatrix();
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x2, y1);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x2, y2);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y2);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
+	glEnd();
+	glPopMatrix();
 
 
 }
 void Box::drawwaiter(int x1, int y1)
 {
-    glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
-    //glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
-    glBegin(GL_QUADS);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1+95);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1+95);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1);
-    glEnd();
-    glPopMatrix();
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1+95);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1+95);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1);
+	glEnd();
+	glPopMatrix();
 }
 void Box::gettable()
 {
-    //draw table
-    for (int i=0; i<4; i++)
-    {
-	switch (i) 
+	//draw table
+	for (int i=0; i<4; i++)
 	{
-	    case 0:
-		makebox(13, 225, 225, 370);
-		drawtable(13, 225,225, 370);
-     		break;
-	    case 1:
-		makebox(536, 754, 224, 370);
-		drawtable(536, 754, 224, 370);
-		break;
-	    case 2:
-		makebox(13, 225, 25, 170);
-		drawtable(13, 225, 25, 170);
-		break;
-	    case 3:
-		makebox(536, 754, 24, 170);
-		drawtable(536, 754, 24, 170);
-		break;
+		switch (i) 
+		{
+			case 0:
+				makebox(13, 225, 225, 370);
+				break;
+			case 1:
+				//www.cs.csubak.edu/rawtable(13, 225,225, 370);
+				drawtable(536, 754, 224, 370);
+				drawtable(13, 225, 25, 170);
+				drawtable(536, 754, 24, 170);
+				makebox(536, 754, 224, 370);
+				break;
+			case 2:
+				makebox(13, 225, 25, 170);
+				break;
+			case 3:
+				makebox(536, 754, 24, 170);
+				break;
 
+		}
 	}
-    }
 
-    //showItem();
-    //draw side table
-    makebox(467, 584, 533, 623);
-    drawtable(467, 584, 533, 623);
-    makebox(585, 705, 533, 623);
-    drawtable(585, 705, 533, 623);
+	//showItem();
+	//draw side table
+	makebox(467, 584, 533, 623);
+	makebox(585, 705, 533, 623);
 
-    //draw waiter
-    makewaiter(253, 4);
-    drawwaiter(253, 2453);
+	//draw waiter
+	//makewaiter(253, 4);
+	//drawwaiter(253, 4);
+	//    makewaiter(wxpo1, wypo1);
+	//  drawwaiter(wxpo1, wypo1);
+}
+void Box::getwaiter()
+{
+	makewaiter(wxpos1, wypos1);
 }
 
+bool Box::colwithRight()
+{
+	//int wxpos2=wxpos1+95;
+	int wypos2=wypos1+95;
+	for(int i=0; i<4; i++)
+		if((wxpos1 >= tablexpos1[i] && wxpos1 <= tablexpos2[i]) &&
+		  ((wypos2 >= tableypos1[i] && wypos2 <= tablexpos2[i]) ||
+		   (wypos1 >= tableypos1[i] && wypos1 <= tableypos2[i])))
+		{
+			col = true;
+		}
+	return col;
+}
+bool Box::colwithLeft()
+{
+	int wxpos2=wxpos1+95;
+	int wypos2=wypos1+95;
+	for(int i=0; i<4;i++)
+		if(wxpos2 >= tablexpos1[i] && wxpos2 <= tablexpos2[i] &&
+		  ((wypos2 >= tableypos1[i] && wypos2 <= tablexpos2[i]) ||
+   		   (wypos1 >= tableypos1[i] && wypos1 <= tableypos2[i])))
+		{
+			col = true;
+		}
+	return col;
+}
+bool Box::colwithUp()
+{
+	int wxpos2=wxpos1+95;
+	//int wypos2=wypos1+95;
+	for(int i=0; i<4; i++)
+		if((wypos1 >= tableypos1[i] && wypos1 <= tableypos2[i]) &&
+		  ((wxpos1 >= tablexpos1[i] && wxpos1 <= tablexpos2[i]) ||
+		   (wxpos2 >= tablexpos1[i] && wxpos2 <= tablexpos2[i])))
+		{
+			col = true;
+		}
+	
+	return col;
+}
+bool Box::colwithDown()
+{
+	int wxpos2=wxpos1+95;
+	int wypos2=wxpos2+95;
+	for(int i=0; i<4; i++)
+		if((wypos2 >= tableypos1[i] && wypos2 <= tableypos2[i]) &&
+		  ((wxpos1 >= tablexpos1[i] && wxpos1 <= tablexpos2[i]) ||
+		   (wxpos2 >= tablexpos1[i] && wxpos2 <= tablexpos2[i])))
+		{
+			col = true;
+		}
+	//for sidebox only col down
+	for(int i=0; i<4; i++)
+		if((wypos2 >= stableypos1[i] && wypos2 <= stableypos2[i]) &&
+		  ((wxpos1 >= stablexpos1[i] && wxpos1 <= stablexpos2[i]) ||
+		   (wxpos2 >= stablexpos1[i] && wxpos2 <= stablexpos2[i])))
+		{
+			col = true;
+		}
+	return col;
+}
+/*
 bool Box::colwithtable()
 {
-    bool col=false;
-    int wxpos2=wxpos1+95;
-    int wypos2=wxpos2+95;
-    for (int i=0; i<4; i++)
-    {
-	if(wxpos1 >= tablexpos1[i] && wxpos2 <= tablexpos2[i] &&
-		wypos1 >= tableypos1[i] && wypos2 <= tableypos2[i])
+	bool col=false;
+	int wxpos2=wxpos1+95;
+	int wypos2=wxpos2+95;
+	for (int i=0; i<4; i++)
 	{
-	    return true;
-	}
+		if(wxpos1 >= tablexpos1[i] && wxpos2 <= tablexpos2[i] &&
+				wypos1 >= tableypos1[i] && wypos2 <= tableypos2[i])
+		{
+			return true;
+		}
 
-    }
-    return col;
+	}
+	return col;
 }
 
 bool Box::colwithstable()
 {
-    int wxpos2=wxpos1+95;
-    int wypos2=wxpos2+95;
-    bool col=false;
-    for(int i=0; i<4;i++)
-	if(wxpos1 >= stablexpos1[i] && wxpos2 <= stablexpos2[i] &&
-		wypos1 >= stableypos1[i] && wypos2 <= stableypos2[i])
-	{
-	    return true;
-	}
-    return col;
+	int wxpos2=wxpos1+95;
+	int wypos2=wxpos2+95;
+	bool col=false;
+	for(int i=0; i<4;i++)
+		if(wxpos1 >= stablexpos1[i] && wxpos2 <= stablexpos2[i] &&
+				wypos1 >= stableypos1[i] && wypos2 <= stableypos2[i])
+		{
+			return true;
+		}
+	return col;
 }
-void Box::movewup()
-{
-    wxpos1 = wxpos1-5;
-}
-void Box::movewdown()
-{
-    wxpos1 = wxpos1+5;
-}
-void Box::movewleft()
-{
-    wypos1 = wypos1-5;
-}
-void Box::movewright()
-{
-    wypos1 = wypos1+5;
-}
-
-
-/*#ifdef RENDERTEST
-  void Box::showItem()
-  {
-  for (int i=0; i<4; i++)
-  {
-  switch (i) 
-  {
-  case 0:
-  drawtable(13, 225,225, 370);
-  break;
-  case 1:
-  drawtable(536, 754, 224, 370);
-  break;
-  case 2:
-  drawtable(13, 225, 25, 170);
-  break;
-  case 3:
-  drawtable(536, 754, 24, 170);
-  break;
-
-  }
-  }
-  }
-//#endif
 */
+void Box::movewUp()
+{
+	wypos1 = wypos1-5;
+}
+
+void Box::movewDown()
+{
+	wypos1 = wypos1+5;
+}
+
+void Box::movewLeft()
+{
+	wxpos1 = wxpos1-5;
+}
+
+void Box::movewRight()
+{
+	wxpos1 = wxpos1+5;
+}
+
+
+#ifdef RENDERTEST
+void Box::showItem()
+{
+	for (int i=0; i<4; i++)
+	{
+		switch (i) 
+		{
+			case 0:
+				drawtable(13, 225,225, 370);
+				break;
+			case 1:
+				drawtable(536, 754, 224, 370);
+				break;
+			case 2:
+				drawtable(13, 225, 25, 170);
+				break;
+			case 3:
+				drawtable(536, 754, 24, 170);
+				break;
+
+		}
+	}
+	drawwaiter(wxpos1, wypos1);
+	drawtable(467, 584, 533, 623);
+	drawtable(585, 705, 533, 623);
+}
+#endif
+
 
