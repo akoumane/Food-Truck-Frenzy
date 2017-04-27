@@ -18,11 +18,60 @@
 #include "log.h"
 #include "ppm.h"
 #include "brandonP.h"
+#include "andyK.h"
 extern "C" {
 #include "fonts.h"
 }
 using namespace std;
 
+#define YMAX
+#define XMAX
+/*
+void Food::makeFood()
+{
+    burgerOnSide = ppm6GetImage("burgeronplateonside.ppm");
+    glGenTextures(1, &burgerOnSideTexture);
+
+	//Burger on side of truck
+    glBindTexture(GL_TEXTURE_2D, burgerOnSideTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    burgerOnSide->width, burgerOnSide->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, burgerOnSide->data);
+}
+*/
+Food::Food()
+{
+	on_side = 1;
+	on_table = 0;
+	moving = 0;
+	ypos = 555;
+	xpos = 482;
+	//makeFood();
+}
+/*
+void Food::renderFood()
+{
+	switch(food_id) {
+		case 1:
+			glPushMatrix();
+			glEnable(GL_TEXTURE_2D);
+			if (on_side)
+				glBindTexture(GL_TEXTURE_2D, burgeronplateonside_texture);
+			if (on_table)
+				glBindTexture(GL_TEXTURE_2D, burgerontable_texture);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
+			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+95);
+		    glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+95, ypos+95);
+		    glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+95, ypos);
+		    glEnd();
+		    glPopMatrix();
+	}
+}
+*/
 // Rendering waiter
 Ppmimage *waiter = NULL;
 GLuint waiterTexture;
@@ -118,17 +167,17 @@ Player::Player(int y, int x)
 }
 void Player::moveLeft()
 {
-//	if (xpos - 1 < 0)
-//		return;
+	//if (xpos - 1 < 0)
+		//return;
 	xpos = xpos - 5;
 }
-void Player::moveRight(int x)	// Parameter is X_Dem
+void Player::moveRight()	// Parameter is X_Dem
 {
 //	if (ypos + 1 >= x)
 //		return;
 	xpos = xpos + 5;
 }
-void Player::moveDown(int y)	// Parameter is Y_Dem
+void Player::moveDown()	// Parameter is Y_Dem
 {
 //	if (ypos + 1 >= y)
 //		return;

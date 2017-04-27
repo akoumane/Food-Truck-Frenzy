@@ -4,6 +4,36 @@ void cleanUp();
 void makeWaiter();
 void renderWaiter(int ypos, int xpos);
 
+class Food
+{
+    private:
+        int food_id;
+        int ypos;
+        int xpos;
+        bool on_side;
+        bool on_table;
+        bool moving;
+        Ppmimage *burgeronplateonside;
+        Ppmimage *burgerontable;
+        Ppmimage *hotdogonplateonside;
+        Ppmimage *hotdogontable;
+        Ppmimage *pizzaonplateonside;
+        Ppmimage *pizzaontable;
+        GLuint burgeronplateonside_texture;
+        GLuint burgerontable_texture;
+        GLuint hotdogonplateonside_texture;
+        GLuint hotdogontable_texture;
+        GLuint pizzaonplateonside_texture;
+        GLuint pizzaontable_texture;
+    public:
+        Food();
+        void renderFood(bool in_seat, int seat_num, int arr[]);
+        void makeFood();
+        void setPos(int y, int x);
+
+
+};
+
 class Grid
 {
     // ID Guide
@@ -32,8 +62,8 @@ class Player
     //public:
         Player(int y, int x);
         void moveLeft();
-        void moveRight(int x);
-        void moveDown(int y);
+        void moveRight();
+        void moveDown();
         void moveUp();
         int xPos();
         int yPos();
