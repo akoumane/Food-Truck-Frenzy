@@ -30,6 +30,11 @@
 #include "jinxuH.h"
 #include "jinxuHN.h"
 #include "abdulelahA.h"
+#define USE_OPENAL_SOUND
+#ifdef USE_OPENAL_SOUND
+#include </usr/include/AL/alut.h>
+#endif
+
 using namespace std;
 
 extern "C" {
@@ -70,6 +75,8 @@ void render(void);
 //void makeWaiter();
 GLuint png_texture_load(const char * file_name, int * width, int * height);
 
+
+
 //-----------------------------------------------------------------------------
 //Setup timers
 const double physicsRate = 1.0 / 60.0;
@@ -88,9 +95,16 @@ void timeCopy(struct timespec *dest, struct timespec *source) {
 }
 //-----------------------------------------------------------------------------
 
+extern void initSound();
+extern void cleanupSound();
+extern void playSound(ALuint source);
+extern struct Global {
+        ALuint alBufferBeep, alBufferButton;
+        ALuint alSourceBeep, alSourceButton;
+} b;
 
 
-
+//-----------------------------------------------------------------------------
 
 
 //global variables
