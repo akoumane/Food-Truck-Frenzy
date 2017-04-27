@@ -1,2 +1,0 @@
-//Jinxu Han
-#include <iostream>
