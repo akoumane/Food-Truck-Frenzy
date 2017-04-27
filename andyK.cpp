@@ -505,7 +505,7 @@ void renderCustomers()
     glEnd();
 	glPopMatrix();
 }
-
+/*
 void renderFoods()
 {
     glPushMatrix();
@@ -530,4 +530,5 @@ void renderFoods()
     glEnd();
 	glPopMatrix();
 }
+*/
 #endif
