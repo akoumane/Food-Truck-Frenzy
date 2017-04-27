@@ -28,7 +28,6 @@
 #include "brandonM.h"
 #include "brandonP.h"
 #include "jinxuH.h"
-#include "jinxuH.h"
 #include "abdulelahA.h"
 #ifdef USE_OPENAL_SOUND
 #include </usr/include/AL/alut.h>
@@ -99,8 +98,8 @@ extern void initSound();
 extern void cleanupSound();
 extern void playSound(ALuint source);
 extern struct Global {
-        ALuint alBufferBeep, alBufferButton;
-        ALuint alSourceBeep, alSourceButton;
+    ALuint alBufferBeep, alBufferButton;
+    ALuint alSourceBeep, alSourceButton;
 } b;
 
 #endif
@@ -125,81 +124,95 @@ Grid *grid;
 Player *p1;
 //customer spawn testing
 /*Ppmimage *customerStanding1 = NULL;
-Ppmimage *customerSitting1 = NULL;
-Ppmimage *customerSitting2 = NULL;
-Ppmimage *customerSitting3 = NULL;
-Ppmimage *customerSitting4 = NULL;
-GLuint customerStandingTexture1;
-GLuint customerSittingTexture1;
-GLuint customerSittingTexture2;
-GLuint customerSittingTexture3;
-GLuint customerSittingTexture4;*/
+  Ppmimage *customerSitting1 = NULL;
+  Ppmimage *customerSitting2 = NULL;
+  Ppmimage *customerSitting3 = NULL;
+  Ppmimage *customerSitting4 = NULL;
+  GLuint customerStandingTexture1;
+  GLuint customerSittingTexture1;
+  GLuint customerSittingTexture2;
+  GLuint customerSittingTexture3;
+  GLuint customerSittingTexture4;*/
 GLuint backgroundTexture;
 int background=1;
 
 int main(void)
 {
-	// Clear terminal
-	system("clear");
+    // Clear terminal
+    system("clear");
     logOpen();
     imageConvert();
     initXWindows();
     initOpengl();
 #ifdef USE_OPENAL_SOUND
-	initSound();
+    initSound();
 #endif
 
     //customer = new Customer();
-	level = new Level();
-	level->makeNewLevel(1);
-	grid = new Grid(Y_Dem,X_Dem);
-	p1 = new Player(4, 253);
+    level = new Level();
+    level->makeNewLevel(1);
+    grid = new Grid(Y_Dem,X_Dem);
+    p1 = new Player(4, 253);
 
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
 
     while (!done) {
-		while (XPending(dpy)) {
-			XEvent e;
-			XNextEvent(dpy, &e);
-			checkResize(&e);
-			checkMouse(&e);
-			checkKeys(&e);
-		}
-		//
-		//Below is a process to apply physics at a consistent rate.
-		//1. Get the time right now.
-		clock_gettime(CLOCK_REALTIME, &timeCurrent);
-		//2. How long since we were here last?
-		timeSpan = timeDiff(&timeStart, &timeCurrent);
-		//3. Save the current time as our new starting time.
-		timeCopy(&timeStart, &timeCurrent);
-		//4. Add time-span to our countdown amount.
-		physicsCountdown += timeSpan;
-		//5. Has countdown gone beyond our physics rate?
-		//       if yes,
-		//           In a loop...
-		//              Apply physics
-		//              Reducing countdown by physics-rate.
-		//              Break when countdown < physics-rate.
-		//       if no,
+	while (XPending(dpy)) {
+	    XEvent e;
+	    XNextEvent(dpy, &e);
+	    checkResize(&e);
+	    checkMouse(&e);
+	    checkKeys(&e);
+	}
+	//
+	//Below is a process to apply physics at a consistent rate.
+	//1. Get the time right now.
+	clock_gettime(CLOCK_REALTIME, &timeCurrent);
+	//2. How long since we were here last?
+	timeSpan = timeDiff(&timeStart, &timeCurrent);
+	//3. Save the current time as our new starting time.
+	timeCopy(&timeStart, &timeCurrent);
+	//4. Add time-span to our countdown amount.
+	physicsCountdown += timeSpan;
+	//5. Has countdown gone beyond our physics rate?
+	//       if yes,
+	//           In a loop...
+	//              Apply physics
+	//              Reducing countdown by physics-rate.
+	//              Break when countdown < physics-rate.
+	//       if no,
 
-		//Apply no physics this frame.
-		while (physicsCountdown >= physicsRate) {
-			//6. Apply physics
-			physics();
-			//renderWaiter(p1->ypos, p1->xpos);
-			//7. Reduce the countdown by our physics-rate
-			physicsCountdown -= physicsRate;
-		}
-		//Always render every frame.
+	//Apply no physics this frame.
+	while (physicsCountdown >= physicsRate) {
+	    //6. Apply physics
+	    physics();
+	    //renderWaiter(p1->ypos, p1->xpos);
+	    //7. Reduce the countdown by our physics-rate
+	    physicsCountdown -= physicsRate;
+	}
+	//Always render every frame.
 
+	if(title_screen == true) {
+	    renderTitleScreen();
+	    TitleScreen();
+	    if (help_menu == 1) {
+			renderHelpScreen();
+			Help_Menu();
+	    }
+	}
+	if(title_screen == false) {
+	    if (state_menu == 1) {
+		renderPauseScreen();
+		Pause_Menu();
+	    }
+	    else{
 		render();
 		renderWaiter(p1->ypos, p1->xpos);
 		#ifdef RENDERTEST
 
 		if (level->getStart()) {
-			level->renderCustomers();
+		    level->renderCustomers();
 		}
 
 		//renderCustomers();
@@ -207,7 +220,10 @@ int main(void)
 		//customer->renderModel();
 		#endif
 
-		glXSwapBuffers(dpy, win);
+	    }
+	}
+
+	glXSwapBuffers(dpy, win);
     }
 #ifdef USE_OPENAL_SOUND
 	cleanupSound();
@@ -351,7 +367,7 @@ void initOpengl(void)
 	    0, GL_RGB, GL_UNSIGNED_BYTE, backgroundImage->data);
 
 	makeCustomers();
-    makeFoods();
+    //makeFoods();
 	makeWaiter();
 }
 
@@ -553,7 +569,7 @@ void render(void)
 
 
 
-
+/*
     if(title_screen == true) {
 	    	renderTitleScreen();
 		TitleScreen();
@@ -562,28 +578,13 @@ void render(void)
 	  Help_Menu();
 	  }
     }
+    */
+    /*
     if(title_screen == false) {
-
-	glDisable(GL_TEXTURE_2D);
-	//glColor3f(1.0f, 0.0f, 0.0f);
-	//glBegin(GL_QUADS);
-	//	glVertex2i(10,10);
-	//	glVertex2i(10,60);
-	//	glVertex2i(60,60);
-	//	glVertex2i(60,10);
-	//glEnd();
-	//return;
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-
 	if (state_menu == 1) {
 	  renderPauseScreen();
 	  Pause_Menu();
 	  }
-
-	glEnable(GL_TEXTURE_2D);
-	/*r.bot = yres - 20;
-	  r.left = 10;
-	  r.center = 0;*/
     }
+    */
 }
