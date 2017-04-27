@@ -113,7 +113,8 @@ extern struct Global {
 int done=0;
 int xres=768, yres=768;
 int state_menu=0;
-int title_screen=0;
+int help_menu=0;
+bool title_screen=true;
 const int X_Dem = 7;	// Dimension for Grid
 const int Y_Dem = 5;	// Dimension for Grid
 
@@ -422,22 +423,28 @@ void checkKeys(XEvent *e)
     }
     switch(key) {
 		case XK_m:
-		    //optimized below
-		    //if(state_menu == 0)
-		    //	state_menu = 1;
-		    //  else
-		    //	state_menu = 0;
-		    state_menu ^= 1;
+		    if (title_screen == false)
+		    	state_menu ^= 1;
 		    break;
 
 		case XK_a:
-#ifdef USE_OPENAL_SOUND
+		    if (title_screen == true) {
+		#ifdef USE_OPENAL_SOUND
 		    playSound(b.alSourceBeep);
-#endif
-		    title_screen ^= 1;
-		    //input_title_screen();
+		#endif
+		    }
+		    title_screen = false;
 		    break;
-		    //add if state_menu disable or rebind the keys
+
+		case XK_h:
+		    if (title_screen == true) {
+		#ifdef USE_OPENAL_SOUND
+		    playSound(b.alSourceBeep);
+		#endif
+		    help_menu ^= 1;
+		    }
+		    break;
+
 		case XK_Left:
 			p1->moveLeft();
 			cout << "Move Left\n";
@@ -547,11 +554,15 @@ void render(void)
 
 
 
-    if(title_screen == 1) {
+    if(title_screen == true) {
 	    	renderTitleScreen();
 		TitleScreen();
+	if (help_menu == 1) {
+	  renderHelpScreen();
+	  Help_Menu();
+	  }
     }
-    if(title_screen == 0) {
+    if(title_screen == false) {
 
 	glDisable(GL_TEXTURE_2D);
 	//glColor3f(1.0f, 0.0f, 0.0f);
@@ -565,9 +576,10 @@ void render(void)
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 
-	/*if (state_menu == 1) {
+	if (state_menu == 1) {
+	  renderPauseScreen();
 	  Pause_Menu();
-	  }*/
+	  }
 
 	glEnable(GL_TEXTURE_2D);
 	/*r.bot = yres - 20;
