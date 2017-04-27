@@ -468,13 +468,13 @@ void checkKeys(XEvent *e)
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Right:
-			p1->moveRight(X_Dem);
+			p1->moveRight();
 			cout << "Move Right\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Up:
-			p1->moveDown(Y_Dem);
+			p1->moveDown();
 			cout << "Move Down\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
