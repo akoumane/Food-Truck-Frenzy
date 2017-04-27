@@ -21,7 +21,7 @@ class Box
     void showItem();
     bool colwithtable();
     bool colwithstable();
-    void gettableposition(int x1, int x2, int y1, int y2);
+    void gettableposition(int i, int x1, int x2, int y1, int y2);
     void getstableposition(int x1, int x2, int y1, int y2);
     void getwposition(int x1, int y1);
     void movewup();
@@ -42,6 +42,7 @@ class Box
     //int wxpos2;
     int wypos1;
     //int wypos2;
+    /*
     int gettx1()
     {
         return *tablexpos1;
@@ -77,7 +78,7 @@ class Box
         return *stableypos2;
     }
 //
-    int getwx1()
+   // int getwx1()
     {
         return wxpos1;
     }
@@ -85,15 +86,16 @@ class Box
     //{
     //    return wxpos2;
    // }
-    int getwy1()
-    {
-        return wypos1;
-    }
+   // int getwy1()
+   // {
+   //     return wypos1;
+   // }
    // int getwy2()
    // {
    //     return wypos2;
    // }
 };
+*/
 /*
 Class PositionT
 {

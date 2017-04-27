@@ -24,7 +24,7 @@ Box::Box() {
     yPos1 = 100;
     yPos2 = 100;
 }
-
+/*
 void Box::gettableposition(int x1, int x2, int y1, int y2)
 {
     for(int i =0; i < 4; i++)
@@ -48,10 +48,10 @@ void Box::getstableposition(int x1, int x2, int y1, int y2)
 	stablexpos2[i]=x2;
 	stableypos1[i]=y1;
 	stableypos2[i]=y2;
-	getstx1();
-	getstx2();
-	getsty1();
-	getsty2();
+	//getstx1();
+	//getstx2();
+	//getsty1();
+	//getsty2();
     }
 
 }
@@ -59,16 +59,12 @@ void Box::getstableposition(int x1, int x2, int y1, int y2)
 void Box::getwposition(int x1, int y1)
 {
     wxpos1=x1;
-    //    wxpos2=x2;
     wypos1=y1;
-    //    wypos2=y2;
     getwx1();
-    // getwx2();
     getwy1();
-    // getwy2();
 
 }
-
+*/
 void Box::makebox(int x1, int x2, int y1, int y2)
 {
     //Position.p;
@@ -80,7 +76,6 @@ void Box::makebox(int x1, int x2, int y1, int y2)
     glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos2);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos2);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
-    gettableposition(xPos1, xPos2, yPos1, yPos2);
 }
 
 
@@ -122,7 +117,7 @@ void Box::drawwaiter(int x1, int y1)
     glEnable(GL_TEXTURE_2D);
     //glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
     glBegin(GL_QUADS);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(wxpos1, getwy1);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1+95);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1+95);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1);
@@ -139,6 +134,7 @@ void Box::gettable()
 	    case 0:
 		makebox(13, 225, 225, 370);
 		drawtable(13, 225,225, 370);
+    gettableposition(i, xPos1, xPos2, yPos1, yPos2);
 		break;
 	    case 1:
 		makebox(536, 754, 224, 370);
