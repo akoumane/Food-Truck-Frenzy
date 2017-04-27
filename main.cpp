@@ -28,7 +28,7 @@
 #include "brandonM.h"
 #include "brandonP.h"
 #include "jinxuH.h"
-#include "jinxuHN.h"
+#include "jinxuH.h"
 #include "abdulelahA.h"
 #ifdef USE_OPENAL_SOUND
 #include </usr/include/AL/alut.h>

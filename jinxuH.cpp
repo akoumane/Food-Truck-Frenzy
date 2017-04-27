@@ -15,7 +15,7 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
-#include "jinxuHN.h"
+#include "jinxuH.h"
 #include <time.h>
 using namespace std;
 Box::Box() {
