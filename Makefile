@@ -8,7 +8,7 @@ FoodTruckFrenzy: main.cpp ppm.cpp log.cpp brandonM.cpp brandonP.cpp abdulelahA.c
 	g++ $(CFLAGS) main.cpp ppm.cpp log.cpp jinxuH.cpp andyK.cpp brandonM.cpp brandonP.cpp abdulelahA.cpp libggfonts.a -Wall -Wextra $(LFLAGS) -o FoodTruckFrenzy
 
 test: main.cpp ppm.cpp log.cpp brandonM.cpp brandonP.cpp abdulelahA.cpp jinxuH.cpp andyK.cpp 
-	g++ $(CFLAGS) main.cpp ppm.cpp log.cpp jinxuH.cpp andyK.cpp brandonM.cpp brandonP.cpp abdulelahA.cpp libggfonts.a -D RENDERTEST -Wall -Wextra $(LFLAGS) -o test
+	g++ $(CFLAGS) main.cpp ppm.cpp log.cpp jinxuHN.cpp andyK.cpp brandonM.cpp brandonP.cpp abdulelahA.cpp libggfonts.a /usr/lib/x86_64-linux-gnu/libopenal.so /usr/lib/x86_64-linux-gnu/libalut.so -D RENDERTEST -D USE_OPENAL_SOUND -Wall -Wextra $(LFLAGS) -o test
 
 clean:
 	rm -f FoodTruckFrenzy
