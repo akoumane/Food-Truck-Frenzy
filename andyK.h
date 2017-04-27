@@ -3,7 +3,6 @@ void makeFoods();
 void renderCustomers();
 void renderFoods();
 
-
 class Customer
 {
     private:
@@ -34,8 +33,8 @@ class Customer
 	public:
 		Customer();
 		void reset();
-		void setInLine(bool a); 
-		void setInSeat (bool a); 
+		void setInLine(bool a);
+		void setInSeat (bool a);
 		void setHasFood (bool a);
 		void setIsEating (bool a);
 		void setFinishFood (bool a);
@@ -52,8 +51,8 @@ class Level
 		double custMultiplier;
         bool start;
 		bool complete;
-		bool lineOccupied; 
-		bool seatOccupied[4]; 
+		bool lineOccupied;
+		bool seatOccupied[4];
 		Customer *customers;
 
     public:

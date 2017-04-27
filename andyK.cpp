@@ -38,7 +38,7 @@ Ppmimage *customerSitting1 = NULL;
 Ppmimage *customerSitting2 = NULL;
 Ppmimage *customerSitting3 = NULL;
 Ppmimage *customerSitting4 = NULL;
-Ppmimage *burgerOnSide = NULL;
+
 GLuint customerStandingTexture1;
 GLuint customerStandingTexture2;
 GLuint customerStandingTexture3;
@@ -47,10 +47,10 @@ GLuint customerSittingTexture1;
 GLuint customerSittingTexture2;
 GLuint customerSittingTexture3;
 GLuint customerSittingTexture4;
-GLuint burgerOnSideTexture;
 
 
-Customer::Customer()		
+
+Customer::Customer()
 {
 	xPos1 = 74;
 	xPos2 = 170;
@@ -75,7 +75,7 @@ void Customer::reset()
 	xPos1 = 74;
     xPos2 = 170;
     yPos1 = 498;
-    yPos2 = 594; 
+    yPos2 = 594;
     foodChoice = rand() % 4 + 1;
     modelNum = (rand() % 1000 + 1) % 4 + 1;
     seatNum = 1;
@@ -89,27 +89,27 @@ void Customer::reset()
     moveToSeat = false;
 }
 
-void Customer::setInLine(bool a) 
+void Customer::setInLine(bool a)
 {
 	inLine = a;
 }
 
-void Customer::setInSeat (bool a) 
+void Customer::setInSeat (bool a)
 {
 	inSeat = a;
 }
 
-void Customer::setHasFood (bool a) 
+void Customer::setHasFood (bool a)
 {
 	hasFood = a;
 }
 
-void Customer::setIsEating (bool a) 
+void Customer::setIsEating (bool a)
 {
 	isEating = a;
 }
 
-void Customer::setFinishFood (bool a) 
+void Customer::setFinishFood (bool a)
 {
 	finishFood = a;
 }
@@ -127,7 +127,7 @@ void Customer::renderModel(bool &line, bool seat[])
 			clock_gettime(CLOCK_REALTIME, &custPause);
 			startTime = (double)custStart.tv_sec;
 			pauseTime = (double)custPause.tv_sec;
-			
+
 		}
 	}
 
@@ -259,21 +259,21 @@ void Customer::renderModel(bool &line, bool seat[])
 					glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos1);
                     break;
             }
-			
+
 
 
             if (finishFood) {
 				seat[seatNum-1] = false;
 				reset();
                 //inLine = true;
-				/*glTexCoord2f(0.0f, 0.0f); 
+				/*glTexCoord2f(0.0f, 0.0f);
 				glTexCoord2f(0.0f, 0.0f);
 				glTexCoord2f(0.0f, 0.0f);
 				glTexCoord2f(0.0f, 0.0f);*/
 				glDisable(GL_TEXTURE_2D);
                 leave = true;
             }
-            
+
 			glEnd();
             glPopMatrix();
         }
@@ -444,20 +444,7 @@ void makeCustomers()
 	    0, GL_RGB, GL_UNSIGNED_BYTE, customerSitting4->data);
 }
 
-void makeFoods()
-{
-    burgerOnSide = ppm6GetImage("burgeronplateonside.ppm");
-    glGenTextures(1, &burgerOnSideTexture);
-    
-	//Burger on side of truck
-    glBindTexture(GL_TEXTURE_2D, burgerOnSideTexture);
-    //
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, 3,
-	    burgerOnSide->width, burgerOnSide->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, burgerOnSide->data);
-}
+
 
 #ifdef RENDERTEST
 void renderCustomers()
@@ -484,7 +471,7 @@ void renderCustomers()
     glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 253);
     glEnd();
     glPopMatrix();
-    
+
 	glPushMatrix();
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, customerSittingTexture2);
@@ -495,7 +482,7 @@ void renderCustomers()
     glTexCoord2f(1.0f, 1.0f); glVertex2i(620, 253);
     glEnd();
     glPopMatrix();
-    
+
     glPushMatrix();
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, customerSittingTexture3);
@@ -506,7 +493,7 @@ void renderCustomers()
     glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 48);
     glEnd();
 	glPopMatrix();
-	
+
     glPushMatrix();
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, customerSittingTexture4);
@@ -531,7 +518,7 @@ void renderFoods()
     glTexCoord2f(1.0f, 1.0f); glVertex2i(578, 555);
     glEnd();
 	glPopMatrix();
-    
+
 	glPushMatrix();
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, burgerOnSideTexture);
