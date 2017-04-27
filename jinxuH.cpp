@@ -117,7 +117,7 @@ void Box::drawwaiter(int x1, int y1)
     glEnable(GL_TEXTURE_2D);
     //glBindTexture(GL_TEXTURE_2D, customerStandingTexture1);
     glBegin(GL_QUADS);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(wxpos1, getwy1);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1+95);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1+95);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1);
