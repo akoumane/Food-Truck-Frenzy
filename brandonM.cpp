@@ -178,7 +178,7 @@ void renderTitleScreen()
 
 void Help_Menu()
 {
-       StartMenu = ppm6GetImage("menu_help.ppm");
+       HelpMenu = ppm6GetImage("menu_help.ppm");
        glGenTextures(1, &HelpMenuTexture1);
        glBindTexture(GL_TEXTURE_2D, HelpMenuTexture1);
 
