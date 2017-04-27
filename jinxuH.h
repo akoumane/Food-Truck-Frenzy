@@ -93,9 +93,9 @@ class Box
    // int getwy2()
    // {
    //     return wypos2;
-   // }
+   // }*/
 };
-*/
+
 /*
 Class PositionT
 {
