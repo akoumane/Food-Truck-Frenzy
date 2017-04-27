@@ -30,7 +30,6 @@
 #include "jinxuH.h"
 #include "jinxuHN.h"
 #include "abdulelahA.h"
-#define USE_OPENAL_SOUND
 #ifdef USE_OPENAL_SOUND
 #include </usr/include/AL/alut.h>
 #endif
@@ -94,6 +93,7 @@ void timeCopy(struct timespec *dest, struct timespec *source) {
     memcpy(dest, source, sizeof(struct timespec));
 }
 //-----------------------------------------------------------------------------
+#ifdef USE_OPENAL_SOUND
 
 extern void initSound();
 extern void cleanupSound();
@@ -103,6 +103,7 @@ extern struct Global {
         ALuint alSourceBeep, alSourceButton;
 } b;
 
+#endif
 
 //-----------------------------------------------------------------------------
 
@@ -143,6 +144,9 @@ int main(void)
     imageConvert();
     initXWindows();
     initOpengl();
+#ifdef USE_OPENAL_SOUND
+	initSound();
+#endif
 
     //customer = new Customer();
 	level = new Level();
@@ -204,6 +208,9 @@ int main(void)
 
 		glXSwapBuffers(dpy, win);
     }
+#ifdef USE_OPENAL_SOUND
+	cleanupSound();
+#endif
     cleanupXWindows();
     cleanup_fonts();
     cleanUp();
@@ -424,6 +431,9 @@ void checkKeys(XEvent *e)
 		    break;
 
 		case XK_a:
+#ifdef USE_OPENAL_SOUND
+		    playSound(b.alSourceBeep);
+#endif
 		    title_screen ^= 1;
 		    //input_title_screen();
 		    break;

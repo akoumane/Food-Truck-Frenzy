@@ -1,3 +1,9 @@
+#ifdef USE_OPENAL_SOUND
+#include </usr/include/AL/alut.h>
+#endif
+
+
+
 void printBrandonName();
 void TitleScreen();
 void renderTitleScreen();
@@ -11,3 +17,8 @@ void Defeat_Menu();
 void renderDefeatScreen();
 void LeaderBoard_Menu();
 void checkKeys(XEvent *e);
+#ifdef USE_OPENAL_SOUND
+void initSound();
+void cleanupSound();
+void playSound(ALuint source);
+#endif

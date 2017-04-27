@@ -26,6 +26,12 @@
 #include "ppm.h"
 #include "brandonM.h"
 
+#include <fcntl.h>
+#include <sys/stat.h>
+#ifdef USE_OPENAL_SOUND
+#include </usr/include/AL/alut.h>
+#endif
+
 using namespace std;
 
 Ppmimage *StartMenu = NULL;
@@ -39,6 +45,13 @@ GLuint HelpMenuTexture1;
 
 Ppmimage *DefeatMenu = NULL;
 GLuint DefeatMenuTexture1;
+
+#ifdef USE_OPENAL_SOUND
+struct Global {
+	ALuint alBufferBeep, alBufferButton;
+	ALuint alSourceBeep, alSourceButton;
+} b; 
+#endif
 
 extern "C" {
 #include "fonts.h"
@@ -239,4 +252,83 @@ void renderPauseScreen()
     glEnd();
     glPopMatrix();
 }
+
+        #ifdef USE_OPENAL_SOUND
+void initSound()
+{
+        alutInit(0, NULL);
+        if (alGetError() != AL_NO_ERROR) {
+                printf("ERROR: alutInit()\n");
+                return;
+        }
+        //Clear error state.
+        alGetError();
+        //
+        //Setup the listener.
+        //Forward and up vectors are used.
+        float vec[6] = {0.0f,0.0f,1.0f, 0.0f,1.0f,0.0f};
+        alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
+        alListenerfv(AL_ORIENTATION, vec);
+        alListenerf(AL_GAIN, 1.0f);
+        //
+        //Buffer holds the sound information.
+        b.alBufferBeep = alutCreateBufferFromFile("./sounds/beep-08b.wav");
+        b.alBufferButton = alutCreateBufferFromFile("./sounds/button-7.wav");
+        //
+        //Source refers to the sound.
+        //Generate a source, and store it in a buffer.
+        alGenSources(1, &b.alSourceBeep);
+        alSourcei(b.alSourceBeep, AL_BUFFER, b.alBufferBeep);
+        //Set volume and pitch to normal, no looping of sound.
+        alSourcef(b.alSourceBeep, AL_GAIN, 1.0f);
+        alSourcef(b.alSourceBeep, AL_PITCH, 1.0f);
+        alSourcei(b.alSourceBeep, AL_LOOPING, AL_FALSE);
+        if (alGetError() != AL_NO_ERROR) {
+                printf("ERROR: setting source\n");
+                return;
+        }
+        //Generate a source, and store it in a buffer.
+        alGenSources(1, &b.alSourceButton);
+        alSourcei(b.alSourceButton, AL_BUFFER, b.alBufferButton);
+        //Set volume and pitch to normal, no looping of sound.
+        alSourcef(b.alSourceButton, AL_GAIN, 1.0f);
+        alSourcef(b.alSourceButton, AL_PITCH, 1.0f);
+        alSourcei(b.alSourceButton, AL_LOOPING, AL_FALSE);
+        if (alGetError() != AL_NO_ERROR) {
+                printf("ERROR: setting source\n");
+                return;
+        }
+}
+        #endif //USE_OPENAL_SOUND
+
+        #ifdef USE_OPENAL_SOUND
+void cleanupSound()
+{
+        //First delete the source.
+        alDeleteSources(1, &b.alSourceBeep);
+        alDeleteSources(1, &b.alSourceButton);
+        //Delete the buffer.
+        alDeleteBuffers(1, &b.alBufferBeep);
+        alDeleteBuffers(1, &b.alBufferButton);
+        //Close out OpenAL itself.
+        //Get active context.
+        ALCcontext *Context = alcGetCurrentContext();
+        //Get device for active context.
+        ALCdevice *Device = alcGetContextsDevice(Context);
+        //Disable context.
+        alcMakeContextCurrent(NULL);
+        //Release context(s).
+        alcDestroyContext(Context);
+        //Close device.
+        alcCloseDevice(Device);
+}
+
+        #endif //USE_OPENAL_SOUND
+        #ifdef USE_OPENAL_SOUND
+void playSound(ALuint source)
+{
+        alSourcePlay(source);
+}
+
+        #endif //USE_OPENAL_SOUND
 
