@@ -134,8 +134,7 @@ void Box::gettable()
 	    case 0:
 		makebox(13, 225, 225, 370);
 		drawtable(13, 225,225, 370);
-    gettableposition(i, xPos1, xPos2, yPos1, yPos2);
-		break;
+     		break;
 	    case 1:
 		makebox(536, 754, 224, 370);
 		drawtable(536, 754, 224, 370);
