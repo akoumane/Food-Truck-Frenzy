@@ -226,6 +226,8 @@ void imageConvert()
 		menu.png menu.ppm \
 		menu_defeat.png menu_defeat.ppm \
 		menu_pause.png menu_pause.ppm \
+		menu_help.png menu_help.ppm \
+		menu_victory.png menu_victory.ppm \
 		waiter.png waiter.ppm \
 		waiterleftstep.png waiterleftstep.ppm \
 		waiterrightstep.png waiterrightstep.ppm");
@@ -237,6 +239,8 @@ void imageConvert()
 	system("cp pixel-sprites/menu.png .");
 	system("cp pixel-sprites/menu_pause.png .");
 	system("cp pixel-sprites/menu_defeat.png .");
+	system("cp pixel-sprites/menu_help.png .");
+	system("cp pixel-sprites/menu_victory.png .");
 	system("cp pixel-sprites/customer1standing.png .");
 	system("cp pixel-sprites/customer2standing.png .");
 	system("cp pixel-sprites/customer3standing.png .");
@@ -256,6 +260,8 @@ void imageConvert()
 	system("convert menu.png menu.ppm");
 	system("convert menu_defeat.png menu_defeat.ppm");
 	system("convert menu_pause.png menu_pause.ppm");
+	system("convert menu_help.png menu_help.ppm");
+	system("convert menu_victory.png menu_victory.ppm");
 	system("convert background.png background.ppm");
 	system("convert customer1standing.png customer1standing.ppm");
 	system("convert customer2standing.png customer2standing.ppm");
@@ -288,6 +294,8 @@ void cleanUp()
 		burgeronplateonside.png burgeronplateonside.ppm \
 		menu.png menu.ppm \
 		menu_defeat.png menu_defeat.ppm \
+		menu_help.png menu_help.ppm \
+		menu_victory.png menu_victory.ppm \
 		menu_pause.png menu_pause.ppm \
 		waiter.png waiter.ppm \
 		waiterleftstep.png waiterleftstep.ppm \
