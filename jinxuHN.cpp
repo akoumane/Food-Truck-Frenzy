@@ -137,27 +137,31 @@ void Box::gettable()
         switch (i) 
         {
             case 0:
-                makebox(3, 98, 253, 348);
+                makebox(13, 225, 225, 370);
+		drawtable(13, 225,225, 370);
                 break;
             case 1:
                 makebox(669, 764, 253, 348);
                 break;
             case 2:
-                makebox(3, 98, 49, 144);
+                makebox(13, 225, 25, 170);
+		drawtable(13, 225, 25, 170);
                 break;
             case 3:
-                makebox(669, 764, 49, 144);
+                makebox(536, 754, 23, 170);
                 break;
 
         }
     }
+
+    showItem();
     //draw side table
     makebox(3, 98, 253, 348);
     makebox(3, 98, 253, 348);
 
     //draw waiter
     makewaiter(4, 253);
-
+    drawwaiter(4, 253);
 }
 
 bool Box::colwithtable()
@@ -196,8 +200,8 @@ void Box::movebox()
 }
 
 
-#ifdef RENDERTEST
-void box::showItem()
+//#ifdef RENDERTEST
+void Box::showItem()
 {
     for (int i=0; i<4; i++)
     {
@@ -210,7 +214,7 @@ void box::showItem()
                 drawtable(669, 764, 253, 348);
                 break;
             case 2:
-                drawtable(3, 98, 49, 144);
+		drawtable(13, 225, 25, 170);
                 break;
             case 3:
                 drawtable(669, 764, 49, 144);
@@ -219,5 +223,6 @@ void box::showItem()
         }
 
     }
-#endif
+}
+//#endif
 
