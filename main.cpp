@@ -375,7 +375,6 @@ void initOpengl(void)
 	makeCustomers();
     //makeFoods();
 	makeWaiter();
-	makeNumbers();
 }
 
 void checkResize(XEvent *e)
@@ -471,7 +470,6 @@ void checkKeys(XEvent *e)
 		case XK_Left:
 			p1->moveLeft();
 			b1->movewLeft();
-			
 			cout << "Move Left\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
@@ -484,14 +482,14 @@ void checkKeys(XEvent *e)
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Up:
-			p1->moveDown();
+			p1->moveUp();
 			b1->movewUp();
 			cout << "Move Down\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Down:
-			p1->moveUp();
+			p1->moveDown();
 			//swapped down with Up
 			b1->movewDown();
 			cout << "Move Down\n";

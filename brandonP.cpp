@@ -24,24 +24,70 @@ extern "C" {
 }
 using namespace std;
 
-#define YMAX
-#define XMAX
-/*
+#define YMAX 394
+#define XMAX 668
+#define YMIN 0
+#define XMIN 8
+#define STEP_SIZE 5
+
 void Food::makeFood()
 {
-    burgerOnSide = ppm6GetImage("burgeronplateonside.ppm");
-    glGenTextures(1, &burgerOnSideTexture);
-
-	//Burger on side of truck
-    glBindTexture(GL_TEXTURE_2D, burgerOnSideTexture);
-    //
+    burgeronplateonside = ppm6GetImage("burgeronplateonside.ppm");
+    glGenTextures(1, &burgeronplateonside_texture);
+    glBindTexture(GL_TEXTURE_2D, burgeronplateonside_texture);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
-	    burgerOnSide->width, burgerOnSide->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, burgerOnSide->data);
+	    burgeronplateonside->width, burgeronplateonside->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, burgeronplateonside->data);
+
+	burgerontable = ppm6GetImage("burgerontable.ppm");
+	glGenTextures(1, &burgerontable_texture);
+	glBindTexture(GL_TEXTURE_2D, burgerontable_texture);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		burgerontable->width, burgerontable->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, burgerontable->data);
+
+	hotdogonplateonside = ppm6GetImage("hotdogonplateonside.ppm");
+    glGenTextures(1, &hotdogonplateonside_texture);
+    glBindTexture(GL_TEXTURE_2D, hotdogonplateonside_texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    hotdogonplateonside->width, hotdogonplateonside->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, hotdogonplateonside->data);
+
+	hotdogontable = ppm6GetImage("hotdogontable.ppm");
+    glGenTextures(1, &hotdogontable_texture);
+    glBindTexture(GL_TEXTURE_2D, hotdogontable_texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    hotdogontable->width, hotdogontable->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, hotdogontable->data);
+
+	pizzaonplateonside = ppm6GetImage("pizzaonplateonside.ppm");
+    glGenTextures(1, &pizzaonplateonside_texture);
+    glBindTexture(GL_TEXTURE_2D, pizzaonplateonside_texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    pizzaonplateonside->width, pizzaonplateonside->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, pizzaonplateonside->data);
+
+	pizzaontable = ppm6GetImage("pizzaontable.ppm");
+	glGenTextures(1, &pizzaontable_texture);
+	glBindTexture(GL_TEXTURE_2D, pizzaontable_texture);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		pizzaontable->width, pizzaontable->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, pizzaontable->data);
+
 }
-*/
+
 Food::Food()
 {
 	on_side = 1;
@@ -51,9 +97,11 @@ Food::Food()
 	xpos = 482;
 	//makeFood();
 }
-/*
-void Food::renderFood()
+
+void Food::renderFood(bool in_seat, int seat_num, int arr[])
 {
+	if (!in_seat)
+		return;
 	switch(food_id) {
 		case 1:
 			glPushMatrix();
@@ -69,9 +117,37 @@ void Food::renderFood()
 		    glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+95, ypos);
 		    glEnd();
 		    glPopMatrix();
+		case 2:
+			glPushMatrix();
+			glEnable(GL_TEXTURE_2D);
+			if (on_side)
+				glBindTexture(GL_TEXTURE_2D, hotdogonplateonside_texture);
+			if (on_table)
+				glBindTexture(GL_TEXTURE_2D, hotdogontable_texture);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
+			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+95);
+			glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+95, ypos+95);
+			glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+95, ypos);
+			glEnd();
+			glPopMatrix();
+		case 3:
+			glPushMatrix();
+			glEnable(GL_TEXTURE_2D);
+			if (on_side)
+				glBindTexture(GL_TEXTURE_2D, pizzaonplateonside_texture);
+			if (on_table)
+				glBindTexture(GL_TEXTURE_2D, pizzaontable_texture);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
+			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+95);
+			glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+95, ypos+95);
+			glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+95, ypos);
+			glEnd();
+			glPopMatrix();
 	}
 }
-*/
+
 // Rendering waiter
 Ppmimage *waiter = NULL;
 GLuint waiterTexture;
@@ -104,62 +180,6 @@ void makeWaiter()
 	return;
 }
 
-//==============================================================================
-// Game Object Functions
-
-Grid::Grid(int y, int x)
-{
-	yres = y;
-	xres = x;
-	for (int i=0; i<y; i++) {
-		for (int j=0; j<x; j++) {
-			grid[i][j] = 0;
-		}
-	}
-	// Set tables
-	grid[2][1] = 9;
-	grid[4][1] = 9;
-	grid[2][5] = 9;
-	grid[4][5] = 9;
-	// Set chairs
-	grid[2][0] = 8;
-	grid[4][0] = 8;
-	grid[2][6] = 8;
-	grid[4][6] = 8;
-	// Set restriced area
-	grid[3][0] = 7;
-	grid[3][1] = 7;
-	grid[3][5] = 7;
-	grid[3][6] = 7;
-	for (int i=0; i<7; i++) {
-		grid[0][i] = 7;
-	}
-	grid[0][1] =0;
-}
-void Grid::printGrid()
-{
-	// Press 'g' in game to view in terminal
-	for (int i=0; i<yres; i++) {
-		for (int j=0; j<xres; j++) {
-			cout << grid[i][j] << "   ";
-		}
-		cout << endl;
-	}
-	cout << "\n\n\n";
-}
-void Grid::gridItem(int y, int x, int id)
-{
-	grid[y][x] = id;
-	return;
-}
-int Grid::xdem()
-{
-	return xres;
-}
-int Grid::ydem()
-{
-	return yres;
-}
 Player::Player(int y, int x)
 {
 	xpos = x;
@@ -167,27 +187,27 @@ Player::Player(int y, int x)
 }
 void Player::moveLeft()
 {
-	//if (xpos - 1 < 0)
-		//return;
-	xpos = xpos - 5;
+	if (xpos - STEP_SIZE < XMIN)
+		return;
+	xpos = xpos - STEP_SIZE;
 }
-void Player::moveRight()	// Parameter is X_Dem
+void Player::moveRight()
 {
-//	if (ypos + 1 >= x)
-//		return;
-	xpos = xpos + 5;
-}
-void Player::moveDown()	// Parameter is Y_Dem
-{
-//	if (ypos + 1 >= y)
-//		return;
-	ypos = ypos + 5;
+	if (xpos + STEP_SIZE >= XMAX)
+		return;
+	xpos = xpos + STEP_SIZE;
 }
 void Player::moveUp()
 {
-//	if (ypos - 1 < 0)
-//		return;
-	ypos = ypos - 5;
+	if (ypos + STEP_SIZE >= YMAX)
+		return;
+	ypos = ypos + STEP_SIZE;
+}
+void Player::moveDown()
+{
+	if (ypos - STEP_SIZE < YMIN)
+		return;
+	ypos = ypos - STEP_SIZE;
 }
 int Player::xPos()
 {
@@ -197,7 +217,6 @@ int Player::yPos()
 {
 	return ypos;
 }
-//==============================================================================
 
 void printName()
 {
@@ -332,3 +351,62 @@ void cleanUp()
 
 	return;
 }
+
+// *** NO LONGER BEING USED, LEFT IN FOR PRESENTATION ***
+//==============================================================================
+// Game Object Functions
+
+Grid::Grid(int y, int x)
+{
+	yres = y;
+	xres = x;
+	for (int i=0; i<y; i++) {
+		for (int j=0; j<x; j++) {
+			grid[i][j] = 0;
+		}
+	}
+	// Set tables
+	grid[2][1] = 9;
+	grid[4][1] = 9;
+	grid[2][5] = 9;
+	grid[4][5] = 9;
+	// Set chairs
+	grid[2][0] = 8;
+	grid[4][0] = 8;
+	grid[2][6] = 8;
+	grid[4][6] = 8;
+	// Set restriced area
+	grid[3][0] = 7;
+	grid[3][1] = 7;
+	grid[3][5] = 7;
+	grid[3][6] = 7;
+	for (int i=0; i<7; i++) {
+		grid[0][i] = 7;
+	}
+	grid[0][1] =0;
+}
+void Grid::printGrid()
+{
+	// Press 'g' in game to view in terminal
+	for (int i=0; i<yres; i++) {
+		for (int j=0; j<xres; j++) {
+			cout << grid[i][j] << "   ";
+		}
+		cout << endl;
+	}
+	cout << "\n\n\n";
+}
+void Grid::gridItem(int y, int x, int id)
+{
+	grid[y][x] = id;
+	return;
+}
+int Grid::xdem()
+{
+	return xres;
+}
+int Grid::ydem()
+{
+	return yres;
+}
+//==============================================================================
