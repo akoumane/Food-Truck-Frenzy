@@ -204,23 +204,23 @@ int main(void)
 	}
 	if(title_screen == false) {
 	    if (state_menu == 1) {
-		renderPauseScreen();
-		Pause_Menu();
+			renderPauseScreen();
+			Pause_Menu();
+			level->calcPauseTime();
 	    }
-	    else{
-		render();
-		renderWaiter(p1->ypos, p1->xpos);
-		//b1->getwaiter(); //need it when acture use
-		#ifdef RENDERTEST
+	    else {
+			level->addPauseTotal();
+			render();
+			renderWaiter(p1->ypos, p1->xpos);
+			//b1->getwaiter(); //need it when acture use
+			#ifdef RENDERTEST
 
-		if (level->getStart()) {
-		    level->renderCustomers();
-		}
+			if (level->getStart()) {
+		    	level->renderCustomers();
+			}
 
-		//renderCustomers();
-		//renderFoods();
-		//customer->renderModel();
-		#endif
+			//renderCustomers();
+			#endif
 
 	    }
 	}
@@ -519,6 +519,9 @@ void checkKeys(XEvent *e)
 			break;
 		case XK_i:
 			level->setCustomerLeave(4);
+			break;
+		case XK_o:
+			cout << title_screen << endl;
 			break;
 		#endif
 		case XK_Escape:

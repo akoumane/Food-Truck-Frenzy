@@ -17,9 +17,9 @@ class Customer
 		int seatNum;
 
 		struct timespec custStart;
-		struct timespec custPause;
+		struct timespec custCurrent;
 
-		double startTime, pauseTime;
+		double waitTime, startTime, currentTime, pauseTotal;
 
         bool inLine;
         bool inSeat;
@@ -38,6 +38,7 @@ class Customer
 		void setHasFood (bool a);
 		void setIsEating (bool a);
 		void setFinishFood (bool a);
+		void addPauseTotal(double a);
 		void renderModel(bool &line, bool seat[]);
 };
 
@@ -53,6 +54,14 @@ class Level
 		bool complete;
 		bool lineOccupied;
 		bool seatOccupied[4];
+		bool startTimer;
+		bool addTime;
+		
+		struct timespec pauseStart;
+		struct timespec pauseEnd;
+
+		double pauseStartTime, pauseEndTime, pauseWaitTime;
+
 		Customer *customers;
 
     public:
@@ -70,4 +79,7 @@ class Level
 		void startGame(bool a);
 		void printLine();
 		void printSeat();
+		void setStartTimer(bool a);
+		void addPauseTotal();
+		void calcPauseTime();
 };

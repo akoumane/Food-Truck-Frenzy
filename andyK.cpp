@@ -56,6 +56,7 @@ Customer::Customer()
 	xPos2 = 170;
 	yPos1 = 498;
 	yPos2 = 594;
+	pauseTotal = 0;
 	foodChoice = rand() % 4 + 1;
 	modelNum = (rand() % 1000) % 4 + 1;
 	seatNum = 1;
@@ -76,6 +77,7 @@ void Customer::reset()
     xPos2 = 170;
     yPos1 = 498;
     yPos2 = 594;
+	pauseTotal = 0;
     foodChoice = rand() % 4 + 1;
     modelNum = (rand() % 1000 + 1) % 4 + 1;
     seatNum = 1;
@@ -114,9 +116,14 @@ void Customer::setFinishFood (bool a)
 	finishFood = a;
 }
 
+void Customer::addPauseTotal(double a)
+{
+	if (inLine == true || inSeat == true)
+		pauseTotal += a;
+}
+
 void Customer::renderModel(bool &line, bool seat[])
 {
-	double waitTime;
 
 	if (inSeat == false && inLine == false) {
 		if (!line) {
@@ -124,16 +131,20 @@ void Customer::renderModel(bool &line, bool seat[])
 			line = true;
 			leave = false;
 			clock_gettime(CLOCK_REALTIME, &custStart);
-			clock_gettime(CLOCK_REALTIME, &custPause);
+			clock_gettime(CLOCK_REALTIME, &custCurrent);
 			startTime = (double)custStart.tv_sec;
-			pauseTime = (double)custPause.tv_sec;
-
+			currentTime = (double)custCurrent.tv_sec;
 		}
 	}
+	
+	
 
+	waitTime = currentTime - startTime - pauseTotal;
 
-	waitTime = pauseTime - startTime;
+	if (inLine == true)
+		cout << waitTime << endl;
 
+	
 
     if (leave == false) {
         if (inLine) {
@@ -168,8 +179,8 @@ void Customer::renderModel(bool &line, bool seat[])
 
 
         if (waitTime < 5.0) {
-            clock_gettime(CLOCK_REALTIME, &custPause);
-            pauseTime = (double)custPause.tv_sec;
+            clock_gettime(CLOCK_REALTIME, &custCurrent);
+			currentTime = (double)custCurrent.tv_sec;
         }
         else {
 			if (assignSeat) {
@@ -285,6 +296,8 @@ Level::Level()
 {
 	custCount = 30;
 	customers = new Customer[5];
+	startTimer = true;
+	addTime = false;
 }
 
 void Level::makeNewLevel(int n)
@@ -340,6 +353,8 @@ void Level::renderCustomers()
 {
 	for (int i = 0; i < 5; i++)
 		customers[i].renderModel(lineOccupied, seatOccupied);
+
+	//customers[0].renderModel(lineOccupied, seatOccupied);
 }
 
 void Level::printLine()
@@ -356,6 +371,41 @@ void Level::printSeat()
 	cout << seatOccupied[3];
 
 	cout << endl;
+}
+void Level::setStartTimer(bool a)
+{
+	startTimer = a;
+}
+
+void Level::addPauseTotal()
+{
+	startTimer = true;
+
+	if (addTime == true) {
+		for (int i = 0; i < 5; i++) {
+			customers[i].addPauseTotal(pauseWaitTime);		
+		}
+		addTime = false;
+	}
+
+	//cout << pauseTotal << endl;
+}
+
+void Level::calcPauseTime()
+{
+	if (startTimer == true) {
+		clock_gettime(CLOCK_REALTIME, &pauseStart);
+		pauseStartTime = (double)pauseStart.tv_sec;
+
+		startTimer = false;
+	}
+	
+	clock_gettime(CLOCK_REALTIME, &pauseEnd);
+	pauseEndTime = (double)pauseEnd.tv_sec;
+
+	pauseWaitTime = pauseEndTime - pauseStartTime;
+	//cout << pauseWaitTime << endl;
+	addTime = true;
 }
 
 
