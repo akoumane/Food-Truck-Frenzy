@@ -46,6 +46,12 @@ GLuint HelpMenuTexture1;
 Ppmimage *DefeatMenu = NULL;
 GLuint DefeatMenuTexture1;
 
+Ppmimage *VictoryMenu = NULL;
+GLuint VictoryMenuTexture1;
+
+Ppmimage *CreditMenu = NULL;
+GLuint CreditMenuTexture1;
+
 #ifdef USE_OPENAL_SOUND
 struct Global {
 	ALuint alBufferBeep, alBufferButton, alBufferZone;
@@ -203,6 +209,33 @@ void renderHelpScreen()
     glPopMatrix();
 }
 
+void Victory_Menu()
+{
+       VictoryMenu = ppm6GetImage("victory_help.ppm");
+       glGenTextures(1, &VictoryMenuTexture1);
+       glBindTexture(GL_TEXTURE_2D, VictoryMenuTexture1);
+
+       glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+       glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+       glTexImage2D(GL_TEXTURE_2D, 0, 3,
+       VictoryMenu->width, VictoryMenu->height,
+       0, GL_RGB, GL_UNSIGNED_BYTE, VictoryMenu->data);
+}
+
+void renderVictoryScreen()
+{
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, VictoryMenuTexture1);
+    glBegin(GL_QUADS); 
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(768, 768);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(768, 0);
+    glEnd();
+    glPopMatrix();
+}
+
 void Defeat_Menu() 
 {	
     DefeatMenu = ppm6GetImage("menu_defeat.ppm");
@@ -257,6 +290,33 @@ void renderPauseScreen()
     glTexCoord2f(1.0f, 1.0f); glVertex2i(768, 0);
     glEnd();
     glPopMatrix();
+}
+
+void Credit_Menu() 
+{	
+    CreditMenu = ppm6GetImage("menu_credit.ppm");
+    glGenTextures(1, &CreditMenuTexture1);
+    glBindTexture(GL_TEXTURE_2D, CreditMenuTexture1);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    CreditMenu->width, CreditMenu->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, CreditMenu->data);
+
+}
+
+void renderCreditScreen()
+{
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, CreditMenuTexture1);
+    glBegin(GL_QUADS); 
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(768, 768);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(768, 0);
+    glEnd();
 }
 
         #ifdef USE_OPENAL_SOUND
