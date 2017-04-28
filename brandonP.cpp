@@ -224,6 +224,7 @@ void imageConvert()
 		customer4sitting.png customer4sitting.ppm \
 		burgeronplateonside.png burgeronplateonside \
 		menu.png menu.ppm \
+		menu_credit.png menu_credit.ppm \
 		menu_defeat.png menu_defeat.ppm \
 		menu_pause.png menu_pause.ppm \
 		menu_help.png menu_help.ppm \
@@ -237,6 +238,7 @@ void imageConvert()
 	cout << "\n*** Copying images to main folder... ***\n\n";
 	system("cp pixel-sprites/background.png .");
 	system("cp pixel-sprites/menu.png .");
+	system("cp pixel-sprites/menu_credit.png .");
 	system("cp pixel-sprites/menu_pause.png .");
 	system("cp pixel-sprites/menu_defeat.png .");
 	system("cp pixel-sprites/menu_help.png .");
@@ -258,6 +260,7 @@ void imageConvert()
 	// convert from png to ppm using terminal GIMP
 	cout << "\n*** Converting .png images to .ppm... ***\n\n";
 	system("convert menu.png menu.ppm");
+	system("convert menu_credit.png menu_credit.ppm");
 	system("convert menu_defeat.png menu_defeat.ppm");
 	system("convert menu_pause.png menu_pause.ppm");
 	system("convert menu_help.png menu_help.ppm");
@@ -293,6 +296,7 @@ void cleanUp()
 		customer4sitting.png customer4sitting.ppm \
 		burgeronplateonside.png burgeronplateonside.ppm \
 		menu.png menu.ppm \
+		menu_credit.png menu_credit.ppm \
 		menu_defeat.png menu_defeat.ppm \
 		menu_help.png menu_help.ppm \
 		menu_victory.png menu_victory.ppm \
