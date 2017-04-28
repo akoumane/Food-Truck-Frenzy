@@ -120,7 +120,7 @@ void Box::gettable()
 				makebox(13, 225, 225, 370);
 				break;
 			case 1:
-				//www.cs.csubak.edu/rawtable(13, 225,225, 370);
+				drawtable(13, 225,225, 370);
 				drawtable(536, 754, 224, 370);
 				drawtable(13, 225, 25, 170);
 				drawtable(536, 754, 24, 170);
@@ -141,11 +141,7 @@ void Box::gettable()
 	makebox(467, 584, 533, 623);
 	makebox(585, 705, 533, 623);
 
-	//draw waiter
-	//makewaiter(253, 4);
-	//drawwaiter(253, 4);
-	//    makewaiter(wxpo1, wypo1);
-	//  drawwaiter(wxpo1, wypo1);
+	
 }
 void Box::getwaiter()
 {
@@ -213,38 +209,7 @@ bool Box::colwithDown()
 		}
 	return col;
 }
-/*
-bool Box::colwithtable()
-{
-	bool col=false;
-	int wxpos2=wxpos1+95;
-	int wypos2=wxpos2+95;
-	for (int i=0; i<4; i++)
-	{
-		if(wxpos1 >= tablexpos1[i] && wxpos2 <= tablexpos2[i] &&
-				wypos1 >= tableypos1[i] && wypos2 <= tableypos2[i])
-		{
-			return true;
-		}
 
-	}
-	return col;
-}
-
-bool Box::colwithstable()
-{
-	int wxpos2=wxpos1+95;
-	int wypos2=wxpos2+95;
-	bool col=false;
-	for(int i=0; i<4;i++)
-		if(wxpos1 >= stablexpos1[i] && wxpos2 <= stablexpos2[i] &&
-				wypos1 >= stableypos1[i] && wypos2 <= stableypos2[i])
-		{
-			return true;
-		}
-	return col;
-}
-*/
 void Box::movewUp()
 {
 	wypos1 = wypos1-5;
@@ -288,6 +253,7 @@ void Box::showItem()
 
 		}
 	}
+	drawwaiter(253, 4);
 	drawwaiter(wxpos1, wypos1);
 	drawtable(467, 584, 533, 623);
 	drawtable(585, 705, 533, 623);
