@@ -140,6 +140,9 @@ void Box::gettable()
 	//draw side table
 	makebox(467, 584, 533, 623);
 	makebox(585, 705, 533, 623);
+	drawtable(467, 584, 533, 623);
+	drawtable(585, 705, 533, 623);
+	drawwaiter(wxpos1, wypos1);
 
 	
 }
@@ -210,23 +213,27 @@ bool Box::colwithDown()
 	return col;
 }
 
-void Box::movewUp()
+void Box::movewDown()
 {
+    if(colwithUp()==false)
 	wypos1 = wypos1-5;
 }
 
-void Box::movewDown()
+void Box::movewUp()
 {
+    if(colwithDown()==false)
 	wypos1 = wypos1+5;
 }
 
 void Box::movewLeft()
 {
+    if(colwithRight()==false)
 	wxpos1 = wxpos1-5;
 }
 
 void Box::movewRight()
 {
+    //if(colwithLeft()==false)
 	wxpos1 = wxpos1+5;
 }
 
