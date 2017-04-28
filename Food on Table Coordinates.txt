@@ -1,0 +1,25 @@
+Food on table coordinates:
+
+Table 1
+x1: 124
+x2: 187
+y1: 271
+y2: 334
+
+Table 2
+x1: 580
+x2: 643
+y1: 271
+y2: 334
+
+Table 3
+x1: 124
+x2: 187
+y1: 67
+y2: 130
+
+Table 4
+x1: 580
+x2: 643
+y1: 67
+y2: 130
