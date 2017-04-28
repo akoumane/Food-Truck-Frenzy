@@ -39,6 +39,17 @@ Ppmimage *customerSitting2 = NULL;
 Ppmimage *customerSitting3 = NULL;
 Ppmimage *customerSitting4 = NULL;
 
+Ppmimage *zero = NULL;
+Ppmimage *one = NULL;
+Ppmimage *two = NULL;
+Ppmimage *three = NULL;
+Ppmimage *four = NULL;
+Ppmimage *five = NULL;
+Ppmimage *six = NULL;
+Ppmimage *seven = NULL;
+Ppmimage *eight = NULL;
+Ppmimage *nine = NULL;
+
 GLuint customerStandingTexture1;
 GLuint customerStandingTexture2;
 GLuint customerStandingTexture3;
@@ -48,6 +59,16 @@ GLuint customerSittingTexture2;
 GLuint customerSittingTexture3;
 GLuint customerSittingTexture4;
 
+GLuint zeroTexture;
+GLuint oneTexture;
+GLuint twoTexture;
+GLuint threeTexture;
+GLuint fourTexture;
+GLuint fiveTexture;
+GLuint sixTexture;
+GLuint sevenTexture;
+GLuint eightTexture;
+GLuint nineTexture;
 
 
 Customer::Customer()
@@ -494,6 +515,110 @@ void makeCustomers()
 	    0, GL_RGB, GL_UNSIGNED_BYTE, customerSitting4->data);
 }
 
+void makeNumbers()
+{
+    zero = ppm6GetImage("0.ppm");
+    one = ppm6GetImage("1.ppm");
+    two = ppm6GetImage("2.ppm");
+    three = ppm6GetImage("3.ppm");
+    four = ppm6GetImage("4.ppm");
+    five = ppm6GetImage("5.ppm");
+    six = ppm6GetImage("6.ppm");
+    seven = ppm6GetImage("7.ppm");
+    eight = ppm6GetImage("8.ppm");
+    nine = ppm6GetImage("9.ppm");
+    glGenTextures(1, &zeroTexture);
+    glGenTextures(1, &oneTexture);
+    glGenTextures(1, &twoTexture);
+    glGenTextures(1, &threeTexture);
+    glGenTextures(1, &fourTexture);
+    glGenTextures(1, &fiveTexture);
+    glGenTextures(1, &sixTexture);
+    glGenTextures(1, &sevenTexture);
+    glGenTextures(1, &eightTexture);
+    glGenTextures(1, &nineTexture);
+    //0
+    glBindTexture(GL_TEXTURE_2D, zeroTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    zero->width, zero->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, zero->data);
+    //1
+    glBindTexture(GL_TEXTURE_2D, oneTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    one->width, one->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, one->data);
+    //2
+    glBindTexture(GL_TEXTURE_2D, twoTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    two->width, two->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, two->data);
+    //3
+    glBindTexture(GL_TEXTURE_2D, threeTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    three->width, three->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, three->data);
+    //4
+    glBindTexture(GL_TEXTURE_2D, fourTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    four->width, four->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, four->data);
+    //5
+    glBindTexture(GL_TEXTURE_2D, fiveTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    five->width, five->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, five->data);
+    //6
+    glBindTexture(GL_TEXTURE_2D, sixTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    six->width, six->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, six->data);
+    //7
+    glBindTexture(GL_TEXTURE_2D, sevenTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    seven->width, seven->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, seven->data);
+    //8
+    glBindTexture(GL_TEXTURE_2D, eightTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    eight->width, eight->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, eight->data);
+    //9
+    glBindTexture(GL_TEXTURE_2D, nineTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    nine->width, nine->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, nine->data);
+}
+
 
 
 #ifdef RENDERTEST
@@ -555,30 +680,4 @@ void renderCustomers()
     glEnd();
 	glPopMatrix();
 }
-/*
-void renderFoods()
-{
-    glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, burgerOnSideTexture);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f); glVertex2i(482, 555);
-    glTexCoord2f(0.0f, 0.0f); glVertex2i(482, 651);
-    glTexCoord2f(1.0f, 0.0f); glVertex2i(578, 651);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(578, 555);
-    glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, burgerOnSideTexture);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f); glVertex2i(590, 555);
-    glTexCoord2f(0.0f, 0.0f); glVertex2i(590, 651);
-    glTexCoord2f(1.0f, 0.0f); glVertex2i(686, 651);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(686, 555);
-    glEnd();
-	glPopMatrix();
-}
-*/
 #endif

@@ -375,6 +375,7 @@ void initOpengl(void)
 	makeCustomers();
     //makeFoods();
 	makeWaiter();
+	makeNumbers();
 }
 
 void checkResize(XEvent *e)

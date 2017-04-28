@@ -2,6 +2,7 @@ void makeCustomers();
 void makeFoods();
 void renderCustomers();
 void renderFoods();
+void makeNumbers();
 
 class Customer
 {
@@ -82,4 +83,5 @@ class Level
 		void setStartTimer(bool a);
 		void addPauseTotal();
 		void calcPauseTime();
+		void renderNumbers();
 };
