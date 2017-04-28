@@ -98,8 +98,8 @@ extern void initSound();
 extern void cleanupSound();
 extern void playSound(ALuint source);
 extern struct Global {
-    ALuint alBufferBeep, alBufferButton;
-    ALuint alSourceBeep, alSourceButton;
+    ALuint alBufferBeep, alBufferButton, alBufferZone;
+    ALuint alSourceBeep, alSourceButton, alSourceZone;
 } b;
 
 #endif
@@ -148,6 +148,10 @@ int main(void)
 #ifdef USE_OPENAL_SOUND
     initSound();
 #endif
+#ifdef USE_OPENAL_SOUND
+    playSound(b.alSourceZone);
+#endif
+
 
     //customer = new Customer();
     level = new Level();
@@ -480,14 +484,15 @@ void checkKeys(XEvent *e)
 			break;
 		case XK_Up:
 			p1->moveDown();
-			b1->movewDown();
+			b1->movewUp();
 			cout << "Move Down\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Down:
 			p1->moveUp();
-			b1->movewUp();
+			//swapped down with Up
+			b1->movewDown();
 			cout << "Move Down\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";

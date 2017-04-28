@@ -48,8 +48,8 @@ GLuint DefeatMenuTexture1;
 
 #ifdef USE_OPENAL_SOUND
 struct Global {
-	ALuint alBufferBeep, alBufferButton;
-	ALuint alSourceBeep, alSourceButton;
+	ALuint alBufferBeep, alBufferButton, alBufferZone;
+	ALuint alSourceBeep, alSourceButton, alSourceZone;
 } b; 
 #endif
 
@@ -199,6 +199,8 @@ void renderHelpScreen()
     glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
     glTexCoord2f(1.0f, 0.0f); glVertex2i(768, 768);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(768, 0);
+    glEnd();
+    glPopMatrix();
 }
 
 void Defeat_Menu() 
@@ -223,6 +225,10 @@ void renderDefeatScreen()
     glBegin(GL_QUADS); 
     glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
     glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(768, 768);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(768, 0);
+    glEnd();
+    glPopMatrix();
 }
 
 void Pause_Menu() 
@@ -261,25 +267,21 @@ void initSound()
                 printf("ERROR: alutInit()\n");
                 return;
         }
-        //Clear error state.
+
         alGetError();
-        //
-        //Setup the listener.
-        //Forward and up vectors are used.
+
         float vec[6] = {0.0f,0.0f,1.0f, 0.0f,1.0f,0.0f};
         alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
         alListenerfv(AL_ORIENTATION, vec);
         alListenerf(AL_GAIN, 1.0f);
-        //
-        //Buffer holds the sound information.
+
         b.alBufferBeep = alutCreateBufferFromFile("./sounds/beep-08b.wav");
         b.alBufferButton = alutCreateBufferFromFile("./sounds/button-7.wav");
-        //
-        //Source refers to the sound.
-        //Generate a source, and store it in a buffer.
+        b.alBufferZone = alutCreateBufferFromFile("./sounds/danger_zone.wav");
+
         alGenSources(1, &b.alSourceBeep);
         alSourcei(b.alSourceBeep, AL_BUFFER, b.alBufferBeep);
-        //Set volume and pitch to normal, no looping of sound.
+
         alSourcef(b.alSourceBeep, AL_GAIN, 1.0f);
         alSourcef(b.alSourceBeep, AL_PITCH, 1.0f);
         alSourcei(b.alSourceBeep, AL_LOOPING, AL_FALSE);
@@ -287,13 +289,24 @@ void initSound()
                 printf("ERROR: setting source\n");
                 return;
         }
-        //Generate a source, and store it in a buffer.
+
         alGenSources(1, &b.alSourceButton);
         alSourcei(b.alSourceButton, AL_BUFFER, b.alBufferButton);
-        //Set volume and pitch to normal, no looping of sound.
+
         alSourcef(b.alSourceButton, AL_GAIN, 1.0f);
         alSourcef(b.alSourceButton, AL_PITCH, 1.0f);
         alSourcei(b.alSourceButton, AL_LOOPING, AL_FALSE);
+        if (alGetError() != AL_NO_ERROR) {
+                printf("ERROR: setting source\n");
+                return;
+        }
+
+        alGenSources(1, &b.alSourceZone);
+        alSourcei(b.alSourceZone, AL_BUFFER, b.alBufferZone);
+
+        alSourcef(b.alSourceZone, AL_GAIN, 1.0f);
+        alSourcef(b.alSourceZone, AL_PITCH, 1.0f);
+        alSourcei(b.alSourceZone, AL_LOOPING, AL_TRUE);
         if (alGetError() != AL_NO_ERROR) {
                 printf("ERROR: setting source\n");
                 return;
