@@ -27,9 +27,10 @@ class Food
         GLuint pizzaontable_texture;
     public:
         Food();
-        void renderFood(bool in_seat, int seat_num, int arr[]);
+        void renderFood(bool in_seat, int seat_num, int food_id);
         void makeFood();
         void setPos(int y, int x);
+        void setPos(int table);
 
 
 };

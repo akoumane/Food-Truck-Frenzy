@@ -116,6 +116,7 @@ int help_menu=0;
 bool title_screen=true;
 const int X_Dem = 7;	// Dimension for Grid
 const int Y_Dem = 5;	// Dimension for Grid
+bool boo = false;
 
 //Customer *customer;
 Level *level;
@@ -123,6 +124,12 @@ Ppmimage *backgroundImage = NULL;
 Grid *grid;
 Player *p1;
 Box *b1;
+Food *f1;
+Food *f2;
+Food *f3;
+Food *f4;
+Food *f5;
+Food *f6;
 //customer spawn testing
 /*Ppmimage *customerStanding1 = NULL;
   Ppmimage *customerSitting1 = NULL;
@@ -159,6 +166,8 @@ int main(void)
     grid = new Grid(Y_Dem,X_Dem);
     p1 = new Player(4, 253);
 	b1= new Box();
+	f1 = new Food();
+	f1->setPos(1);
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
 
@@ -216,6 +225,9 @@ int main(void)
 			level->addPauseTotal();
 			render();
 			renderWaiter(p1->ypos, p1->xpos);
+			if (boo)
+				f1->renderFood(1, 5, 1);
+
 			//b1->getwaiter(); //need it when acture use
 			#ifdef RENDERTEST
 
@@ -498,6 +510,9 @@ void checkKeys(XEvent *e)
 			break;
 		case XK_g:
 			grid->printGrid();
+			break;
+		case XK_f:				// ******************************************
+			boo = !boo;
 			break;
 		#ifdef RENDERTEST
 		case XK_q:

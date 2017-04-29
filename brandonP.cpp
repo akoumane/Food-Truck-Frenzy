@@ -28,7 +28,7 @@ using namespace std;
 #define XMAX 668
 #define YMIN 0
 #define XMIN 8
-#define STEP_SIZE 5
+#define STEP_SIZE 8
 
 void Food::makeFood()
 {
@@ -95,13 +95,51 @@ Food::Food()
 	moving = 0;
 	ypos = 555;
 	xpos = 482;
-	//makeFood();
+	makeFood();
 }
 
-void Food::renderFood(bool in_seat, int seat_num, int arr[])
+
+
+void Food::setPos(int table)
 {
+	// 1 = top left table
+	// 2 = top right table
+	// 3 = bottom left table
+	// 4 = bottom right table
+	// 5 = serving table position 1
+	// 6 = serving table position 2
+	if (table < 1 || table > 6) {
+		cout << "ERROR: table out of bounds\n"
+			 << "brandonP.cpp void Food::setPos(int table)\n";
+		return;
+	}
+	switch (table)
+	{
+		case 1:
+			xpos = 124;
+			ypos = 270;
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			xpos = 482;
+			ypos = 556;
+			break;
+		case 6:
+			break;
+	}
+}
+
+void Food::renderFood(bool in_seat, int seat_num, int food_id)
+{
+	int width = 64;
 	if (!in_seat)
 		return;
+	setPos(seat_num);
 	switch(food_id) {
 		case 1:
 			glPushMatrix();
@@ -112,11 +150,12 @@ void Food::renderFood(bool in_seat, int seat_num, int arr[])
 				glBindTexture(GL_TEXTURE_2D, burgerontable_texture);
 			glBegin(GL_QUADS);
 			glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
-			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+95);
-		    glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+95, ypos+95);
-		    glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+95, ypos);
+			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+width);
+		    glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+width, ypos+width);
+		    glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+width, ypos);
 		    glEnd();
 		    glPopMatrix();
+			break;
 		case 2:
 			glPushMatrix();
 			glEnable(GL_TEXTURE_2D);
@@ -131,6 +170,7 @@ void Food::renderFood(bool in_seat, int seat_num, int arr[])
 			glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+95, ypos);
 			glEnd();
 			glPopMatrix();
+			break;
 		case 3:
 			glPushMatrix();
 			glEnable(GL_TEXTURE_2D);
@@ -145,7 +185,9 @@ void Food::renderFood(bool in_seat, int seat_num, int arr[])
 			glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+95, ypos);
 			glEnd();
 			glPopMatrix();
+			break;
 	}
+
 }
 
 // Rendering waiter
@@ -241,7 +283,12 @@ void imageConvert()
 		customer2sitting.png customer2sitting.ppm \
 		customer3sitting.png customer3sitting.ppm \
 		customer4sitting.png customer4sitting.ppm \
-		burgeronplateonside.png burgeronplateonside \
+		burgeronplateonside.png burgeronplateonside.ppm \
+		burgerontable.png burgeronside.ppm \
+		hotdogonplateonside.png hotdogonplateonside.ppm \
+		hotdogontable.png hotdogontable.ppm \
+		pizzaonplateonside.png pizzaonplateonside.ppm \
+		pizzaontable.png pizzaontable.ppm \
 		menu.png menu.ppm \
 		menu_defeat.png menu_defeat.ppm \
 		menu_pause.png menu_pause.ppm \
@@ -273,6 +320,11 @@ void imageConvert()
 	system("cp pixel-sprites/customer3sitting.png .");
 	system("cp pixel-sprites/customer4sitting.png .");
 	system("cp pixel-sprites/burgeronplateonside.png .");
+	system("cp pixel-sprites/burgerontable.png .");
+	system("cp pixel-sprites/hotdogonplateonside.png .");
+	system("cp pixel-sprites/hotdogontable.png .");
+	system("cp pixel-sprites/pizzaonplateonside.png .");
+	system("cp pixel-sprites/pizzaontable.png .");
 	system("cp pixel-sprites/waiter.png .");
 	system("cp pixel-sprites/waiterleftstep.png .");
 	system("cp pixel-sprites/waiterrightstep.png .");
@@ -305,6 +357,11 @@ void imageConvert()
 	system("convert customer3sitting.png customer3sitting.ppm");
 	system("convert customer4sitting.png customer4sitting.ppm");
 	system("convert burgeronplateonside.png burgeronplateonside.ppm");
+	system("convert burgerontable.png burgerontable.ppm");
+	system("convert pizzaonplateonside.png pizzaonplateonside.ppm");
+	system("convert pizzaontable.png pizzaontable.ppm");
+	system("convert hotdogontable.png hotdogontable.ppm");
+	system("convert hotdogonplateonside.png hotdogonplateonside.ppm");
 	system("convert waiter.png waiter.ppm");
 	system("convert waiterleftstep.png waiterleftstep.ppm");
 	system("convert waiterrightstep.png waiterrightstep.ppm");
@@ -335,6 +392,11 @@ void cleanUp()
 		customer3sitting.png customer3sitting.ppm \
 		customer4sitting.png customer4sitting.ppm \
 		burgeronplateonside.png burgeronplateonside.ppm \
+		burgerontable.png burgerontable.ppm \
+		hotdogonplateonside.png hotdogonplateonside.ppm \
+		hotdogontable.png hotdogontable.ppm \
+		pizzaonplateonside.png pizzaonplateonside.ppm \
+		pizzaontable.png pizzaontable.ppm \
 		menu.png menu.ppm \
 		menu_defeat.png menu_defeat.ppm \
 		menu_help.png menu_help.ppm \
