@@ -51,23 +51,29 @@ class Level
         int serveCount;
 		int custCount;
 		double custMultiplier;
+		double gameLength;
         bool start;
 		bool complete;
 		bool lineOccupied;
 		bool seatOccupied[4];
-		bool startTimer;
+		bool startPauseTimer;
+		bool startCountdownTimer;
 		bool addTime;
 		
 		struct timespec pauseStart;
 		struct timespec pauseEnd;
+		struct timespec countdownStart;
+		struct timespec countdownEnd;
 
 		double pauseStartTime, pauseEndTime, pauseWaitTime;
+		double countdownStartTime, countdownEndTime;
 
 		Customer *customers;
 
     public:
         Level();
 		void makeNewLevel(int n);
+		void startGame();
 		Customer getCustomer(int n);
 		void setCustomerLeave(int n);
 		bool checkLine();
@@ -83,5 +89,5 @@ class Level
 		void setStartTimer(bool a);
 		void addPauseTotal();
 		void calcPauseTime();
-		void renderNumbers();
+		void renderCountdown();
 };

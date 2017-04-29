@@ -162,8 +162,8 @@ void Customer::renderModel(bool &line, bool seat[])
 
 	waitTime = currentTime - startTime - pauseTotal;
 
-	if (inLine == true)
-		cout << waitTime << endl;
+	//if (inLine == true)
+	//	cout << waitTime << endl;
 
 	
 
@@ -316,8 +316,10 @@ void Customer::renderModel(bool &line, bool seat[])
 Level::Level()
 {
 	custCount = 30;
+	gameLength = 120;
 	customers = new Customer[5];
-	startTimer = true;
+	startPauseTimer = true;
+	startCountdownTimer = true;
 	addTime = false;
 }
 
@@ -338,6 +340,12 @@ void Level::makeNewLevel(int n)
 	}
 
 
+}
+
+void Level::startGame()
+{
+	renderCountdown();
+	renderCustomers();
 }
 
 Customer Level::getCustomer(int n)
@@ -395,12 +403,12 @@ void Level::printSeat()
 }
 void Level::setStartTimer(bool a)
 {
-	startTimer = a;
+	startPauseTimer = a;
 }
 
 void Level::addPauseTotal()
 {
-	startTimer = true;
+	startPauseTimer = true;
 
 	if (addTime == true) {
 		for (int i = 0; i < 5; i++) {
@@ -414,11 +422,11 @@ void Level::addPauseTotal()
 
 void Level::calcPauseTime()
 {
-	if (startTimer == true) {
+	if (startPauseTimer == true) {
 		clock_gettime(CLOCK_REALTIME, &pauseStart);
 		pauseStartTime = (double)pauseStart.tv_sec;
 
-		startTimer = false;
+		startPauseTimer = false;
 	}
 	
 	clock_gettime(CLOCK_REALTIME, &pauseEnd);
@@ -427,6 +435,71 @@ void Level::calcPauseTime()
 	pauseWaitTime = pauseEndTime - pauseStartTime;
 	//cout << pauseWaitTime << endl;
 	addTime = true;
+}
+
+void Level::renderCountdown()
+{
+	int countdown;
+	double length;
+
+	if (startCountdownTimer == true){
+		clock_gettime(CLOCK_REALTIME, &countdownStart);
+		countdownStartTime = (double)countdownStart.tv_sec;
+
+		startCountdownTimer = false;
+	}
+	
+	clock_gettime(CLOCK_REALTIME, &countdownEnd);
+	countdownEndTime = (double)countdownEnd.tv_sec;
+
+	length = countdownEndTime - countdownStartTime;
+	countdown = gameLength - length;
+
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+
+	switch(countdown % 10) {
+		case 0:
+			glBindTexture(GL_TEXTURE_2D, zeroTexture);
+			break;
+		case 1:
+			glBindTexture(GL_TEXTURE_2D, oneTexture);
+			break;
+		case 2:
+			glBindTexture(GL_TEXTURE_2D, twoTexture);
+			break;
+		case 3:
+			glBindTexture(GL_TEXTURE_2D, threeTexture);
+			break;
+		case 4:
+			glBindTexture(GL_TEXTURE_2D, fourTexture);
+			break;
+		case 5:
+			glBindTexture(GL_TEXTURE_2D, fiveTexture);
+			break;
+		case 6:
+			glBindTexture(GL_TEXTURE_2D, sixTexture);
+			break;
+		case 7:
+			glBindTexture(GL_TEXTURE_2D, sevenTexture);
+			break;
+		case 8:
+			glBindTexture(GL_TEXTURE_2D, eightTexture);
+			break;
+		case 9:
+			glBindTexture(GL_TEXTURE_2D, nineTexture);
+			break;
+	}
+            
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(432, 673);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(432, 768);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(527, 768);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(527, 673);
+	glEnd();
+	glPopMatrix();
+
+
 }
 
 
