@@ -316,7 +316,7 @@ void Customer::renderModel(bool &line, bool seat[])
 Level::Level()
 {
 	custCount = 30;
-	gameLength = 120;
+	gameLength = 999;
 	customers = new Customer[5];
 	startPauseTimer = true;
 	startCountdownTimer = true;
@@ -558,7 +558,7 @@ void Level::renderCountdown()
 		if (countdown <= 109 && countdown >= 101)
 			glBindTexture(GL_TEXTURE_2D, oneTexture);
 		else {
-			switch(countdown - (countdown % 100) - (countdown % 10)) {
+			switch(countdown - (countdown % 100)) {
 				case 100:
 					glBindTexture(GL_TEXTURE_2D, oneTexture);
 					break;
