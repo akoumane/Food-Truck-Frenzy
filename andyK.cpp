@@ -499,7 +499,113 @@ void Level::renderCountdown()
 	glEnd();
 	glPopMatrix();
 
+	if (countdown > 9 ) {
+		glPushMatrix();
+		glEnable(GL_TEXTURE_2D);
 
+		if (countdown <= 109 && countdown >= 101)
+				glBindTexture(GL_TEXTURE_2D, zeroTexture);
+		else {
+
+			switch((countdown % 100) - (countdown % 10)) {
+				case 10:
+					glBindTexture(GL_TEXTURE_2D, oneTexture);
+					break;
+				case 20:
+					glBindTexture(GL_TEXTURE_2D, twoTexture);
+					break;
+				case 30:
+					glBindTexture(GL_TEXTURE_2D, threeTexture);
+					break;
+				case 40:
+					glBindTexture(GL_TEXTURE_2D, fourTexture);
+					break;
+				case 50:
+					glBindTexture(GL_TEXTURE_2D, fiveTexture);
+					break;
+				case 60:
+					glBindTexture(GL_TEXTURE_2D, sixTexture);
+					break;
+				case 70:
+					glBindTexture(GL_TEXTURE_2D, sevenTexture);
+					break;
+				case 80:
+					glBindTexture(GL_TEXTURE_2D, eightTexture);
+					break;
+				case 90:
+					glBindTexture(GL_TEXTURE_2D, nineTexture);
+					break;
+			}
+		}
+				
+	}
+	else {
+		glBindTexture(GL_TEXTURE_2D, zeroTexture);
+	}	
+		
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(336, 673);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(336, 768);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(431, 768);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(431, 673);
+	glEnd();
+	glPopMatrix();
+
+	if (countdown > 99 ) {
+		glPushMatrix();
+		glEnable(GL_TEXTURE_2D);
+
+		if (countdown <= 109 && countdown >= 101)
+			glBindTexture(GL_TEXTURE_2D, oneTexture);
+		else {
+			switch(countdown - (countdown % 100) - (countdown % 10)) {
+				case 100:
+					glBindTexture(GL_TEXTURE_2D, oneTexture);
+					break;
+				case 200:
+					glBindTexture(GL_TEXTURE_2D, twoTexture);
+					break;
+				case 300:
+					glBindTexture(GL_TEXTURE_2D, threeTexture);
+					break;
+				case 400:
+					glBindTexture(GL_TEXTURE_2D, fourTexture);
+					break;
+				case 500:
+					glBindTexture(GL_TEXTURE_2D, fiveTexture);
+					break;
+				case 600:
+					glBindTexture(GL_TEXTURE_2D, sixTexture);
+					break;
+				case 700:
+					glBindTexture(GL_TEXTURE_2D, sevenTexture);
+					break;
+				case 800:
+					glBindTexture(GL_TEXTURE_2D, eightTexture);
+					break;
+				case 900:
+					glBindTexture(GL_TEXTURE_2D, nineTexture);
+					break;
+			}
+		}
+				
+	}
+	else {
+		glBindTexture(GL_TEXTURE_2D, zeroTexture);
+	}	
+		
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(240, 673);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(240, 768);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(335, 768);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(335, 673);
+	glEnd();
+	glPopMatrix();
+
+	if (countdown < 0) {
+		start = false;
+		complete = true;
+	}
 }
 
 

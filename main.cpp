@@ -308,7 +308,7 @@ void initXWindows(void)
     swa.colormap = cmap;
     swa.event_mask = ExposureMask | KeyPressMask | KeyReleaseMask |
 	StructureNotifyMask | SubstructureNotifyMask;
-    win = XCreateWindow(dpy, root, 0, 0, 800, 800, 0,
+    win = XCreateWindow(dpy, root, 0, 0, xres, yres, 0,
 	    vi->depth, InputOutput, vi->visual,
 	    CWColormap | CWEventMask, &swa);
     GLXContext glc = glXCreateContext(dpy, vi, NULL, GL_TRUE);
