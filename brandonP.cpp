@@ -28,7 +28,7 @@ using namespace std;
 #define XMAX 668
 #define YMIN 0
 #define XMIN 8
-#define STEP_SIZE 8
+#define STEP_SIZE 1
 
 void Food::makeFood()
 {
@@ -98,6 +98,44 @@ Food::Food()
 	makeFood();
 }
 
+bool Food::check_on_side()
+{
+	return on_side;
+}
+
+bool Food::check_on_table()
+{
+	return on_table;
+}
+
+bool Food::check_moving()
+{
+	return moving;
+}
+
+void Food::set_on_side()
+{
+	on_side = 1;
+	on_table = 0;
+	moving = 0;
+	return;
+}
+
+void Food::set_on_table()
+{
+	on_side = 0;
+	on_table = 1;
+	moving = 0;
+	return;
+}
+
+void Food::set_moving()
+{
+	on_side = 0;
+	on_table = 0;
+	moving = 1;
+	return;
+}
 
 
 void Food::setPos(int table)
@@ -113,6 +151,11 @@ void Food::setPos(int table)
 			 << "brandonP.cpp void Food::setPos(int table)\n";
 		return;
 	}
+	if (moving) {
+		xpos = 9999;
+		ypos = 9999;
+		return;
+	}
 	switch (table)
 	{
 		case 1:
@@ -120,16 +163,24 @@ void Food::setPos(int table)
 			ypos = 270;
 			break;
 		case 2:
+			xpos = 580;
+			ypos = 270;
 			break;
 		case 3:
+			xpos = 124;
+			ypos = 66;
 			break;
 		case 4:
+			xpos = 580;
+			ypos = 66;
 			break;
 		case 5:
 			xpos = 482;
 			ypos = 556;
 			break;
 		case 6:
+			xpos = 625;
+			ypos = 556;
 			break;
 	}
 }
@@ -165,9 +216,9 @@ void Food::renderFood(bool in_seat, int seat_num, int food_id)
 				glBindTexture(GL_TEXTURE_2D, hotdogontable_texture);
 			glBegin(GL_QUADS);
 			glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
-			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+95);
-			glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+95, ypos+95);
-			glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+95, ypos);
+			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+width);
+		    glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+width, ypos+width);
+		    glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+width, ypos);
 			glEnd();
 			glPopMatrix();
 			break;
@@ -180,9 +231,9 @@ void Food::renderFood(bool in_seat, int seat_num, int food_id)
 				glBindTexture(GL_TEXTURE_2D, pizzaontable_texture);
 			glBegin(GL_QUADS);
 			glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
-			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+95);
-			glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+95, ypos+95);
-			glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+95, ypos);
+			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+width);
+		    glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+width, ypos+width);
+		    glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+width, ypos);
 			glEnd();
 			glPopMatrix();
 			break;
@@ -241,8 +292,8 @@ void Player::moveRight()
 }
 void Player::moveUp()
 {
-	if (ypos + STEP_SIZE >= YMAX)
-		return;
+	//if (ypos + STEP_SIZE >= YMAX)
+	//	return;
 	ypos = ypos + STEP_SIZE;
 }
 void Player::moveDown()

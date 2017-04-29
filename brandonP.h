@@ -31,6 +31,12 @@ class Food
         void makeFood();
         void setPos(int y, int x);
         void setPos(int table);
+        void set_on_side();
+        void set_on_table();
+        void set_moving();
+        bool check_on_side();
+        bool check_on_table();
+        bool check_moving();
 
 
 };

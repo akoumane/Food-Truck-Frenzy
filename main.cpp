@@ -167,6 +167,11 @@ int main(void)
     p1 = new Player(4, 253);
 	b1= new Box();
 	f1 = new Food();
+	f2 = new Food();
+	f3 = new Food();
+	f4 = new Food();
+	f5 = new Food();
+	f6 = new Food();
 	f1->setPos(1);
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
@@ -225,8 +230,9 @@ int main(void)
 			level->addPauseTotal();
 			render();
 			renderWaiter(p1->ypos, p1->xpos);
-			if (boo)
-				f1->renderFood(1, 5, 1);
+			if (boo) {
+				f1->renderFood(!(f1->check_moving()), 5, 2);
+			}
 
 			//b1->getwaiter(); //need it when acture use
 			#ifdef RENDERTEST
@@ -513,6 +519,9 @@ void checkKeys(XEvent *e)
 			break;
 		case XK_f:				// ******************************************
 			boo = !boo;
+			break;
+		case XK_k:
+			f1->set_moving();
 			break;
 		#ifdef RENDERTEST
 		case XK_q:
