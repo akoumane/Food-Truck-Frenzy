@@ -28,7 +28,7 @@ using namespace std;
 #define XMAX 668
 #define YMIN 0
 #define XMIN 8
-#define STEP_SIZE 1
+#define STEP_SIZE 8
 
 void Food::makeFood()
 {
@@ -136,7 +136,6 @@ void Food::set_moving()
 	moving = 1;
 	return;
 }
-
 
 void Food::setPos(int table)
 {
@@ -292,8 +291,8 @@ void Player::moveRight()
 }
 void Player::moveUp()
 {
-	//if (ypos + STEP_SIZE >= YMAX)
-	//	return;
+	if (ypos + STEP_SIZE >= YMAX)
+		return;
 	ypos = ypos + STEP_SIZE;
 }
 void Player::moveDown()
