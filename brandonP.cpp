@@ -28,8 +28,19 @@ using namespace std;
 #define XMAX 668
 #define YMIN 0
 #define XMIN 8
-#define STEP_SIZE 8
+#define STEP_SIZE 6
 
+/*
+void interaction(Player &p, Food &f1, Food &f2, Food &f3, Food &f4, Food &f5
+    Food &f6)
+{
+    if (p->xPos() >= 439 && p->xPos() <= 475 && p->yPos() >= 382 &&
+        p->yPos() <= 338) {
+
+    }
+    if (p->xPo
+
+*/
 void Food::makeFood()
 {
     burgeronplateonside = ppm6GetImage("burgeronplateonside.ppm");
@@ -272,6 +283,44 @@ void makeWaiter()
 	return;
 }
 
+void waiterBurger()
+{
+	waiter = ppm6GetImage("waiterholdingburger.ppm");
+	glGenTextures(1, &waiterTexture);
+	glBindTexture(GL_TEXTURE_2D, waiterTexture);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    waiter->width, waiter->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, waiter->data);
+    return;
+}
+
+void waiterHotdog()
+{
+	waiter = ppm6GetImage("waiterholdinghotdog.ppm");
+	glGenTextures(1, &waiterTexture);
+	glBindTexture(GL_TEXTURE_2D, waiterTexture);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    waiter->width, waiter->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, waiter->data);
+    return;
+}
+
+void waiterPizza()
+{
+	waiter = ppm6GetImage("waiterholdingpizza.ppm");
+	glGenTextures(1, &waiterTexture);
+	glBindTexture(GL_TEXTURE_2D, waiterTexture);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    waiter->width, waiter->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, waiter->data);
+    return;
+}
 Player::Player(int y, int x)
 {
 	xpos = x;
@@ -350,7 +399,10 @@ void imageConvert()
 		0.png 0.ppm 1.png 1.ppm 2.png 2.ppm \
 		3.png 3.ppm 4.png 4.ppm 5.png 5.ppm \
 		6.png 6.ppm 7.png 7.ppm 8.png 8.ppm \
-		9.png 9.ppm");
+		9.png 9.ppm \
+        waiterholdingburger.png waiterholdingburger.ppm \
+        waiterholdinghotdog.png waiterholdinghotdog.ppm \
+        waiterholdingpizza.png waiterholdingpizza.ppm ");
 	cout << "\n*** Image removal complete.***\n\n";
 
 	// copy images to main folder
@@ -388,6 +440,9 @@ void imageConvert()
 	system("cp pixel-sprites/7.png .");
 	system("cp pixel-sprites/8.png .");
 	system("cp pixel-sprites/9.png .");
+    system("cp pixel-sprites/waiterholdingburger.png .");
+    system("cp pixel-sprites/waiterholdinghotdog.png .");
+    system("cp pixel-sprites/waiterholdingpizza.png .");
 	cout << "\n*** Copying images complete. ***\n\n";
 
 	// convert from png to ppm using terminal GIMP
@@ -425,6 +480,9 @@ void imageConvert()
 	system("convert 7.png 7.ppm");
 	system("convert 8.png 8.ppm");
 	system("convert 9.png 9.ppm");
+    system("convert waiterholdingburger.png waiterholdingburger.ppm");
+    system("convert waiterholdinghotdog.png waiterholdinghotdog.ppm");
+    system("convert waiterholdingpizza.png waiterholdingpizza.ppm");
 	cout << "\n*** Image conversion complete. ***\n\n";
 	return;
 }
@@ -458,7 +516,10 @@ void cleanUp()
 		0.png 0.ppm 1.png 1.ppm 2.png 2.ppm \
 		3.png 3.ppm 4.png 4.ppm 5.png 5.ppm \
 		6.png 6.ppm 7.png 7.ppm 8.png 8.ppm \
-		9.png 9.ppm");
+		9.png 9.ppm \
+        waiterholdingburger.png waiterholdingburger.ppm \
+        waiterholdinghotdog.png waiterholdinghotdog.ppm \
+        waiterholdingpizza.png waiterholdingpizza.ppm");
 	cout << "\n*** Image clean up complete. ***\n\n";
 
 	return;
