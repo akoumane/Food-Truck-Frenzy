@@ -24,6 +24,10 @@ class Box
 	int stableypos2[2];
 	int wxpos1;
 	int wypos1;
+	bool colR;
+	bool colL;
+	bool colU;
+	bool colD;
 	bool col;
 	//functions
 	void makebox(int x1,int x2 ,int y1, int y2);
