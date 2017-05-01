@@ -489,30 +489,42 @@ void checkKeys(XEvent *e)
 		    break;
 
 		case XK_Left:
-			p1->moveLeft();
 			b1->movewLeft();
+		    if(b1->colwithRight()==false)
+		    {
+			p1->moveLeft();
+		    }
 			cout << "Move Left\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Right:
-			p1->moveRight();
 			b1->movewRight();
+			if(b1->colwithLeft()==false)
+			{
+			p1->moveRight();
+			}
 			cout << "Move Right\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Up:
-			p1->moveUp();
 			b1->movewUp();
+			if(b1->colwithDown()==false)
+			{
+			p1->moveUp();
+			}
 			cout << "Move Down\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
 			break;
 		case XK_Down:
-			p1->moveDown();
-			//swapped down with Up
 			b1->movewDown();
+			if (b1->colwithUp() == false)
+			{
+			p1->moveDown();
+			}
+			//swapped down with Up
 			cout << "Move Down\n";
 			cout << "xpos: " << p1->xpos;
 			cout <<"\nypos: " << p1->ypos << "\n\n";
@@ -607,7 +619,7 @@ void render(void)
 		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
 		glEnd();
     }
-//b1->gettable(); //need it when acture use
+b1->gettable(); //need it when acture use
 
 /*
     if(title_screen == true) {

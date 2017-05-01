@@ -17,7 +17,14 @@
 #include "ppm.h"
 #include "jinxuH.h"
 #include <time.h>
+#include "brandonP.h"
+
 using namespace std;
+#define YUB 384 //Ymax up
+#define YDB 0 //Ymax down
+#define XRB 668 //xmax left
+#define XLB 8 //xmax Right
+
 Box::Box() {
     xPos1 = 100;
     xPos2 = 100;
@@ -157,9 +164,9 @@ bool Box::colwithRight()
     //int wxpos2=wxpos1+95;
     int wypos2=wypos1+95;
     for(int i=0; i<4; i++){
-	if((wxpos1>tablexpos1[i] && wxpos1 < tablexpos2[i])&&
-		((wypos1>tableypos1[i] && wypos1 <tableypos2[i])||
-		 (wypos2>tableypos1[i] && wypos2 < tableypos2[i])))
+	if((wxpos1>tablexpos1[i]+5 && wxpos1 < tablexpos2[i]+5)&&
+		((wypos1>tableypos1[i]+5 && wypos1 <tableypos2[i]+5)||
+		 (wypos2>tableypos1[i]+5 && wypos2 < tableypos2[i]+5)))
 	{
 	    colR = true;
 	}
@@ -172,7 +179,7 @@ bool Box::colwithLeft()
     int wypos2=wypos1+95;
     for(int i=0; i<4;i++)
     {
-	if((wxpos2>tablexpos1[i] && wxpos2 < tablexpos2[i])&&
+	if((wxpos2>tablexpos1[i]-5 && wxpos2 < tablexpos2[i])&&
 		((wypos1>tableypos1[i] && wypos1 <tableypos2[i])||
 		 (wypos2>tableypos1[i] && wypos2 < tableypos2[i])))
 	{
@@ -181,40 +188,42 @@ bool Box::colwithLeft()
     }
     return colL;
 }
+
 bool Box::colwithUp()
 {
     int wxpos2=wxpos1+95;
     //int wypos2=wypos1+95;
     for(int i=0; i<4; i++)
     {
-	if((wypos1>tableypos1[i]+5 && wypos1<tableypos2[i]+5) &&
-		((wxpos1>tablexpos1[i]+5 && wxpos1<tablexpos2[i]+5)||
-		 (wxpos2>tablexpos1[i]+5&&wxpos2<tablexpos2[i]+5))) 
+	if((wypos1>tableypos1[i] && wypos1<tableypos2[i]+8) &&
+		((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
+		 (wxpos2>tablexpos1[i]&&wxpos2<tablexpos2[i]))) 
 	{
 	    colU = true;
 	}
     }
     return colU;
 }
+
 bool Box::colwithDown()
 {
     int wxpos2=wxpos1+95;
-    int wypos2=wxpos2+95;
+    int wypos2=wypos1+95;
     for(int i=0; i<4; i++)
     {
 	if((wypos2>tableypos1[i] && wypos2<tableypos2[i]) &&
 		((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
-		 (wxpos2>tablexpos1[i]&& wxpos2<tablexpos2[i]))) 
+		 (wypos2>tablexpos1[i]&& wxpos2<tablexpos2[i]))) 
 	{
 	    colD = true;
 	}
 	else  
 	{ //for sidebox only col down
-	    for(int i=0; i<2; i++)
+	    for(int j=0; j<2; j++)
 	    {
-		if((wypos2>stableypos1[i] && wypos2<stableypos2[i]) &&
-			((wxpos1>stablexpos1[i] && wxpos1<stablexpos2[i])||
-			 (wxpos2>stablexpos1[i]&& wxpos2<stablexpos2[i]))) 
+		if((wypos2>stableypos1[j] && wypos2<stableypos2[j]) &&
+			((wxpos1>stablexpos1[j] && wxpos1<stablexpos2[j])||
+			 (wxpos2>stablexpos1[j]&& wxpos2<stablexpos2[j]))) 
 		{
 		    colD = true;
 		}
@@ -226,46 +235,69 @@ bool Box::colwithDown()
 
 void Box::movewDown()
 {
+//Player *p1;
     if(colwithUp()==true)
     {
 	wypos1=wypos1;
     }
+    else if (wypos1-6<YDB)
+	return;
     else
-	wypos1 = wypos1-5;
-    colU=false;
+    {
+	wypos1 = wypos1-6;
+ //&moveDown();
+    }
+	colU=false;
 }
 
 void Box::movewUp()
 {
+//Player *p1;
     if(colwithDown()==true)
     {
 	wypos1=wypos1;
     }
+    else if (wypos1+6 >=YUB)
+	return;
     else
-	wypos1 = wypos1+5;
-    colD=false;
+    {
+	wypos1 = wypos1+6;
+  // &moveUp();
+    }
+	colD=false;
 }
 
 void Box::movewLeft()
 {
+//Player *p1;
     if(colwithRight()==true)
     {
 	wxpos1=wxpos1;
     }
+    else if(wxpos1-6 < XLB)
+	return;
     else
-	wxpos1 = wxpos1-5;
-    colR=false;
+    {
+	wxpos1 = wxpos1-6;
+//&moveLeft();
+    }
+	colR=false;
 }
 
 void Box::movewRight()
 {
+//Player *p1;
     if(colwithLeft()==true)
     {
 	wxpos1 = wxpos1;
     }
+    else if(wxpos1+6>=XRB)
+	return;
     else
-	wxpos1 = wxpos1+5;
-    
+    {
+	wxpos1 = wxpos1+6;
+// &moveRight();
+    }
     colL=false;
 
 }
