@@ -1,7 +1,7 @@
 void printName();
 void imageConvert();
 void cleanUp();
-void makeWaiter();
+void makeWaiter(int model);
 void renderWaiter(int ypos, int xpos);
 void waiterBurger();
 

@@ -158,15 +158,15 @@ void Customer::renderModel(bool &line, bool seat[])
 			currentTime = (double)custCurrent.tv_sec;
 		}
 	}
-	
-	
+
+
 
 	waitTime = currentTime - startTime - pauseTotal;
 
 	//if (inLine == true)
 	//	cout << waitTime << endl;
 
-	
+
 
     if (leave == false) {
         if (inLine) {
@@ -248,7 +248,7 @@ void Customer::renderModel(bool &line, bool seat[])
                     glBindTexture(GL_TEXTURE_2D, customer4SittingTexture);
                     break;
             }
-			
+
 			glBegin(GL_QUADS);
 
             switch(seatNum) {
@@ -313,6 +313,16 @@ void Customer::renderModel(bool &line, bool seat[])
         }
     }
 
+}
+
+int Customer::returnSeat()
+{
+	return seatNum;
+}
+
+int Customer::returnFood()
+{
+	return foodChoice;
 }
 
 Level::Level()
@@ -414,7 +424,7 @@ void Level::addPauseTotal()
 
 	if (addTime == true) {
 		for (int i = 0; i < 5; i++) {
-			customers[i].addPauseTotal(pauseWaitTime);		
+			customers[i].addPauseTotal(pauseWaitTime);
 		}
 		addTime = false;
 	}
@@ -430,7 +440,7 @@ void Level::calcPauseTime()
 
 		startPauseTimer = false;
 	}
-	
+
 	clock_gettime(CLOCK_REALTIME, &pauseEnd);
 	pauseEndTime = (double)pauseEnd.tv_sec;
 
@@ -450,7 +460,7 @@ void Level::renderCountdown()
 
 		startCountdownTimer = false;
 	}
-	
+
 	clock_gettime(CLOCK_REALTIME, &countdownEnd);
 	countdownEndTime = (double)countdownEnd.tv_sec;
 
@@ -492,7 +502,7 @@ void Level::renderCountdown()
 			glBindTexture(GL_TEXTURE_2D, nineTexture);
 			break;
 	}
-            
+
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 1.0f); glVertex2i(432, 673);
 	glTexCoord2f(0.0f, 0.0f); glVertex2i(432, 768);
@@ -539,12 +549,12 @@ void Level::renderCountdown()
 					break;
 			}
 		}
-				
+
 	}
 	else {
 		glBindTexture(GL_TEXTURE_2D, zeroTexture);
-	}	
-		
+	}
+
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 1.0f); glVertex2i(336, 673);
 	glTexCoord2f(0.0f, 0.0f); glVertex2i(336, 768);
@@ -590,12 +600,12 @@ void Level::renderCountdown()
 					break;
 			}
 		}
-				
+
 	}
 	else {
 		glBindTexture(GL_TEXTURE_2D, zeroTexture);
-	}	
-		
+	}
+
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 1.0f); glVertex2i(240, 673);
 	glTexCoord2f(0.0f, 0.0f); glVertex2i(240, 768);
@@ -631,7 +641,7 @@ unsigned char *buildAlphaData2(Ppmimage *img, unsigned char col[3])
 	//and		glAlphaFunc(GL_GREATER, 0.0f);i
 	*(ptr+3) = 1;
 	if (	a == col[0] &&
-	    	b == col[1] && 
+	    	b == col[1] &&
 		c == col[2]) {
 	    *(ptr+3) = 0;
 	}
@@ -654,7 +664,7 @@ void makeCustomers()
     glGenTextures(1, &customer2Texture);
     glGenTextures(1, &customer3Texture);
     glGenTextures(1, &customer4Texture);
-    
+
 	customer1Sitting = ppm6GetImage("customer1sitting.ppm");
 	customer2Sitting = ppm6GetImage("customer2sitting.ppm");
 	customer3Sitting = ppm6GetImage("customer3sitting.ppm");
@@ -704,7 +714,7 @@ void makeCustomers()
         customer4->width, customer4->height,
         0, GL_RGBA, GL_UNSIGNED_BYTE, customer4Data);
     free(customer4Data);
-    
+
 	//customer1sitting
     glBindTexture(GL_TEXTURE_2D, customer1SittingTexture);
     //
@@ -713,7 +723,7 @@ void makeCustomers()
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
 	    customer1Sitting->width, customer1Sitting->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, customer1Sitting->data);
-	
+
 	//customer2sitting
     glBindTexture(GL_TEXTURE_2D, customer2SittingTexture);
     //
@@ -722,7 +732,7 @@ void makeCustomers()
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
 	    customer2Sitting->width, customer2Sitting->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, customer2Sitting->data);
-	
+
 	//customer3sitting
     glBindTexture(GL_TEXTURE_2D, customer3SittingTexture);
     //
@@ -731,7 +741,7 @@ void makeCustomers()
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
 	    customer3Sitting->width, customer3Sitting->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, customer3Sitting->data);
-	
+
 	//customer4sitting
     glBindTexture(GL_TEXTURE_2D, customer4SittingTexture);
     //
@@ -864,7 +874,7 @@ void renderCustomers()
     glTexCoord2f(1.0f, 1.0f); glVertex2i(170, 498);
     glEnd();
     glPopMatrix();
-    
+
     glPushMatrix();
 	glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, customer1Texture);

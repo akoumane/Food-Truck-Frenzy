@@ -42,6 +42,8 @@ class Customer
 		void setFinishFood (bool a);
 		void addPauseTotal(double a);
 		void renderModel(bool &line, bool seat[]);
+        int returnSeat();
+        int returnFood();
 };
 
 class Level
@@ -60,7 +62,7 @@ class Level
 		bool startPauseTimer;
 		bool startCountdownTimer;
 		bool addTime;
-		
+
 		struct timespec pauseStart;
 		struct timespec pauseEnd;
 		struct timespec countdownStart;
@@ -92,5 +94,3 @@ class Level
 		void calcPauseTime();
 		void renderCountdown();
 };
-
-

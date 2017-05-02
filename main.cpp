@@ -385,7 +385,7 @@ void initOpengl(void)
 	makeNumbers();
 	makeCustomers();
     //makeFoods();
-	makeWaiter();
+	makeWaiter(3);
 }
 
 void checkResize(XEvent *e)
@@ -482,8 +482,7 @@ void checkKeys(XEvent *e)
 			break;
 		case XK_Left:
 			b1->movewLeft();
-		    if(b1->colwithRight()==false)
-		    {
+		    if  (b1->colwithRight()==false) {
 			p1->moveLeft();
 		    }
 			cout << "Move Left\n";
@@ -492,8 +491,7 @@ void checkKeys(XEvent *e)
 			break;
 		case XK_Right:
 			b1->movewRight();
-			if(b1->colwithLeft()==false)
-			{
+			if (b1->colwithLeft()==false) {
 			p1->moveRight();
 			}
 			cout << "Move Right\n";
@@ -502,8 +500,7 @@ void checkKeys(XEvent *e)
 			break;
 		case XK_Up:
 			b1->movewUp();
-			if(b1->colwithDown()==false)
-			{
+			if (b1->colwithDown()==false) {
 			p1->moveUp();
 			}
 			cout << "Move Down\n";
@@ -512,8 +509,7 @@ void checkKeys(XEvent *e)
 			break;
 		case XK_Down:
 			b1->movewDown();
-			if (b1->colwithUp() == false)
-			{
+			if (b1->colwithUp() == false) {
 			p1->moveDown();
 			}
 			//swapped down with Up

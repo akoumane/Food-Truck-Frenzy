@@ -269,20 +269,70 @@ void renderWaiter(int ypos, int xpos)
 	return;
 }
 
-void makeWaiter()
+void makeWaiter(int model)
 {
 	unsigned char col[] = {0, 255, 0};
 
-	waiter = ppm6GetImage("waiter.ppm");
-	glGenTextures(1, &waiterTexture);
-	glBindTexture(GL_TEXTURE_2D, waiterTexture);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	unsigned char *waiterData = buildAlphaData2(waiter, col);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-	    waiter->width, waiter->height,
-	    0, GL_RGBA, GL_UNSIGNED_BYTE, waiterData);
-	free(waiterData);
+	if (model == 0) {
+		waiter = ppm6GetImage("waiter.ppm");
+		glGenTextures(1, &waiterTexture);
+		glBindTexture(GL_TEXTURE_2D, waiterTexture);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		unsigned char *waiterData = buildAlphaData2(waiter, col);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		    waiter->width, waiter->height,
+		    0, GL_RGBA, GL_UNSIGNED_BYTE, waiterData);
+		free(waiterData);
+	}
+	if (model == 1) {
+		waiter = ppm6GetImage("waiterholdingburger.ppm");
+		glGenTextures(1, &waiterTexture);
+		glBindTexture(GL_TEXTURE_2D, waiterTexture);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		unsigned char *waiterData = buildAlphaData2(waiter, col);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+			waiter->width, waiter->height,
+			0, GL_RGBA, GL_UNSIGNED_BYTE, waiterData);
+		free(waiterData);
+	}
+	if (model == 2) {
+		waiter = ppm6GetImage("waiterholdinghotdog.ppm");
+		glGenTextures(1, &waiterTexture);
+		glBindTexture(GL_TEXTURE_2D, waiterTexture);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		unsigned char *waiterData = buildAlphaData2(waiter, col);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		    waiter->width, waiter->height,
+		    0, GL_RGBA, GL_UNSIGNED_BYTE, waiterData);
+		free(waiterData);
+	}
+	if (model == 3) {
+		waiter = ppm6GetImage("waiterholdingpizza.ppm");
+		glGenTextures(1, &waiterTexture);
+		glBindTexture(GL_TEXTURE_2D, waiterTexture);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		unsigned char *waiterData = buildAlphaData2(waiter, col);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		    waiter->width, waiter->height,
+		    0, GL_RGBA, GL_UNSIGNED_BYTE, waiterData);
+		free(waiterData);
+	}
+	if (model == 4) {
+		waiter = ppm6GetImage("waiterholdingsoda.ppm");
+		glGenTextures(1, &waiterTexture);
+		glBindTexture(GL_TEXTURE_2D, waiterTexture);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		unsigned char *waiterData = buildAlphaData2(waiter, col);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		    waiter->width, waiter->height,
+		    0, GL_RGBA, GL_UNSIGNED_BYTE, waiterData);
+		free(waiterData);
+	}
 	return;
 }
 
@@ -385,64 +435,11 @@ void imageConvert()
 {
 	// remove converted ppm files to help with crash recovery
 	cout << "\n*** Removing any images left behind... ***\n\n";
-	system("rm -f background.png background.ppm \
-		customer1.png customer1.ppm \
-		customer2.png customer2.ppm \
-		customer3.png customer3.ppm \
-		customer4.png customer4.ppm \
-		customer1sitting.png customer1sitting.ppm \
-		customer2sitting.png customer2sitting.ppm \
-		customer3sitting.png customer3sitting.ppm \
-		customer4sitting.png customer4sitting.ppm \
-		burger.png burger.ppm \
-		burgeronplate.png burgeronplate.ppm \
-		hotdog.png hotdog.ppm \
-		hotdogonplate.png hotdogonplate.ppm \
-		pizza.png pizza.ppm \
-		pizzaonplate.png pizzaonplate.ppm \
-		soda.png soda.ppm \
-		sodaonplate.png sodaonplate.ppm \
-		menu.png menu.ppm \
-		menu_defeat.png menu_defeat.ppm \
-		menu_pause.png menu_pause.ppm \
-		menu_help.png menu_help.ppm \
-		menu_victory.png menu_victory.ppm \
-		waiter.png waiter.ppm \
-		waiterleftstep.png waiterleftstep.ppm \
-		waiterrightstep.png waiterrightstep.ppm \
-		0.png 0.ppm 1.png 1.ppm 2.png 2.ppm \
-		3.png 3.ppm 4.png 4.ppm 5.png 5.ppm \
-		6.png 6.ppm 7.png 7.ppm 8.png 8.ppm \
-		9.png 9.ppm \
-        waiterholdingburger.png waiterholdingburger.ppm \
-        waiterholdinghotdog.png waiterholdinghotdog.ppm \
-        waiterholdingpizza.png waiterholdingpizza.ppm \
-        waiterholdingsoda.png waiterholdingsoda.ppm ");
-	cout << "\n*** Image removal complete.***\n\n";
+	cleanUp();
+	system("clear");
 
 	// copy images to main folder
 	cout << "\n*** Copying images to main folder... ***\n\n";
-	system("cp pixel-sprites/background.png .");
-	system("cp pixel-sprites/menu.png .");
-	system("cp pixel-sprites/menu_pause.png .");
-	system("cp pixel-sprites/menu_defeat.png .");
-	system("cp pixel-sprites/menu_help.png .");
-	system("cp pixel-sprites/menu_victory.png .");
-	system("cp pixel-sprites/customer1.png .");
-	system("cp pixel-sprites/customer2.png .");
-	system("cp pixel-sprites/customer3.png .");
-	system("cp pixel-sprites/customer4.png .");
-	system("cp pixel-sprites/customer1sitting.png .");
-	system("cp pixel-sprites/customer2sitting.png .");
-	system("cp pixel-sprites/customer3sitting.png .");
-	system("cp pixel-sprites/customer4sitting.png .");
-	system("cp pixel-sprites/burgeronplate.png .");
-	system("cp pixel-sprites/hotdogonplate.png .");
-	system("cp pixel-sprites/pizzaonplate.png .");
-	system("cp pixel-sprites/sodaonplate.png .");
-	system("cp pixel-sprites/waiter.png .");
-	system("cp pixel-sprites/waiterleftstep.png .");
-	system("cp pixel-sprites/waiterrightstep.png .");
 	system("cp pixel-sprites/0.png .");
 	system("cp pixel-sprites/1.png .");
 	system("cp pixel-sprites/2.png .");
@@ -453,34 +450,47 @@ void imageConvert()
 	system("cp pixel-sprites/7.png .");
 	system("cp pixel-sprites/8.png .");
 	system("cp pixel-sprites/9.png .");
-    system("cp pixel-sprites/waiterholdingburger.png .");
-    system("cp pixel-sprites/waiterholdinghotdog.png .");
-    system("cp pixel-sprites/waiterholdingpizza.png .");
+	system("cp pixel-sprites/background.png .");
+	system("cp pixel-sprites/burger.png .");
+	system("cp pixel-sprites/burgeronplate.png .");
+	system("cp pixel-sprites/chair.png .");
+	system("cp pixel-sprites/customer1.png .");
+	system("cp pixel-sprites/customer1sitting.png .");
+	system("cp pixel-sprites/customer2.png .");
+	system("cp pixel-sprites/customer2sitting.png .");
+	system("cp pixel-sprites/customer3.png .");
+	system("cp pixel-sprites/customer3sitting.png .");
+	system("cp pixel-sprites/customer4.png .");
+	system("cp pixel-sprites/customer4sitting.png .");
+	system("cp pixel-sprites/defeat.png .");
+	system("cp pixel-sprites/exit.png .");
+	system("cp pixel-sprites/foodtruck.png .");
+	system("cp pixel-sprites/hotdog.png .");
+	system("cp pixel-sprites/hotdogonplate.png .");
+	system("cp pixel-sprites/menu.png .");
+	system("cp pixel-sprites/menu_credit.png .");
+	system("cp pixel-sprites/menu_defeat.png .");
+	system("cp pixel-sprites/menu_help.png .");
+	system("cp pixel-sprites/menu_level.png .");
+	system("cp pixel-sprites/menu_pause.png .");
+	system("cp pixel-sprites/menu_victory.png .");
+	system("cp pixel-sprites/pizza.png .");
+	system("cp pixel-sprites/pizzaonplate.png .");
+	system("cp pixel-sprites/plate.png .");
+	system("cp pixel-sprites/soda.png .");
+	system("cp pixel-sprites/sodaonplate.png .");
+	system("cp pixel-sprites/start.png .");
+	system("cp pixel-sprites/table.png .");
+	system("cp pixel-sprites/thoughtbox.png .");
+	system("cp pixel-sprites/waiter.png .");
+	system("cp pixel-sprites/waiterholdingburger.png .");
+	system("cp pixel-sprites/waiterholdinghotdog.png .");
+	system("cp pixel-sprites/waiterholdingpizza.png .");
+	system("cp pixel-sprites/waiterholdingsoda.png .");
 	cout << "\n*** Copying images complete. ***\n\n";
 
 	// convert from png to ppm using terminal GIMP
 	cout << "\n*** Converting .png images to .ppm... ***\n\n";
-	system("convert menu.png menu.ppm");
-	system("convert menu_defeat.png menu_defeat.ppm");
-	system("convert menu_pause.png menu_pause.ppm");
-	system("convert menu_help.png menu_help.ppm");
-	system("convert menu_victory.png menu_victory.ppm");
-	system("convert background.png background.ppm");
-	system("convert customer1.png customer1.ppm");
-	system("convert customer2.png customer2.ppm");
-	system("convert customer3.png customer3.ppm");
-	system("convert customer4.png customer4.ppm");
-	system("convert customer1sitting.png customer1sitting.ppm");
-	system("convert customer2sitting.png customer2sitting.ppm");
-	system("convert customer3sitting.png customer3sitting.ppm");
-	system("convert customer4sitting.png customer4sitting.ppm");
-	system("convert burgeronplate.png burgeronplate.ppm");
-	system("convert pizzaonplate.png pizzaonplate.ppm");
-	system("convert hotdogonplate.png hotdogonplate.ppm");
-	system("convert sodaonplate.png sodaonplate.ppm");
-	system("convert waiter.png waiter.ppm");
-	system("convert waiterleftstep.png waiterleftstep.ppm");
-	system("convert waiterrightstep.png waiterrightstep.ppm");
 	system("convert 0.png 0.ppm");
 	system("convert 1.png 1.ppm");
 	system("convert 2.png 2.ppm");
@@ -491,9 +501,44 @@ void imageConvert()
 	system("convert 7.png 7.ppm");
 	system("convert 8.png 8.ppm");
 	system("convert 9.png 9.ppm");
-    system("convert waiterholdingburger.png waiterholdingburger.ppm");
-    system("convert waiterholdinghotdog.png waiterholdinghotdog.ppm");
-    system("convert waiterholdingpizza.png waiterholdingpizza.ppm");
+	system("convert background.png background.ppm");
+	system("convert burger.png burger.ppm");
+	system("convert burgeronplate.png burgeronplate.ppm");
+	system("convert chair.png chair.ppm");
+	system("convert customer1.png customer1.ppm");
+	system("convert customer1sitting.png customer1sitting.ppm");
+	system("convert customer2.png customer2.ppm");
+	system("convert customer2sitting.png customer2sitting.ppm");
+	system("convert customer3.png customer3.ppm");
+	system("convert customer3sitting.png customer3sitting.ppm");
+	system("convert customer4.png customer4.ppm");
+	system("convert customer4sitting.png customer4sitting.ppm");
+	system("convert defeat.png defeat.ppm");
+	system("convert exit.png exit.ppm");
+	system("convert foodtruck.png foodtruck.ppm");
+	system("convert hotdog.png hotdog.ppm");
+	system("convert hotdogonplate.png hotdogonplate.ppm");
+	system("convert menu.png menu.ppm");
+	system("convert menu_credit.png menu_credit.ppm");
+	system("convert menu_defeat.png menu_defeat.ppm");
+	system("convert menu_help.png menu_help.ppm");
+	system("convert menu_level.png menu_level.ppm");
+	system("convert menu_pause.png menu_pause.ppm");
+	system("convert menu_victory.png menu_victory.ppm");
+	system("convert pizza.png pizza.ppm");
+	system("convert pizzaonplate.png pizzaonplate.ppm");
+	system("convert plate.png plate.ppm");
+	system("convert soda.png soda.ppm");
+	system("convert sodaonplate.png sodaonplate.ppm");
+	system("convert start.png start.ppm");
+	system("convert table.png table.ppm");
+	system("convert thoughtbox.png thoughtbox.ppm");
+	system("convert waiter.png waiter.ppm");
+	system("convert waiterholdingburger.png waiterholdingburger.ppm");
+	system("convert waiterholdinghotdog.png waiterholdinghotdog.ppm");
+	system("convert waiterholdingpizza.png waiterholdingpizza.ppm");
+	system("convert waiterholdingsoda.png waiterholdingsoda.ppm");
+
 	cout << "\n*** Image conversion complete. ***\n\n";
 	return;
 }
@@ -501,41 +546,171 @@ void imageConvert()
 void cleanUp()
 {
 	cout << "\n*** Cleaning up images... ***\n\n";
-	system("rm -f background.png background.ppm \
-		customer1.png customer1.ppm \
-		customer2.png customer2.ppm \
-		customer3.png customer3.ppm \
-		customer4.png customer4.ppm \
-		customer1sitting.png customer1sitting.ppm \
-		customer2sitting.png customer2sitting.ppm \
-		customer3sitting.png customer3sitting.ppm \
-		customer4sitting.png customer4sitting.ppm \
-		burger.png burger.ppm \
-		burgeronplate.png burgeronplate.ppm \
-		hotdog.png hotdog.ppm \
-		hotdogonplate.png hotdogonplate.ppm \
-		pizza.png pizza.ppm \
-		pizzaonplate.png pizzaonplate.ppm \
-		soda.png soda.ppm \
-		sodaonplate.png sodaonplate.ppm \
-		menu.png menu.ppm \
-		menu_defeat.png menu_defeat.ppm \
-		menu_pause.png menu_pause.ppm \
-		menu_help.png menu_help.ppm \
-		menu_victory.png menu_victory.ppm \
-		waiter.png waiter.ppm \
-		waiterleftstep.png waiterleftstep.ppm \
-		waiterrightstep.png waiterrightstep.ppm \
-		0.png 0.ppm 1.png 1.ppm 2.png 2.ppm \
-		3.png 3.ppm 4.png 4.ppm 5.png 5.ppm \
-		6.png 6.ppm 7.png 7.ppm 8.png 8.ppm \
-		9.png 9.ppm \
-        waiterholdingburger.png waiterholdingburger.ppm \
-        waiterholdinghotdog.png waiterholdinghotdog.ppm \
-        waiterholdingpizza.png waiterholdingpizza.ppm \
-        waiterholdingsoda.png waiterholdingsoda.ppm ");
+	if (remove("0.png") != 0)
+		cout << "ERROR: could not remove '0.png'\n";
+	if (remove("0.ppm") != 0)
+		cout << "ERROR: could not remove '0.ppm'\n";
+	if (remove("1.png") != 0)
+		cout << "ERROR: could not remove '1.png'\n";
+	if (remove("1.ppm") != 0)
+		cout << "ERROR: could not remove '1.ppm'\n";
+	if (remove("2.png") != 0)
+		cout << "ERROR: could not remove '2.png'\n";
+	if (remove("2.ppm") != 0)
+		cout << "ERROR: could not remove '2.ppm'\n";
+	if (remove("3.png") != 0)
+		cout << "ERROR: could not remove '3.png'\n";
+	if (remove("3.ppm") != 0)
+		cout << "ERROR: could not remove '3.ppm'\n";
+	if (remove("4.png") != 0)
+		cout << "ERROR: could not remove '4.png'\n";
+	if (remove("4.ppm") != 0)
+		cout << "ERROR: could not remove '4.ppm'\n";
+	if (remove("5.png") != 0)
+		cout << "ERROR: could not remove '5.png'\n";
+	if (remove("5.ppm") != 0)
+		cout << "ERROR: could not remove '5.ppm'\n";
+	if (remove("6.png") != 0)
+		cout << "ERROR: could not remove '6.png'\n";
+	if (remove("6.ppm") != 0)
+		cout << "ERROR: could not remove '6.ppm'\n";
+	if (remove("7.png") != 0)
+		cout << "ERROR: could not remove '7.png'\n";
+	if (remove("7.ppm") != 0)
+		cout << "ERROR: could not remove '7.ppm'\n";
+	if (remove("8.png") != 0)
+		cout << "ERROR: could not remove '8.png'\n";
+	if (remove("8.ppm") != 0)
+		cout << "ERROR: could not remove '8.ppm'\n";
+	if (remove("9.png") != 0)
+		cout << "ERROR: could not remove '9.png'\n";
+	if (remove("9.ppm") != 0)
+		cout << "ERROR: could not remove '9.ppm'\n";
+	if (remove("background.png") != 0)
+		cout << "ERROR: could not remove 'background.png'\n";
+	if (remove("background.ppm") != 0)
+		cout << "ERROR: could not remove 'background.ppm'\n";
+	if (remove("burger.png") != 0)
+		cout << "ERROR: could not remove 'burger.png'\n";
+	if (remove("burger.ppm") != 0)
+		cout << "ERROR: could not remove 'burger.ppm'\n";
+	if (remove("burgeronplate.png") != 0)
+		cout << "ERROR: could not remove 'burgeronplate.png'\n";
+	if (remove("burgeronplate.ppm") != 0)
+		cout << "ERROR: could not remove 'burgeronplate.ppm'\n";
+	if (remove("chair.png") != 0)
+		cout << "ERROR: could not remove 'chair.png'\n";
+	if (remove("chair.ppm") != 0)
+		cout << "ERROR: could not remove 'chair.ppm'\n";
+	if (remove("customer1.png") != 0)
+		cout << "ERROR: could not remove 'customer1.png'\n";
+	if (remove("customer1.ppm") != 0)
+		cout << "ERROR: could not remove 'customer1.ppm'\n";
+	if (remove("customer2.png") != 0)
+		cout << "ERROR: could not remove 'customer2.png'\n";
+	if (remove("customer2.ppm") != 0)
+		cout << "ERROR: could not remove 'customer2.ppm'\n";
+	if (remove("customer3.png") != 0)
+		cout << "ERROR: could not remove 'customer3.png'\n";
+	if (remove("customer3.ppm") != 0)
+		cout << "ERROR: could not remove 'customer3.ppm'\n";
+	if (remove("customer4.png") != 0)
+		cout << "ERROR: could not remove 'customer4.png'\n";
+	if (remove("customer4.ppm") != 0)
+		cout << "ERROR: could not remove 'customer4.ppm'\n";
+	if (remove("customer1sitting.png") != 0)
+		cout << "ERROR: could not remove 'customer1sitting.png'\n";
+	if (remove("customer1sitting.ppm") != 0)
+		cout << "ERROR: could not remove 'customer1sitting.ppm'\n";
+	if (remove("customer2sitting.png") != 0)
+		cout << "ERROR: could not remove 'customer2sitting.png'\n";
+	if (remove("customer2sitting.ppm") != 0)
+		cout << "ERROR: could not remove 'customer2sitting.ppm'\n";
+	if (remove("customer3sitting.png") != 0)
+		cout << "ERROR: could not remove 'customer3sitting.png'\n";
+	if (remove("customer3sitting.ppm") != 0)
+		cout << "ERROR: could not remove 'customer3sitting.ppm'\n";
+	if (remove("customer4sitting.png") != 0)
+		cout << "ERROR: could not remove 'customer4sitting.png'\n";
+	if (remove("customer4sitting.ppm") != 0)
+		cout << "ERROR: could not remove 'customer4sitting.ppm'\n";
+	if (remove("defeat.png") != 0)
+		cout << "ERROR: could not remove 'defeat.png'\n";
+	if (remove("defeat.ppm") != 0)
+		cout << "ERROR: could not remove 'defeat.ppm'\n";
+	if (remove("exit.png") != 0)
+		cout << "ERROR: could not remove 'exit.png'\n";
+	if (remove("exit.ppm") != 0)
+		cout << "ERROR: could not remove 'exit.ppm'\n";
+	if (remove("foodtruck.png") != 0)
+		cout << "ERROR: could not remove 'foodtruck.png'\n";
+	if (remove("foodtruck.ppm") != 0)
+		cout << "ERROR: could not remove 'foodtruck.ppm'\n";
+	if (remove("hotdog.png") != 0)
+		cout << "ERROR: could not remove 'hotdog.png'\n";
+	if (remove("hotdog.ppm") != 0)
+		cout << "ERROR: could not remove 'hotdog.ppm'\n";
+	if (remove("hotdogonplate.png") != 0)
+		cout << "ERROR: could not remove 'hotdogonplate.png'\n";
+	if (remove("hotdogonplate.ppm") != 0)
+		cout << "ERROR: could not remove 'hotdogonplate.ppm'\n";
+	if (remove("pizza.png") != 0)
+		cout << "ERROR: could not remove 'pizza.png'\n";
+	if (remove("pizza.ppm") != 0)
+		cout << "ERROR: could not remove 'pizza.ppm'\n";
+	if (remove("pizzaonplate.png") != 0)
+		cout << "ERROR: could not remove 'pizzaonplate.png'\n";
+	if (remove("pizzaonplate.ppm") != 0)
+		cout << "ERROR: could not remove 'pizzaonplate.ppm'\n";
+	if (remove("soda.png") != 0)
+		cout << "ERROR: could not remove 'soda.png'\n";
+	if (remove("soda.ppm") != 0)
+		cout << "ERROR: could not remove 'soda.ppm'\n";
+	if (remove("sodaonplate.png") != 0)
+		cout << "ERROR: could not remove 'sodaonplate.png'\n";
+	if (remove("sodaonplate.ppm") != 0)
+		cout << "ERROR: could not remove 'sodaonplate.ppm'\n";
+	if (remove("menu.png") != 0)
+		cout << "ERROR: could not remove 'menu.png'\n";
+	if (remove("menu.ppm") != 0)
+		cout << "ERROR: could not remove 'menu.ppm'\n";
+	if (remove("menu_defeat.png") != 0)
+		cout << "ERROR: could not remove 'menu_defeat.png'\n";
+	if (remove("menu_defeat.ppm") != 0)
+		cout << "ERROR: could not remove 'menu_defeat.ppm'\n";
+	if (remove("menu_help.png") != 0)
+		cout << "ERROR: could not remove 'menu_help.png'\n";
+	if (remove("menu_help.ppm") != 0)
+		cout << "ERROR: could not remove 'menu_help.ppm'\n";
+	if (remove("menu_pause.png") != 0)
+		cout << "ERROR: could not remove 'menu_pause.png'\n";
+	if (remove("menu_pause.ppm") != 0)
+		cout << "ERROR: could not remove 'menu_pause.ppm'\n";
+	if (remove("menu_victory.png") != 0)
+		cout << "ERROR: could not remove 'menu_victory.png'\n";
+	if (remove("menu_victory.ppm") != 0)
+		cout << "ERROR: could not remove 'menu_victory.ppm'\n";
+	if (remove("waiter.png") != 0)
+	 	cout << "ERROR: could not remove 'waiter.png'\n";
+	if (remove("waiter.ppm") != 0)
+		cout << "ERROR: could not remove 'waiter.ppm'\n";
+	if (remove("waiterholdingburger.png") != 0)
+		cout << "ERROR: could not remove 'waiterholdingburger.png'\n";
+	if (remove("waiterholdingburger.ppm") != 0)
+		cout << "ERROR: could not remove 'waiterholdingburger.ppm'\n";
+	if (remove("waiterholdinghotdog.png") != 0)
+		cout << "ERROR: could not remove 'waiterholdinghotdog.png'\n";
+	if (remove("waiterholdinghotdog.ppm") != 0)
+		cout << "ERROR: could not remove 'waiterholdinghotdog.ppm'\n";
+	if (remove("waiterholdingpizza.png") != 0)
+		cout << "ERROR: could not remove 'waiterholdingpizza.png'\n";
+	if (remove("waiterholdingpizza.ppm") != 0)
+		cout << "ERROR: could not remove 'waiterholdingpizza.png'\n";
+	if (remove("waiterholdingsoda.png") != 0)
+		cout << "ERROR: could not remove 'waiterholdingsoda.png'\n";
+	if (remove("waiterholdingsoda.ppm") != 0)
+		cout << "ERROR: coul dnot remove 'waiterholdingsoda.ppm'\n";
 	cout << "\n*** Image clean up complete. ***\n\n";
-
 	return;
 }
 
