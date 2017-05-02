@@ -56,7 +56,7 @@ void interaction(Player *p1, Table *t1, Level *level)
 	// Table 1
 	if (p1->xPos() >= 235 && p1->xPos() <= 241 && p1->yPos() >= 232 &&
 		p1->yPos() <=280) {
-		
+		renderFood(1, 1, )
 	}
 	// Table 2
 	if (p1->xPos() >= 427 && p1->xPos() <= 433 && p1->yPos() >= 232 &&
