@@ -1,5 +1,5 @@
-void makeCustomers();
 void makeFoods();
+void makeCustomers();
 void renderCustomers();
 void renderFoods();
 void makeNumbers();
@@ -92,3 +92,5 @@ class Level
 		void calcPauseTime();
 		void renderCountdown();
 };
+
+

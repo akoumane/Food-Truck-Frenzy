@@ -383,6 +383,10 @@ void imageConvert()
 		customer2.png customer2.ppm \
 		customer3.png customer3.ppm \
 		customer4.png customer4.ppm \
+		customer1sitting.png customer1sitting.ppm \
+		customer2sitting.png customer2sitting.ppm \
+		customer3sitting.png customer3sitting.ppm \
+		customer4sitting.png customer4sitting.ppm \
 		burger.png burger.ppm \
 		burgeronplate.png burgeronplate.ppm \
 		hotdog.png hotdog.ppm \
@@ -421,6 +425,10 @@ void imageConvert()
 	system("cp pixel-sprites/customer2.png .");
 	system("cp pixel-sprites/customer3.png .");
 	system("cp pixel-sprites/customer4.png .");
+	system("cp pixel-sprites/customer1sitting.png .");
+	system("cp pixel-sprites/customer2sitting.png .");
+	system("cp pixel-sprites/customer3sitting.png .");
+	system("cp pixel-sprites/customer4sitting.png .");
 	system("cp pixel-sprites/burgeronplate.png .");
 	system("cp pixel-sprites/hotdogonplate.png .");
 	system("cp pixel-sprites/pizzaonplate.png .");
@@ -455,6 +463,10 @@ void imageConvert()
 	system("convert customer2.png customer2.ppm");
 	system("convert customer3.png customer3.ppm");
 	system("convert customer4.png customer4.ppm");
+	system("convert customer1sitting.png customer1sitting.ppm");
+	system("convert customer2sitting.png customer2sitting.ppm");
+	system("convert customer3sitting.png customer3sitting.ppm");
+	system("convert customer4sitting.png customer4sitting.ppm");
 	system("convert burgeronplate.png burgeronplate.ppm");
 	system("convert pizzaonplate.png pizzaonplate.ppm");
 	system("convert hotdogonplate.png hotdogonplate.ppm");
@@ -487,6 +499,10 @@ void cleanUp()
 		customer2.png customer2.ppm \
 		customer3.png customer3.ppm \
 		customer4.png customer4.ppm \
+		customer1sitting.png customer1sitting.ppm \
+		customer2sitting.png customer2sitting.ppm \
+		customer3sitting.png customer3sitting.ppm \
+		customer4sitting.png customer4sitting.ppm \
 		burger.png burger.ppm \
 		burgeronplate.png burgeronplate.ppm \
 		hotdog.png hotdog.ppm \

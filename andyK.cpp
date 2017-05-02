@@ -35,6 +35,11 @@ Ppmimage *customer2 = NULL;
 Ppmimage *customer3 = NULL;
 Ppmimage *customer4 = NULL;
 
+Ppmimage *customer1Sitting = NULL;
+Ppmimage *customer2Sitting = NULL;
+Ppmimage *customer3Sitting = NULL;
+Ppmimage *customer4Sitting = NULL;
+
 Ppmimage *zero = NULL;
 Ppmimage *one = NULL;
 Ppmimage *two = NULL;
@@ -51,6 +56,11 @@ GLuint customer2Texture;
 GLuint customer3Texture;
 GLuint customer4Texture;
 
+GLuint customer1SittingTexture;
+GLuint customer2SittingTexture;
+GLuint customer3SittingTexture;
+GLuint customer4SittingTexture;
+
 GLuint zeroTexture;
 GLuint oneTexture;
 GLuint twoTexture;
@@ -61,7 +71,6 @@ GLuint sixTexture;
 GLuint sevenTexture;
 GLuint eightTexture;
 GLuint nineTexture;
-
 
 Customer::Customer()
 {
@@ -227,22 +236,19 @@ void Customer::renderModel(bool &line, bool seat[])
 
             switch(modelNum) {
                 case 1:
-                    glBindTexture(GL_TEXTURE_2D, customer1Texture);
+                    glBindTexture(GL_TEXTURE_2D, customer1SittingTexture);
                     break;
                 case 2:
-                    glBindTexture(GL_TEXTURE_2D, customer2Texture);
+                    glBindTexture(GL_TEXTURE_2D, customer2SittingTexture);
                     break;
                 case 3:
-                    glBindTexture(GL_TEXTURE_2D, customer3Texture);
+                    glBindTexture(GL_TEXTURE_2D, customer3SittingTexture);
                     break;
                 case 4:
-                    glBindTexture(GL_TEXTURE_2D, customer4Texture);
+                    glBindTexture(GL_TEXTURE_2D, customer4SittingTexture);
                     break;
             }
 			
-			glEnable(GL_ALPHA_TEST);
-			glAlphaFunc(GL_GREATER, 0.0f);
-			glColor4ub(255,255,255,255);
 			glBegin(GL_QUADS);
 
             switch(seatNum) {
@@ -648,6 +654,16 @@ void makeCustomers()
     glGenTextures(1, &customer2Texture);
     glGenTextures(1, &customer3Texture);
     glGenTextures(1, &customer4Texture);
+    
+	customer1Sitting = ppm6GetImage("customer1sitting.ppm");
+	customer2Sitting = ppm6GetImage("customer2sitting.ppm");
+	customer3Sitting = ppm6GetImage("customer3sitting.ppm");
+	customer4Sitting = ppm6GetImage("customer4sitting.ppm");
+    glGenTextures(1, &customer1SittingTexture);
+    glGenTextures(1, &customer2SittingTexture);
+    glGenTextures(1, &customer3SittingTexture);
+    glGenTextures(1, &customer4SittingTexture);
+
     //customer1
     glBindTexture(GL_TEXTURE_2D, customer1Texture);
     //
@@ -688,6 +704,42 @@ void makeCustomers()
         customer4->width, customer4->height,
         0, GL_RGBA, GL_UNSIGNED_BYTE, customer4Data);
     free(customer4Data);
+    
+	//customer1sitting
+    glBindTexture(GL_TEXTURE_2D, customer1SittingTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    customer1Sitting->width, customer1Sitting->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, customer1Sitting->data);
+	
+	//customer2sitting
+    glBindTexture(GL_TEXTURE_2D, customer2SittingTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    customer2Sitting->width, customer2Sitting->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, customer2Sitting->data);
+	
+	//customer3sitting
+    glBindTexture(GL_TEXTURE_2D, customer3SittingTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    customer3Sitting->width, customer3Sitting->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, customer3Sitting->data);
+	
+	//customer4sitting
+    glBindTexture(GL_TEXTURE_2D, customer4SittingTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	    customer4Sitting->width, customer4Sitting->height,
+	    0, GL_RGB, GL_UNSIGNED_BYTE, customer4Sitting->data);
 }
 
 void makeNumbers()
@@ -796,7 +848,6 @@ void makeNumbers()
 
 
 
-#ifdef RENDERTEST
 void renderCustomers()
 {
 
@@ -870,4 +921,3 @@ void renderCustomers()
     glEnd();
 	glPopMatrix();
 }
-#endif
