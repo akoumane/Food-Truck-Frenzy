@@ -4,8 +4,21 @@ void cleanUp();
 void makeWaiter();
 void renderWaiter(int ypos, int xpos);
 void waiterBurger();
-//void interaction(Player *p, Food *f1, Food *f2, Food *f3, Food *f4, Food *f5
-//    Food *f6);
+void interaction(Player& p, Food& f1, Food& f2, Food& f3, Food& f4, Food& f5
+    Food& f6);
+
+class Table
+{
+    public:
+        int arr[6];
+        Food* f1;
+        Food* f2;
+        Food* f3;
+        Food* f4;
+        Food* f5;
+        Food* f6;
+        Table();
+};
 
 class Food
 {
@@ -16,18 +29,13 @@ class Food
         bool on_side;
         bool on_table;
         bool moving;
-        Ppmimage *burgeronplateonside;
-        Ppmimage *burgerontable;
-        Ppmimage *hotdogonplateonside;
-        Ppmimage *hotdogontable;
-        Ppmimage *pizzaonplateonside;
-        Ppmimage *pizzaontable;
-        GLuint burgeronplateonside_texture;
-        GLuint burgerontable_texture;
-        GLuint hotdogonplateonside_texture;
-        GLuint hotdogontable_texture;
-        GLuint pizzaonplateonside_texture;
-        GLuint pizzaontable_texture;
+        Ppmimage *burgeronplate;
+        Ppmimage *hotdogonplate;
+        Ppmimage *pizzaonplate;
+        GLuint burgeronplate_texture;
+        GLuint hotdogonplate_texture;
+        GLuint pizzaonplate_texture;
+
     public:
         Food();
         void renderFood(bool in_seat, int seat_num, int food_id);

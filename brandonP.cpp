@@ -30,17 +30,24 @@ using namespace std;
 #define XMIN 8
 #define STEP_SIZE 6
 
-/*
-void interaction(Player &p, Food &f1, Food &f2, Food &f3, Food &f4, Food &f5
-    Food &f6)
+Table::Table()
 {
-    if (p->xPos() >= 439 && p->xPos() <= 475 && p->yPos() >= 382 &&
-        p->yPos() <= 338) {
+	for (int i=0; i<6; i++) {
+		arr[i] = 0;
+	}
+	f1 = new Food();
+	f2 = new Food();
+	f3 = new Food();
+	f4 = new Food();
+	f5 = new Food();
+	f6 = new Food();
+}
 
-    }
-    if (p->xPo
+void interaction(Player *p, Table *t)
+{
 
-*/
+}
+
 void Food::makeFood()
 {
 	unsigned char col[] = {0, 255, 0};
@@ -150,27 +157,27 @@ void Food::setPos(int table)
 	{
 		case 1:
 			xpos = 124;
-			ypos = 270;
+			ypos = 271;
 			break;
 		case 2:
 			xpos = 580;
-			ypos = 270;
+			ypos = 271;
 			break;
 		case 3:
 			xpos = 124;
-			ypos = 66;
+			ypos = 67;
 			break;
 		case 4:
 			xpos = 580;
-			ypos = 66;
+			ypos = 67;
 			break;
 		case 5:
-			xpos = 482;
-			ypos = 556;
+			xpos = 415;
+			ypos = 490;
 			break;
 		case 6:
-			xpos = 625;
-			ypos = 556;
+			xpos = 515;
+			ypos = 490;
 			break;
 	}
 }

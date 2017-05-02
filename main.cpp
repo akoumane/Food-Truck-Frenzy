@@ -124,12 +124,7 @@ Ppmimage *backgroundImage = NULL;
 Grid *grid;
 Player *p1;
 Box *b1;
-Food *f1;
-Food *f2;
-Food *f3;
-Food *f4;
-Food *f5;
-Food *f6;
+Table *t1;
 //customer spawn testing
 /*Ppmimage *customerStanding1 = NULL;
   Ppmimage *customerSitting1 = NULL;
@@ -166,13 +161,7 @@ int main(void)
     grid = new Grid(Y_Dem,X_Dem);
     p1 = new Player(4, 253);
 	b1= new Box();
-	f1 = new Food();
-	f2 = new Food();
-	f3 = new Food();
-	f4 = new Food();
-	f5 = new Food();
-	f6 = new Food();
-	f1->setPos(1);
+	t1 = new Table();
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
 
@@ -231,7 +220,8 @@ int main(void)
 			render();
 			renderWaiter(p1->ypos, p1->xpos);
 			if (boo) {
-				f1->renderFood(!(f1->check_moving()), 5, 2);
+
+
 			}
 
 			//b1->getwaiter(); //need it when acture use
@@ -487,7 +477,9 @@ void checkKeys(XEvent *e)
 		    help_menu ^= 1;
 		    }
 		    break;
-
+		case XK_Return:
+			interaction(p1, f1, f2, f3, f4, f5, f6);
+			break;
 		case XK_Left:
 			b1->movewLeft();
 		    if(b1->colwithRight()==false)
@@ -619,7 +611,7 @@ void render(void)
 		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
 		glEnd();
     }
-	
+
 	//b1->gettable(); //need it when acture use
 
 /*
