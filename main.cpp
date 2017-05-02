@@ -478,7 +478,7 @@ void checkKeys(XEvent *e)
 		    }
 		    break;
 		case XK_Return:
-			interaction(p1, f1, f2, f3, f4, f5, f6);
+			interaction(p1, t1);
 			break;
 		case XK_Left:
 			b1->movewLeft();
@@ -528,7 +528,7 @@ void checkKeys(XEvent *e)
 			boo = !boo;
 			break;
 		case XK_k:
-			f1->set_moving();
+			t1->f1->set_moving();
 			break;
 		#ifdef RENDERTEST
 		case XK_q:

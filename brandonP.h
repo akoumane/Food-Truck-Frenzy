@@ -4,21 +4,6 @@ void cleanUp();
 void makeWaiter();
 void renderWaiter(int ypos, int xpos);
 void waiterBurger();
-void interaction(Player& p, Food& f1, Food& f2, Food& f3, Food& f4, Food& f5
-    Food& f6);
-
-class Table
-{
-    public:
-        int arr[6];
-        Food* f1;
-        Food* f2;
-        Food* f3;
-        Food* f4;
-        Food* f5;
-        Food* f6;
-        Table();
-};
 
 class Food
 {
@@ -50,6 +35,19 @@ class Food
         bool check_moving();
 
 
+};
+
+class Table
+{
+    public:
+        int arr[6];
+        Food* f1;
+        Food* f2;
+        Food* f3;
+        Food* f4;
+        Food* f5;
+        Food* f6;
+        Table();
 };
 
 class Grid
@@ -86,3 +84,4 @@ class Player
         int xPos();
         int yPos();
 };
+void interaction(Player *p1, Table *t1);

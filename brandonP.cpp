@@ -43,7 +43,7 @@ Table::Table()
 	f6 = new Food();
 }
 
-void interaction(Player *p, Table *t)
+void interaction(Player *p1, Table *t1)
 {
 
 }
