@@ -619,7 +619,8 @@ void render(void)
 		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
 		glEnd();
     }
-b1->gettable(); //need it when acture use
+	
+	//b1->gettable(); //need it when acture use
 
 /*
     if(title_screen == true) {

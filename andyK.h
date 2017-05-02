@@ -3,6 +3,7 @@ void makeFoods();
 void renderCustomers();
 void renderFoods();
 void makeNumbers();
+unsigned char *buildAlphaData2(Ppmimage *img, unsigned char col[3]);
 
 class Customer
 {

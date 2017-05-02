@@ -43,60 +43,40 @@ void interaction(Player &p, Food &f1, Food &f2, Food &f3, Food &f4, Food &f5
 */
 void Food::makeFood()
 {
-    burgeronplateonside = ppm6GetImage("burgeronplateonside.ppm");
-    glGenTextures(1, &burgeronplateonside_texture);
-    glBindTexture(GL_TEXTURE_2D, burgeronplateonside_texture);
+	unsigned char col[] = {0, 255, 0};
+
+    burgeronplate = ppm6GetImage("burgeronplate.ppm");
+    glGenTextures(1, &burgeronplate_texture);
+    glBindTexture(GL_TEXTURE_2D, burgeronplate_texture);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, 3,
-	    burgeronplateonside->width, burgeronplateonside->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, burgeronplateonside->data);
+	unsigned char *burgeronplateData = buildAlphaData2(burgeronplate, col);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+	    burgeronplate->width, burgeronplate->height,
+	    0, GL_RGBA, GL_UNSIGNED_BYTE, burgeronplateData);
+	free(burgeronplateData);
 
-	burgerontable = ppm6GetImage("burgerontable.ppm");
-	glGenTextures(1, &burgerontable_texture);
-	glBindTexture(GL_TEXTURE_2D, burgerontable_texture);
+	hotdogonplate = ppm6GetImage("hotdogonplate.ppm");
+	glGenTextures(1, &hotdogonplate_texture);
+	glBindTexture(GL_TEXTURE_2D, hotdogonplate_texture);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		burgerontable->width, burgerontable->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, burgerontable->data);
+	unsigned char *hotdogonplateData = buildAlphaData2(hotdogonplate, col);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		hotdogonplate->width, hotdogonplate->height,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, hotdogonplateData);
+	free(hotdogonplateData);
 
-	hotdogonplateonside = ppm6GetImage("hotdogonplateonside.ppm");
-    glGenTextures(1, &hotdogonplateonside_texture);
-    glBindTexture(GL_TEXTURE_2D, hotdogonplateonside_texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, 3,
-	    hotdogonplateonside->width, hotdogonplateonside->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, hotdogonplateonside->data);
-
-	hotdogontable = ppm6GetImage("hotdogontable.ppm");
-    glGenTextures(1, &hotdogontable_texture);
-    glBindTexture(GL_TEXTURE_2D, hotdogontable_texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, 3,
-	    hotdogontable->width, hotdogontable->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, hotdogontable->data);
-
-	pizzaonplateonside = ppm6GetImage("pizzaonplateonside.ppm");
-    glGenTextures(1, &pizzaonplateonside_texture);
-    glBindTexture(GL_TEXTURE_2D, pizzaonplateonside_texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, 3,
-	    pizzaonplateonside->width, pizzaonplateonside->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, pizzaonplateonside->data);
-
-	pizzaontable = ppm6GetImage("pizzaontable.ppm");
-	glGenTextures(1, &pizzaontable_texture);
-	glBindTexture(GL_TEXTURE_2D, pizzaontable_texture);
+	pizzaonplate = ppm6GetImage("pizzaonplate.ppm");
+	glGenTextures(1, &pizzaonplate_texture);
+	glBindTexture(GL_TEXTURE_2D, pizzaonplate_texture);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		pizzaontable->width, pizzaontable->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, pizzaontable->data);
-
+	unsigned char *pizzaonplateData = buildAlphaData2(pizzaonplate, col);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		pizzaonplate->width, pizzaonplate->height,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, pizzaonplateData);
+	free(pizzaonplateData);
 }
 
 Food::Food()
@@ -206,9 +186,12 @@ void Food::renderFood(bool in_seat, int seat_num, int food_id)
 			glPushMatrix();
 			glEnable(GL_TEXTURE_2D);
 			if (on_side)
-				glBindTexture(GL_TEXTURE_2D, burgeronplateonside_texture);
-			if (on_table)
-				glBindTexture(GL_TEXTURE_2D, burgerontable_texture);
+				glBindTexture(GL_TEXTURE_2D, burgeronplate_texture);
+			//if (on_table)
+				//glBindTexture(GL_TEXTURE_2D, burgerontable_texture);
+			glEnable(GL_ALPHA_TEST);
+			glAlphaFunc(GL_GREATER, 0.0f);
+			glColor4ub(255,255,255,255);
 			glBegin(GL_QUADS);
 			glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
 			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+width);
@@ -221,32 +204,38 @@ void Food::renderFood(bool in_seat, int seat_num, int food_id)
 			glPushMatrix();
 			glEnable(GL_TEXTURE_2D);
 			if (on_side)
-				glBindTexture(GL_TEXTURE_2D, hotdogonplateonside_texture);
-			if (on_table)
-				glBindTexture(GL_TEXTURE_2D, hotdogontable_texture);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
-			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+width);
-		    glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+width, ypos+width);
-		    glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+width, ypos);
-			glEnd();
-			glPopMatrix();
-			break;
+                glBindTexture(GL_TEXTURE_2D, hotdogonplate_texture);
+            //if (on_table)
+                //glBindTexture(GL_TEXTURE_2D, hotdogontable_texture);
+            glEnable(GL_ALPHA_TEST);
+            glAlphaFunc(GL_GREATER, 0.0f);
+            glColor4ub(255,255,255,255);
+            glBegin(GL_QUADS);
+            glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
+            glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+width);
+            glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+width, ypos+width);
+            glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+width, ypos);
+            glEnd();
+            glPopMatrix();
+            break;
 		case 3:
 			glPushMatrix();
 			glEnable(GL_TEXTURE_2D);
 			if (on_side)
-				glBindTexture(GL_TEXTURE_2D, pizzaonplateonside_texture);
-			if (on_table)
-				glBindTexture(GL_TEXTURE_2D, pizzaontable_texture);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
-			glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+width);
-		    glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+width, ypos+width);
-		    glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+width, ypos);
-			glEnd();
-			glPopMatrix();
-			break;
+                glBindTexture(GL_TEXTURE_2D, pizzaonplate_texture);
+            //if (on_table)
+                //glBindTexture(GL_TEXTURE_2D, pizzaontable_texture);
+            glEnable(GL_ALPHA_TEST);
+            glAlphaFunc(GL_GREATER, 0.0f);
+            glColor4ub(255,255,255,255);
+            glBegin(GL_QUADS);
+            glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
+            glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+width);
+            glTexCoord2f(1.0f, 0.0f); glVertex2i(xpos+width, ypos+width);
+            glTexCoord2f(1.0f, 1.0f); glVertex2i(xpos+width, ypos);
+            glEnd();
+            glPopMatrix();
+            break;
 	}
 
 }
@@ -260,6 +249,9 @@ void renderWaiter(int ypos, int xpos)
 	glPushMatrix();
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, waiterTexture);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0f);
+	glColor4ub(255,255,255,255);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 1.0f); glVertex2i(xpos, ypos);
     glTexCoord2f(0.0f, 0.0f); glVertex2i(xpos, ypos+95);
@@ -272,53 +264,66 @@ void renderWaiter(int ypos, int xpos)
 
 void makeWaiter()
 {
+	unsigned char col[] = {0, 255, 0};
+
 	waiter = ppm6GetImage("waiter.ppm");
 	glGenTextures(1, &waiterTexture);
 	glBindTexture(GL_TEXTURE_2D, waiterTexture);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	unsigned char *waiterData = buildAlphaData2(waiter, col);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
 	    waiter->width, waiter->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, waiter->data);
+	    0, GL_RGBA, GL_UNSIGNED_BYTE, waiterData);
+	free(waiterData);
 	return;
 }
 
 void waiterBurger()
 {
+	unsigned char col[] = {0, 255, 0};
 	waiter = ppm6GetImage("waiterholdingburger.ppm");
 	glGenTextures(1, &waiterTexture);
 	glBindTexture(GL_TEXTURE_2D, waiterTexture);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	unsigned char *waiterData = buildAlphaData2(waiter, col);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
 	    waiter->width, waiter->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, waiter->data);
+	    0, GL_RGBA, GL_UNSIGNED_BYTE, waiter->data);
+	free(waiterData);
     return;
 }
 
 void waiterHotdog()
 {
+	unsigned char col[] = {0, 255, 0};
 	waiter = ppm6GetImage("waiterholdinghotdog.ppm");
 	glGenTextures(1, &waiterTexture);
 	glBindTexture(GL_TEXTURE_2D, waiterTexture);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	unsigned char *waiterData = buildAlphaData2(waiter, col);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
 	    waiter->width, waiter->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, waiter->data);
+	    0, GL_RGBA, GL_UNSIGNED_BYTE, waiter->data);
+	free(waiterData);
     return;
 }
 
 void waiterPizza()
 {
+	unsigned char col[] = {0, 255, 0};
 	waiter = ppm6GetImage("waiterholdingpizza.ppm");
 	glGenTextures(1, &waiterTexture);
 	glBindTexture(GL_TEXTURE_2D, waiterTexture);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+	unsigned char *waiterData = buildAlphaData2(waiter, col);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
 	    waiter->width, waiter->height,
-	    0, GL_RGB, GL_UNSIGNED_BYTE, waiter->data);
+	    0, GL_RGBA, GL_UNSIGNED_BYTE, waiter->data);
+	free(waiterData);
     return;
 }
 Player::Player(int y, int x)
@@ -374,20 +379,18 @@ void imageConvert()
 	// remove converted ppm files to help with crash recovery
 	cout << "\n*** Removing any images left behind... ***\n\n";
 	system("rm -f background.png background.ppm \
-		customer1standing.png customer1standing.ppm \
-		customer2standing.png customer2standing.ppm \
-		customer3standing.png customer3standing.ppm \
-		customer4standing.png customer4standing.ppm \
-		customer1sitting.png customer1sitting.ppm \
-		customer2sitting.png customer2sitting.ppm \
-		customer3sitting.png customer3sitting.ppm \
-		customer4sitting.png customer4sitting.ppm \
-		burgeronplateonside.png burgeronplateonside.ppm \
-		burgerontable.png burgeronside.ppm \
-		hotdogonplateonside.png hotdogonplateonside.ppm \
-		hotdogontable.png hotdogontable.ppm \
-		pizzaonplateonside.png pizzaonplateonside.ppm \
-		pizzaontable.png pizzaontable.ppm \
+		customer1.png customer1.ppm \
+		customer2.png customer2.ppm \
+		customer3.png customer3.ppm \
+		customer4.png customer4.ppm \
+		burger.png burger.ppm \
+		burgeronplate.png burgeronplate.ppm \
+		hotdog.png hotdog.ppm \
+		hotdogonplate.png hotdogonplate.ppm \
+		pizza.png pizza.ppm \
+		pizzaonplate.png pizzaonplate.ppm \
+		soda.png soda.ppm \
+		sodaonplate.png sodaonplate.ppm \
 		menu.png menu.ppm \
 		menu_defeat.png menu_defeat.ppm \
 		menu_pause.png menu_pause.ppm \
@@ -402,7 +405,8 @@ void imageConvert()
 		9.png 9.ppm \
         waiterholdingburger.png waiterholdingburger.ppm \
         waiterholdinghotdog.png waiterholdinghotdog.ppm \
-        waiterholdingpizza.png waiterholdingpizza.ppm ");
+        waiterholdingpizza.png waiterholdingpizza.ppm \
+        waiterholdingsoda.png waiterholdingsoda.ppm ");
 	cout << "\n*** Image removal complete.***\n\n";
 
 	// copy images to main folder
@@ -413,20 +417,14 @@ void imageConvert()
 	system("cp pixel-sprites/menu_defeat.png .");
 	system("cp pixel-sprites/menu_help.png .");
 	system("cp pixel-sprites/menu_victory.png .");
-	system("cp pixel-sprites/customer1standing.png .");
-	system("cp pixel-sprites/customer2standing.png .");
-	system("cp pixel-sprites/customer3standing.png .");
-	system("cp pixel-sprites/customer4standing.png .");
-	system("cp pixel-sprites/customer1sitting.png .");
-	system("cp pixel-sprites/customer2sitting.png .");
-	system("cp pixel-sprites/customer3sitting.png .");
-	system("cp pixel-sprites/customer4sitting.png .");
-	system("cp pixel-sprites/burgeronplateonside.png .");
-	system("cp pixel-sprites/burgerontable.png .");
-	system("cp pixel-sprites/hotdogonplateonside.png .");
-	system("cp pixel-sprites/hotdogontable.png .");
-	system("cp pixel-sprites/pizzaonplateonside.png .");
-	system("cp pixel-sprites/pizzaontable.png .");
+	system("cp pixel-sprites/customer1.png .");
+	system("cp pixel-sprites/customer2.png .");
+	system("cp pixel-sprites/customer3.png .");
+	system("cp pixel-sprites/customer4.png .");
+	system("cp pixel-sprites/burgeronplate.png .");
+	system("cp pixel-sprites/hotdogonplate.png .");
+	system("cp pixel-sprites/pizzaonplate.png .");
+	system("cp pixel-sprites/sodaonplate.png .");
 	system("cp pixel-sprites/waiter.png .");
 	system("cp pixel-sprites/waiterleftstep.png .");
 	system("cp pixel-sprites/waiterrightstep.png .");
@@ -453,20 +451,14 @@ void imageConvert()
 	system("convert menu_help.png menu_help.ppm");
 	system("convert menu_victory.png menu_victory.ppm");
 	system("convert background.png background.ppm");
-	system("convert customer1standing.png customer1standing.ppm");
-	system("convert customer2standing.png customer2standing.ppm");
-	system("convert customer3standing.png customer3standing.ppm");
-	system("convert customer4standing.png customer4standing.ppm");
-	system("convert customer1sitting.png customer1sitting.ppm");
-	system("convert customer2sitting.png customer2sitting.ppm");
-	system("convert customer3sitting.png customer3sitting.ppm");
-	system("convert customer4sitting.png customer4sitting.ppm");
-	system("convert burgeronplateonside.png burgeronplateonside.ppm");
-	system("convert burgerontable.png burgerontable.ppm");
-	system("convert pizzaonplateonside.png pizzaonplateonside.ppm");
-	system("convert pizzaontable.png pizzaontable.ppm");
-	system("convert hotdogontable.png hotdogontable.ppm");
-	system("convert hotdogonplateonside.png hotdogonplateonside.ppm");
+	system("convert customer1.png customer1.ppm");
+	system("convert customer2.png customer2.ppm");
+	system("convert customer3.png customer3.ppm");
+	system("convert customer4.png customer4.ppm");
+	system("convert burgeronplate.png burgeronplate.ppm");
+	system("convert pizzaonplate.png pizzaonplate.ppm");
+	system("convert hotdogonplate.png hotdogonplate.ppm");
+	system("convert sodaonplate.png sodaonplate.ppm");
 	system("convert waiter.png waiter.ppm");
 	system("convert waiterleftstep.png waiterleftstep.ppm");
 	system("convert waiterrightstep.png waiterrightstep.ppm");
@@ -490,26 +482,24 @@ void imageConvert()
 void cleanUp()
 {
 	cout << "\n*** Cleaning up images... ***\n\n";
-	system("rm -f 	background.png background.ppm \
-		customer1standing.png customer1standing.ppm \
-		customer2standing.png customer2standing.ppm \
-		customer3standing.png customer3standing.ppm \
-		customer4standing.png customer4standing.ppm \
-		customer1sitting.png customer1sitting.ppm \
-		customer2sitting.png customer2sitting.ppm \
-		customer3sitting.png customer3sitting.ppm \
-		customer4sitting.png customer4sitting.ppm \
-		burgeronplateonside.png burgeronplateonside.ppm \
-		burgerontable.png burgerontable.ppm \
-		hotdogonplateonside.png hotdogonplateonside.ppm \
-		hotdogontable.png hotdogontable.ppm \
-		pizzaonplateonside.png pizzaonplateonside.ppm \
-		pizzaontable.png pizzaontable.ppm \
+	system("rm -f background.png background.ppm \
+		customer1.png customer1.ppm \
+		customer2.png customer2.ppm \
+		customer3.png customer3.ppm \
+		customer4.png customer4.ppm \
+		burger.png burger.ppm \
+		burgeronplate.png burgeronplate.ppm \
+		hotdog.png hotdog.ppm \
+		hotdogonplate.png hotdogonplate.ppm \
+		pizza.png pizza.ppm \
+		pizzaonplate.png pizzaonplate.ppm \
+		soda.png soda.ppm \
+		sodaonplate.png sodaonplate.ppm \
 		menu.png menu.ppm \
 		menu_defeat.png menu_defeat.ppm \
+		menu_pause.png menu_pause.ppm \
 		menu_help.png menu_help.ppm \
 		menu_victory.png menu_victory.ppm \
-		menu_pause.png menu_pause.ppm \
 		waiter.png waiter.ppm \
 		waiterleftstep.png waiterleftstep.ppm \
 		waiterrightstep.png waiterrightstep.ppm \
@@ -519,7 +509,8 @@ void cleanUp()
 		9.png 9.ppm \
         waiterholdingburger.png waiterholdingburger.ppm \
         waiterholdinghotdog.png waiterholdinghotdog.ppm \
-        waiterholdingpizza.png waiterholdingpizza.ppm");
+        waiterholdingpizza.png waiterholdingpizza.ppm \
+        waiterholdingsoda.png waiterholdingsoda.ppm ");
 	cout << "\n*** Image clean up complete. ***\n\n";
 
 	return;
