@@ -17,8 +17,9 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
-#include "brandonP.h"
 #include "andyK.h"
+#include "brandonP.h"
+
 extern "C" {
 #include "fonts.h"
 }
@@ -43,12 +44,19 @@ Table::Table()
 	f6 = new Food();
 }
 
-void interaction(Player *p1, Table *t1)
+void interaction(Player *p1, Table *t1, Level *level)
 {
+	Customer c0 = level->getCustomer(0);
+	Customer c1 = level->getCustomer(1);
+	Customer c2 = level->getCustomer(2);
+	Customer c3 = level->getCustomer(3);
+	Customer c4 = level->getCustomer(4);
+	Customer c5 = level->getCustomer(5);
+
 	// Table 1
 	if (p1->xPos() >= 235 && p1->xPos() <= 241 && p1->yPos() >= 232 &&
 		p1->yPos() <=280) {
-
+		
 	}
 	// Table 2
 	if (p1->xPos() >= 427 && p1->xPos() <= 433 && p1->yPos() >= 232 &&
@@ -370,10 +378,11 @@ void makeWaiter(int model)
 	return;
 }
 
-Player::Player(int y, int x)
+Player::Player(int y, int x, int choice)
 {
 	xpos = x;
 	ypos = y;
+	foodChoice = choice;
 }
 void Player::moveLeft()
 {
@@ -672,11 +681,7 @@ void cleanUp()
 	if (remove("menu_help.png") != 0)
 		cout << "ERROR: could not remove 'menu_help.png'\n";
 	if (remove("menu_help.ppm") != 0)
-		cout << "ERROR: could not remove 'menu_help.ppm'\n";
-	if (remove("menu_level.png") != 0)
-		cout << "ERROR: could not remove 'menu_level.png'\n";
-	if (remove("menu_level.ppm") != 0)
-		cout << "ERROR: could not rempve 'menu_level.ppm'\n";
+		cout << "ERROR: could not re	ve 'menu_level.ppm'\n";
 	if (remove("menu_pause.png") != 0)
 		cout << "ERROR: could not remove 'menu_pause.png'\n";
 	if (remove("menu_pause.ppm") != 0)
@@ -700,7 +705,7 @@ void cleanUp()
 	if (remove("thoughtbox.png") != 0)
 		cout << "ERROR: could not remove 'thoughtbox.png'\n";
 	if (remove("thoughtbox.ppm") != 0)
-		cout << "ERROR: could not remove 'thoughtbox.ppm'\n";
+		cout << "ERROR: could not rSemove 'thoughtbox.ppm'\n";
 	if (remove("waiter.png") != 0)
 	 	cout << "ERROR: could not remove 'waiter.png'\n";
 	if (remove("waiter.ppm") != 0)

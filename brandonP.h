@@ -1,3 +1,5 @@
+
+
 void printName();
 void imageConvert();
 void cleanUp();
@@ -74,13 +76,16 @@ class Player
     public:
     //private:
         int xpos, ypos;
+        int foodChoice;
     //public:
-        Player(int y, int x);
+        Player(int y, int x, int choice);
         void moveLeft();
         void moveRight();
         void moveDown();
         void moveUp();
         int xPos();
         int yPos();
+
 };
-void interaction(Player *p1, Table *t1);
+
+void interaction(Player *p1, Table *t1, Level *level);
