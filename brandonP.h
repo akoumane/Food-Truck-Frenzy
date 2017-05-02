@@ -3,7 +3,6 @@ void imageConvert();
 void cleanUp();
 void makeWaiter(int model);
 void renderWaiter(int ypos, int xpos);
-void waiterBurger();
 
 class Food
 {

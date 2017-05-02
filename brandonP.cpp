@@ -336,53 +336,6 @@ void makeWaiter(int model)
 	return;
 }
 
-void waiterBurger()
-{
-	unsigned char col[] = {0, 255, 0};
-	waiter = ppm6GetImage("waiterholdingburger.ppm");
-	glGenTextures(1, &waiterTexture);
-	glBindTexture(GL_TEXTURE_2D, waiterTexture);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	unsigned char *waiterData = buildAlphaData2(waiter, col);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-	    waiter->width, waiter->height,
-	    0, GL_RGBA, GL_UNSIGNED_BYTE, waiter->data);
-	free(waiterData);
-    return;
-}
-
-void waiterHotdog()
-{
-	unsigned char col[] = {0, 255, 0};
-	waiter = ppm6GetImage("waiterholdinghotdog.ppm");
-	glGenTextures(1, &waiterTexture);
-	glBindTexture(GL_TEXTURE_2D, waiterTexture);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	unsigned char *waiterData = buildAlphaData2(waiter, col);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-	    waiter->width, waiter->height,
-	    0, GL_RGBA, GL_UNSIGNED_BYTE, waiter->data);
-	free(waiterData);
-    return;
-}
-
-void waiterPizza()
-{
-	unsigned char col[] = {0, 255, 0};
-	waiter = ppm6GetImage("waiterholdingpizza.ppm");
-	glGenTextures(1, &waiterTexture);
-	glBindTexture(GL_TEXTURE_2D, waiterTexture);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	unsigned char *waiterData = buildAlphaData2(waiter, col);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-	    waiter->width, waiter->height,
-	    0, GL_RGBA, GL_UNSIGNED_BYTE, waiter->data);
-	free(waiterData);
-    return;
-}
 Player::Player(int y, int x)
 {
 	xpos = x;
