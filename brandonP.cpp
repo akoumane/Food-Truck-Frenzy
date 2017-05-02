@@ -45,6 +45,40 @@ Table::Table()
 
 void interaction(Player *p1, Table *t1)
 {
+	// Table 1
+	if (p1->xPos() >= 235 && p1->xPos() <= 241 && p1->yPos() >= 232 &&
+		p1->yPos() <=280) {
+
+	}
+	// Table 2
+	if (p1->xPos() >= 427 && p1->xPos() <= 433 && p1->yPos() >= 232 &&
+		p1->yPos() <=280) {
+
+	}
+	// Table 3
+	if (p1->xPos() >= 235 && p1->xPos() <= 241 && p1->yPos() >= 28 &&
+		p1->yPos() <=270) {
+
+	}
+	// Table 4
+	if (p1->xPos() >= 427 && p1->xPos() <= 433 && p1->yPos() >= 28 &&
+		p1->yPos() <=70) {
+
+	}
+	// Table 5
+	if (p1->xPos() >= 367 && p1->xPos() <= 409 && p1->yPos() >= 376 &&
+		p1->yPos() <=388) {
+
+	}
+	// Table 6
+	if (p1->xPos() >= 367 && p1->xPos() <= 409 && p1->yPos() >= 376 &&
+		p1->yPos() <=388) {
+
+	}
+
+
+
+
 
 }
 
@@ -627,6 +661,10 @@ void cleanUp()
 		cout << "ERROR: could not remove 'menu.png'\n";
 	if (remove("menu.ppm") != 0)
 		cout << "ERROR: could not remove 'menu.ppm'\n";
+	if (remove("menu_credit.png") != 0)
+		cout << "ERROR: could not remove 'menu_credit.png'\n";
+	if (remove("menu_credit.ppm") != 0)
+		cout << "ERROR: could not remove 'menu_credit.ppm'\n";
 	if (remove("menu_defeat.png") != 0)
 		cout << "ERROR: could not remove 'menu_defeat.png'\n";
 	if (remove("menu_defeat.ppm") != 0)
@@ -635,6 +673,10 @@ void cleanUp()
 		cout << "ERROR: could not remove 'menu_help.png'\n";
 	if (remove("menu_help.ppm") != 0)
 		cout << "ERROR: could not remove 'menu_help.ppm'\n";
+	if (remove("menu_level.png") != 0)
+		cout << "ERROR: could not remove 'menu_level.png'\n";
+	if (remove("menu_level.ppm") != 0)
+		cout << "ERROR: could not rempve 'menu_level.ppm'\n";
 	if (remove("menu_pause.png") != 0)
 		cout << "ERROR: could not remove 'menu_pause.png'\n";
 	if (remove("menu_pause.ppm") != 0)
@@ -643,6 +685,22 @@ void cleanUp()
 		cout << "ERROR: could not remove 'menu_victory.png'\n";
 	if (remove("menu_victory.ppm") != 0)
 		cout << "ERROR: could not remove 'menu_victory.ppm'\n";
+	if (remove("plate.png") != 0)
+		cout << "ERROR: could not remove 'plate.png'\n";
+	if (remove("plate.ppm") != 0)
+		cout << "ERROR: could not remove 'plate.ppm'\n";
+	if (remove("start.png") != 0)
+		cout << "ERROR: cuold not remove 'start.png'\n";
+	if (remove("start.ppm") != 0)
+		cout << "ERROR: could not remove 'start.ppm'\n";
+	if (remove("table.png") != 0)
+		cout << "ERROR: could not remove 'table.png'\n";
+	if (remove("table.ppm") != 0)
+		cout << "ERROR: could not remove 'table.ppm'\n";
+	if (remove("thoughtbox.png") != 0)
+		cout << "ERROR: could not remove 'thoughtbox.png'\n";
+	if (remove("thoughtbox.ppm") != 0)
+		cout << "ERROR: could not remove 'thoughtbox.ppm'\n";
 	if (remove("waiter.png") != 0)
 	 	cout << "ERROR: could not remove 'waiter.png'\n";
 	if (remove("waiter.ppm") != 0)

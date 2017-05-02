@@ -15,9 +15,9 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
+//#include "brandonP.h"     *DO NOT REMOVE THIS COMMENT
 #include "jinxuH.h"
 #include <time.h>
-#include "brandonP.h"
 
 using namespace std;
 #define YUB 384 //Ymax up
@@ -122,7 +122,7 @@ void Box::gettable()
     //draw table
     for (int i=0; i<4; i++)
     {
-	switch (i) 
+	switch (i)
 	{
 	    case 0:
 		makebox(13, 225, 225, 370);
@@ -197,7 +197,7 @@ bool Box::colwithUp()
     {
 	if((wypos1>tableypos1[i] && wypos1<tableypos2[i]+8) &&
 		((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
-		 (wxpos2>tablexpos1[i]&&wxpos2<tablexpos2[i]))) 
+		 (wxpos2>tablexpos1[i]&&wxpos2<tablexpos2[i])))
 	{
 	    colU = true;
 	}
@@ -213,17 +213,17 @@ bool Box::colwithDown()
     {
 	if((wypos2>tableypos1[i] && wypos2<tableypos2[i]) &&
 		((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
-		 (wypos2>tablexpos1[i]&& wxpos2<tablexpos2[i]))) 
+		 (wypos2>tablexpos1[i]&& wxpos2<tablexpos2[i])))
 	{
 	    colD = true;
 	}
-	else  
+	else
 	{ //for sidebox only col down
 	    for(int j=0; j<2; j++)
 	    {
 		if((wypos2>stableypos1[j] && wypos2<stableypos2[j]) &&
 			((wxpos1>stablexpos1[j] && wxpos1<stablexpos2[j])||
-			 (wxpos2>stablexpos1[j]&& wxpos2<stablexpos2[j]))) 
+			 (wxpos2>stablexpos1[j]&& wxpos2<stablexpos2[j])))
 		{
 		    colD = true;
 		}
@@ -308,7 +308,7 @@ void Box::showItem()
 {
     for (int i=0; i<4; i++)
     {
-	switch (i) 
+	switch (i)
 	{
 	    case 0:
 		drawtable(13, 225,225, 370);
@@ -331,5 +331,3 @@ void Box::showItem()
     drawtable(585, 705, 533, 623);
 }
 #endif
-
-
