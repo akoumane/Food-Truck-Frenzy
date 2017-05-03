@@ -42,6 +42,7 @@ class Table
 {
     public:
         int arr[6];
+		int tableID[4];
         Food* f1;
         Food* f2;
         Food* f3;
@@ -85,6 +86,7 @@ class Player
         int foodChoice;
     //public:
         Player(int y, int x, int choice);
+		bool resetWaiter;
         void moveLeft();
         void moveRight();
         void moveDown();

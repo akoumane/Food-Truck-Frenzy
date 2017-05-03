@@ -608,10 +608,13 @@ void render(void)
 		glEnd();
     }
 	if (t1->food1 == true) {
-		cout << "Food ID: " << p1->getFoodId() << endl;
-		t1->f1->renderFood(1, 1, p1->getFoodId());
-		p1->foodChoice = 0;
-		makeWaiter(p1->foodChoice);
+		//cout << "Food ID: " << t1->tableID[0] << endl;
+		t1->f1->renderFood(1, 1, t1->tableID[0]);
+		if (p1->resetWaiter == true) {
+			p1->foodChoice = 0;
+			makeWaiter(p1->foodChoice);
+			p1->resetWaiter = false;
+		}
 		//t1->f1->renderFood(1, 1, 3);
 	}
 	if (t1->food2) {

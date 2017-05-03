@@ -36,6 +36,8 @@ Table::Table()
 	for (int i=0; i<6; i++) {
 		arr[i] = 0;
 	}
+	for (int j = 0; j < 4; j++)
+		tableID[j] = 0;
 	f1 = new Food();
 	f2 = new Food();
 	f3 = new Food();
@@ -58,7 +60,12 @@ void interaction(Player *p1, Table *t1, Level *level)
 	 * Your render function keeps trying to use the
 	 * waiter's foodChoice when rendering the foods, but
 	 * if you reset the waiter, then it will always pass in 0. That's
-	 * why you should store that in the Table's food ID.
+	 * why you should store that in the Table's food ID. I made it for you
+	 * as an array already.
+	 *
+	 * I made a bool in your Player class called resetWaiter, so whenever the table matches
+  	 * it will set it to true, and then change the foodChoice to 0 and makes the waiter. I also put that
+	 * in the main where it checks if food1 is true.
 	 *
 	 * You also need to render in the soda, because when the ID is 4,
 	 * it won't render anything.
@@ -76,6 +83,8 @@ void interaction(Player *p1, Table *t1, Level *level)
 				if (level->getSeatNum(i) == 1) {
 					if (level->getFoodId(i) == p1->getFoodId()) {
 						cout << "MATCH\n";
+						t1->tableID[0] = p1->foodChoice;
+						p1->resetWaiter = true;
 						t1->food1 = true;
 						//p1->foodChoice = 0;
 						//makeWaiter(p1->foodChoice);
@@ -430,6 +439,7 @@ Player::Player(int y, int x, int choice)
 	xpos = x;
 	ypos = y;
 	foodChoice = choice;
+	resetWaiter = false;
 }
 void Player::moveLeft()
 {
