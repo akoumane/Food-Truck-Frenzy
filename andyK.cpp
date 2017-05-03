@@ -385,6 +385,16 @@ bool Level::getStart()
 	return start;
 }
 
+int Level::getSeatNum(int n)
+{
+	return customers[n].returnSeat();
+}
+
+int Level::getFoodId(int n)
+{
+	return customers[n].returnFood();
+}
+
 void Level::startGame(bool a)
 {
 	start = a;

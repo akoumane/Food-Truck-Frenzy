@@ -93,4 +93,6 @@ class Level
 		void addPauseTotal();
 		void calcPauseTime();
 		void renderCountdown();
+        int getSeatNum(int n);
+        int getFoodId(int n);
 };
