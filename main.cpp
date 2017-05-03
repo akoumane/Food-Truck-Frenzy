@@ -607,6 +607,24 @@ void render(void)
 		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
 		glEnd();
     }
+	if (t1->food1) {
+		t1->f1->renderFood(1, 1, p1->getFoodId());
+	}
+	if (t1->food2) {
+
+	}
+	if (t1->food3) {
+
+	}
+	if (t1->food4) {
+
+	}
+	if (t1->food5) {
+
+	}
+	if (t1->food6) {
+
+	}
 
 	//b1->gettable(); //need it when acture use
 

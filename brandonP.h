@@ -48,6 +48,12 @@ class Table
         Food* f4;
         Food* f5;
         Food* f6;
+        bool food1;
+        bool food2;
+        bool food3;
+        bool food4;
+        bool food5;
+        bool food6;
         Table();
 };
 
@@ -85,6 +91,7 @@ class Player
         void moveUp();
         int xPos();
         int yPos();
+        int getFoodId();
 
 };
 
