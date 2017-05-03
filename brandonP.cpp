@@ -785,10 +785,6 @@ void cleanUp()
 		cout << "ERROR: could not remove 'waiterholdingsoda.png'\n";
 	if (remove("waiterholdingsoda.ppm") != 0)
 		cout << "ERROR: could not remove 'waiterholdingsoda.ppm'\n";
-	if (remove("thoughtbox.png") != 0)
-		cout << "ERROR: could not remove 'thoughtbox.png'\n";
-	if (remove("thoughtbox.ppm") != 0)
-		cout << "ERROR: could not remove 'thoughtbox.ppm'\n";
 	cout << "\n*** Image clean up complete. ***\n\n";
 	return;
 }

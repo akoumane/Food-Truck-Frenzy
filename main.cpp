@@ -165,41 +165,25 @@ int main(void)
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
 
-    while (!done) {
-	while (XPending(dpy)) {
-	    XEvent e;
-	    XNextEvent(dpy, &e);
-	    checkResize(&e);
-	    checkMouse(&e);
-	    checkKeys(&e);
-	}
-	//
-	//Below is a process to apply physics at a consistent rate.
-	//1. Get the time right now.
-	clock_gettime(CLOCK_REALTIME, &timeCurrent);
-	//2. How long since we were here last?
-	timeSpan = timeDiff(&timeStart, &timeCurrent);
-	//3. Save the current time as our new starting time.
-	timeCopy(&timeStart, &timeCurrent);
-	//4. Add time-span to our countdown amount.
-	physicsCountdown += timeSpan;
-	//5. Has countdown gone beyond our physics rate?
-	//       if yes,
-	//           In a loop...
-	//              Apply physics
-	//              Reducing countdown by physics-rate.
-	//              Break when countdown < physics-rate.
-	//       if no,
+    while (level->getComplete() == false) {
+		
+		if (done == 1) {
+			level->setComplete(true);
+			level->setGameOver(true);
+		}
 
-	//Apply no physics this frame.
-	while (physicsCountdown >= physicsRate) {
-	    //6. Apply physics
-	    physics();
-	    //renderWaiter(p1->ypos, p1->xpos);
-	    //7. Reduce the countdown by our physics-rate
-	    physicsCountdown -= physicsRate;
-	}
-	//Always render every frame.
+		if (level->getServeCount() == level->getCustomerGoal()) {
+			level->setComplete(true);
+			cout << "YOU WIN!" << endl;
+		}
+
+		while (XPending(dpy)) {
+	    	XEvent e;
+	    	XNextEvent(dpy, &e);
+	    	checkResize(&e);
+			checkMouse(&e);
+			checkKeys(&e);
+		}
 
 	render();
 	
@@ -229,18 +213,23 @@ int main(void)
 				}
 				//t1->f1->renderFood(1, 1, 3);
 			}
+
 			if (t1->food2) {
 
 			}
+
 			if (t1->food3) {
 
 			}
+
 			if (t1->food4) {
 
 			}
+
 			if (t1->food5) {
 
 			}
+
 			if (t1->food6) {
 
 			}
@@ -253,7 +242,6 @@ int main(void)
 			}
 
 			//b1->getwaiter(); //need it when acture use
-			#ifdef RENDERTEST
 
 			if (level->getStart()) {
 		    	level->startGame();
@@ -262,13 +250,15 @@ int main(void)
 			//b1->showItem();
 
 			//renderCustomers();
-			#endif
 
 	    }
 	}
 
-	glXSwapBuffers(dpy, win);
+		glXSwapBuffers(dpy, win);
     }
+
+	if (level->getGameOver() == true)
+		cout << "YOU LOSE!" << endl;
 #ifdef USE_OPENAL_SOUND
 	cleanupSound();
 #endif
@@ -276,6 +266,8 @@ int main(void)
     cleanup_fonts();
     cleanUp();
     logClose();
+
+	free(level);
 
     // 	DEBUGGING FOR GRID
     /*
@@ -581,6 +573,9 @@ void checkKeys(XEvent *e)
 			break;
 		case XK_o:
 			cout << title_screen << endl;
+			break;
+		case XK_n:
+			cout << level->getCustomerGoal() << endl;
 			break;
 		#endif
 		case XK_Escape:

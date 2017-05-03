@@ -192,7 +192,7 @@ void Customer::renderThoughtBox()
     }
 }
 
-void Customer::renderModel(bool &line, bool seat[])
+void Customer::renderModel(bool &line, bool seat[], int &count)
 {
 
 	if (inSeat == false && inLine == false) {
@@ -364,6 +364,7 @@ void Customer::renderModel(bool &line, bool seat[])
             }
 
             if (finishFood) {
+				count++;
 				seat[seatNum-1] = false;
 				reset();
                 leave = true;
@@ -388,19 +389,21 @@ int Customer::returnFood()
 
 Level::Level()
 {
-	custCount = 30;
+	custCount = 10;
 	gameLength = 920;
 	customers = new Customer[5];
 	startPauseTimer = true;
 	startCountdownTimer = true;
 	addTime = false;
+	complete = false;
+	gameOver = false;
 }
 
 void Level::makeNewLevel(int n)
 {
 	levelNum = n;
-	custMultiplier = 0.5 * n;
-	customerGoal = (int)custMultiplier * custCount;
+	custMultiplier = n;
+	customerGoal = custMultiplier * custCount;
 	start = false;
 	complete = false;
 
@@ -436,6 +439,16 @@ void Level::setHasFood(int n)
     customers[n].setHasFood(true);
 }
 
+void Level::setComplete(bool a)
+{
+    complete = a;
+}
+
+void Level::setGameOver(bool a)
+{
+    gameOver = a;
+}
+
 
 bool Level::checkLine()
 {
@@ -450,6 +463,26 @@ bool Level::checkTables()
 bool Level::getStart()
 {
 	return start;
+}
+
+int Level::getServeCount()
+{
+	return serveCount;
+}
+
+bool Level::getComplete()
+{
+    return complete;
+}
+
+bool Level::getGameOver()
+{
+    return gameOver;
+}
+
+int Level::getCustomerGoal()
+{
+    return customerGoal;
 }
 
 int Level::getSeatNum(int n)
@@ -470,7 +503,7 @@ void Level::startGame(bool a)
 void Level::renderCustomers()
 {
 	for (int i = 0; i < 5; i++)
-		customers[i].renderModel(lineOccupied, seatOccupied);
+		customers[i].renderModel(lineOccupied, seatOccupied, serveCount);
 
 	//customers[0].renderModel(lineOccupied, seatOccupied);
 }
