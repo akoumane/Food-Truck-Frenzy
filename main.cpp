@@ -160,105 +160,112 @@ int main(void)
     level->makeNewLevel(1);
     grid = new Grid(Y_Dem,X_Dem);
     p1 = new Player(4, 253, 4);
-	b1= new Box();
-	t1 = new Table();
+    b1= new Box();
+    t1 = new Table();
     clock_gettime(CLOCK_REALTIME, &timePause);
     clock_gettime(CLOCK_REALTIME, &timeStart);
 
     while (level->getComplete() == false) {
-		
-		if (done == 1) {
-			level->setComplete(true);
-			level->setGameOver(true);
-		}
 
-		if (level->getServeCount() == level->getCustomerGoal()) {
-			level->setComplete(true);
-			cout << "YOU WIN!" << endl;
-		}
+	if (done == 1) {
+	    level->setComplete(true);
+	    level->setGameOver(true);
+	}
 
-		while (XPending(dpy)) {
-	    	XEvent e;
-	    	XNextEvent(dpy, &e);
-	    	checkResize(&e);
-			checkMouse(&e);
-			checkKeys(&e);
-		}
+	if (level->getServeCount() == level->getCustomerGoal()) {
+	    level->setComplete(true);
+	    cout << "YOU WIN!" << endl;
+	}
+
+	while (XPending(dpy)) {
+	    XEvent e;
+	    XNextEvent(dpy, &e);
+	    checkResize(&e);
+	    checkMouse(&e);
+	    checkKeys(&e);
+	}
 
 	render();
-	
+
 	if(title_screen == true) {
 	    renderTitleScreen();
 	    TitleScreen();
 	    if (help_menu == 1) {
-			renderHelpScreen();
-			Help_Menu();
+		renderHelpScreen();
+		Help_Menu();
 	    }
 	}
 	if(title_screen == false) {
 	    if (state_menu == 1) {
-			renderPauseScreen();
-			Pause_Menu();
-			level->calcPauseTime();
+		renderPauseScreen();
+		Pause_Menu();
+		level->calcPauseTime();
 	    }
 	    else {
-			level->addPauseTotal();
-			if (t1->food1 == true) {
-				//cout << "Food ID: " << t1->tableID[0] << endl;
-				t1->f1->renderFood(1, 1, t1->tableID[0]);
-				if (p1->resetWaiter == true) {
-					p1->foodChoice = 0;
-					makeWaiter(p1->foodChoice);
-					p1->resetWaiter = false;
-				}
-				//t1->f1->renderFood(1, 1, 3);
-			}
+		level->addPauseTotal();
+		if (t1->food1 == true) {
+		    //cout << "Food ID: " << t1->tableID[0] << endl;
+		    t1->f1->renderFood(1, 1, t1->tableID[0]);
+		    if (p1->resetWaiter == true) {
+			p1->foodChoice = 0;
+			makeWaiter(p1->foodChoice);
+			p1->resetWaiter = false;
+		    }
+		    //t1->f1->renderFood(1, 1, 3);
+		}
 
-			if (t1->food2) {
+		if (t1->food2) {
 
-			}
+		}
 
-			if (t1->food3) {
+		if (t1->food3) {
 
-			}
+		}
 
-			if (t1->food4) {
+		if (t1->food4) {
 
-			}
+		}
 
-			if (t1->food5) {
+		if (t1->food5) {
 
-			}
+		}
 
-			if (t1->food6) {
+		if (t1->food6) {
 
-			}
+		}
 
-			//b1->gettable(); //need it when acture use
-			renderWaiter(p1->ypos, p1->xpos);
-			if (boo) {
+		//b1->gettable(); //need it when acture use
+		renderWaiter(p1->ypos, p1->xpos);
+		if (boo) {
 
 
-			}
+		}
 
-			//b1->getwaiter(); //need it when acture use
+		//b1->getwaiter(); //need it when acture use
 
-			if (level->getStart()) {
-		    	level->startGame();
-			}
+		if (level->getStart()) {
+		    level->startGame();
+		}
 
-			//b1->showItem();
+		//b1->showItem();
 
-			//renderCustomers();
+		//renderCustomers();
 
 	    }
 	}
 
-		glXSwapBuffers(dpy, win);
+	glXSwapBuffers(dpy, win);
     }
 
-	if (level->getGameOver() == true)
-		cout << "YOU LOSE!" << endl;
+    if (level->getGameOver() == true) {
+	cout << "YOU LOSE!" << endl;
+	renderDefeatScreen();
+	Defeat_Menu();
+    }
+    else {
+	renderVictoryScreen();
+	Victory_Menu();
+    }
 #ifdef USE_OPENAL_SOUND
 	cleanupSound();
 #endif
@@ -459,8 +466,9 @@ void checkMouse(XEvent *e)
 void checkKeys(XEvent *e)
 {
     //keyboard input?
-    static int shift=0;
+    //static int shift=0;
     int key = XLookupKeysym(&e->xkey, 0);
+    /*
     if (e->type == KeyRelease) {
 	if (key == XK_Shift_L || key == XK_Shift_R)
 	    shift=0;
@@ -473,7 +481,9 @@ void checkKeys(XEvent *e)
 	}
     } else {
 		return;
+		
     }
+    */
     switch(key) {
 		case XK_p:
 		    if (title_screen == false)
