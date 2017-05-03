@@ -159,7 +159,7 @@ int main(void)
     level = new Level();
     level->makeNewLevel(1);
     grid = new Grid(Y_Dem,X_Dem);
-    p1 = new Player(4, 253);
+    p1 = new Player(4, 253, 4);
 	b1= new Box();
 	t1 = new Table();
     clock_gettime(CLOCK_REALTIME, &timePause);
@@ -478,7 +478,7 @@ void checkKeys(XEvent *e)
 		    }
 		    break;
 		case XK_Return:
-			interaction(p1, t1);
+			interaction(p1, t1, level);
 			break;
 		case XK_Left:
 			b1->movewLeft();

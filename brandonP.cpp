@@ -46,42 +46,37 @@ Table::Table()
 
 void interaction(Player *p1, Table *t1, Level *level)
 {
-	Customer c0 = level->getCustomer(0);
-	Customer c1 = level->getCustomer(1);
-	Customer c2 = level->getCustomer(2);
-	Customer c3 = level->getCustomer(3);
-	Customer c4 = level->getCustomer(4);
-	Customer c5 = level->getCustomer(5);
-
+	cout << "Interaction\n";
 	// Table 1
 	if (p1->xPos() >= 235 && p1->xPos() <= 241 && p1->yPos() >= 232 &&
-		p1->yPos() <=280) {
-		renderFood(1, 1, 1)
+		p1->yPos() <= 280) {
+		cout << "Box 1\n";
 	}
+
 	// Table 2
 	if (p1->xPos() >= 427 && p1->xPos() <= 433 && p1->yPos() >= 232 &&
 		p1->yPos() <=280) {
-
+		cout << "Box 2\n";
 	}
 	// Table 3
 	if (p1->xPos() >= 235 && p1->xPos() <= 241 && p1->yPos() >= 28 &&
-		p1->yPos() <=270) {
-
+		p1->yPos() <=70) {
+		cout << "Box 3\n";
 	}
 	// Table 4
 	if (p1->xPos() >= 427 && p1->xPos() <= 433 && p1->yPos() >= 28 &&
 		p1->yPos() <=70) {
-
+		cout << "Box 4\n";
 	}
 	// Table 5
 	if (p1->xPos() >= 367 && p1->xPos() <= 409 && p1->yPos() >= 376 &&
 		p1->yPos() <=388) {
-
+		cout << "Box 5\n";
 	}
 	// Table 6
 	if (p1->xPos() >= 367 && p1->xPos() <= 409 && p1->yPos() >= 376 &&
 		p1->yPos() <=388) {
-
+		cout << "Box 6\n";
 	}
 
 
