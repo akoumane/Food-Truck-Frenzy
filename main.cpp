@@ -459,8 +459,9 @@ void checkMouse(XEvent *e)
 void checkKeys(XEvent *e)
 {
     //keyboard input?
-    static int shift=0;
+    //static int shift=0;
     int key = XLookupKeysym(&e->xkey, 0);
+	/*
     if (e->type == KeyRelease) {
 	if (key == XK_Shift_L || key == XK_Shift_R)
 	    shift=0;
@@ -474,6 +475,7 @@ void checkKeys(XEvent *e)
     } else {
 		return;
     }
+    */
     switch(key) {
 		case XK_p:
 		    if (title_screen == false)
