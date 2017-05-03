@@ -65,8 +65,8 @@ Box::Box() {
     stableypos2[0]=623;
     stableypos2[1]=623;
     //start pos for waiter
-    wxpos1=253;
-    wypos1=4;
+    wxpos1=252;
+    wypos1=6;
 }
 //make the box
 void Box::makebox(int x1, int x2, int y1, int y2)
@@ -129,11 +129,11 @@ void Box::gettable()
 		break;
 	    case 1:
 		makebox(tablexpos1[1], tablexpos2[1], tableypos1[1], tableypos2[1]);
-	//	makebox(536, 754, 224, 370);
+		//	makebox(536, 754, 224, 370);
 		break;
 	    case 2:
 		makebox(tablexpos1[2], tablexpos2[2], tableypos1[2], tableypos2[2]);
-	//	makebox(13, 225, 25, 170);
+		//	makebox(13, 225, 25, 170);
 		break;
 	    case 3:
 		makebox(tablexpos1[3], tablexpos2[3], tableypos1[3], tableypos2[3]);
@@ -144,22 +144,22 @@ void Box::gettable()
     }
 
     //drawtablebox
-		drawtable(tablexpos1[0], tablexpos2[0],tableypos1[0], tableypos2[0]);
-		drawtable(tablexpos1[1], tablexpos2[1],tableypos1[1], tableypos2[1]);
-		drawtable(tablexpos1[2], tablexpos2[2],tableypos1[2], tableypos2[2]);
-		drawtable(tablexpos1[3], tablexpos2[3],tableypos1[3], tableypos2[3]);
-		//drawtable(13, 225,225, 370);
-		//drawtable(536, 754, 224, 370);
-		//drawtable(13, 225, 25, 170);
-		//drawtable(536, 754, 24, 170);
+    drawtable(tablexpos1[0], tablexpos2[0],tableypos1[0], tableypos2[0]);
+    drawtable(tablexpos1[1], tablexpos2[1],tableypos1[1], tableypos2[1]);
+    drawtable(tablexpos1[2], tablexpos2[2],tableypos1[2], tableypos2[2]);
+    drawtable(tablexpos1[3], tablexpos2[3],tableypos1[3], tableypos2[3]);
+    //drawtable(13, 225,225, 370);
+    //drawtable(536, 754, 224, 370);
+    //drawtable(13, 225, 25, 170);
+    //drawtable(536, 754, 24, 170);
     //make and draw side table
     //
-		makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
-		makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
+    makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
+    makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
     //makebox(467, 584, 533, 623);
     //makebox(585, 705, 533, 623);
-		drawtable(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
-		drawtable(stablexpos1[1], stablexpos2[1], stableypos1[1], stableypos2[1]);
+    drawtable(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
+    drawtable(stablexpos1[1], stablexpos2[1], stableypos1[1], stableypos2[1]);
     //drawtable(467, 584, 533, 623);
     //drawtable(585, 705, 533, 623);
     drawwaiter(wxpos1, wypos1);
@@ -177,8 +177,8 @@ bool Box::colwithRight()
     int wypos2=wypos1+95;
     for(int i=0; i<4; i++){
 	if((wxpos1>=tablexpos1[i]+5 && wxpos1 <= tablexpos2[i]+5)&&
-		((wypos1>tableypos1[i]+5 && wypos1 <tableypos2[i]+5)||
-		 (wypos2>tableypos1[i]+5 && wypos2 < tableypos2[i]+5)))
+		((wypos1>tableypos1[i] && wypos1 <tableypos2[i])||
+		 (wypos2>tableypos1[i] && wypos2 < tableypos2[i])))
 	{
 	    colR = true;
 	}
@@ -192,8 +192,8 @@ bool Box::colwithLeft()
     for(int i=0; i<4;i++)
     {
 	if((wxpos2>=tablexpos1[i]-5 && wxpos2 <= tablexpos2[i])&&
-		((wypos1>tableypos1[i] && wypos1 <tableypos2[i])||
-		 (wypos2>tableypos1[i] && wypos2 < tableypos2[i])))
+		((wypos1>=tableypos1[i] && wypos1 <= tableypos2[i])||
+		 (wypos2>=tableypos1[i] && wypos2 <= tableypos2[i])))
 	{
 	    colL = true;
 	}
@@ -247,7 +247,7 @@ bool Box::colwithDown()
 
 void Box::movewDown()
 {
-//Player *p1;
+    //Player *p1;
     if(colwithUp()==true)
     {
 	wypos1=wypos1;
@@ -257,14 +257,14 @@ void Box::movewDown()
     else
     {
 	wypos1 = wypos1-6;
- //&moveDown();
+	//&moveDown();
     }
-	colU=false;
+    colU=false;
 }
 
 void Box::movewUp()
 {
-//Player *p1;
+    //Player *p1;
     if(colwithDown()==true)
     {
 	wypos1=wypos1;
@@ -274,14 +274,14 @@ void Box::movewUp()
     else
     {
 	wypos1 = wypos1+6;
-  // &moveUp();
+	// &moveUp();
     }
-	colD=false;
+    colD=false;
 }
 
 void Box::movewLeft()
 {
-//Player *p1;
+    //Player *p1;
     if(colwithRight()==true)
     {
 	wxpos1=wxpos1;
@@ -291,14 +291,14 @@ void Box::movewLeft()
     else
     {
 	wxpos1 = wxpos1-6;
-//&moveLeft();
+	//&moveLeft();
     }
-	colR=false;
+    colR=false;
 }
 
 void Box::movewRight()
 {
-//Player *p1;
+    //Player *p1;
     if(colwithLeft()==true)
     {
 	wxpos1 = wxpos1;
@@ -308,7 +308,7 @@ void Box::movewRight()
     else
     {
 	wxpos1 = wxpos1+6;
-// &moveRight();
+	// &moveRight();
     }
     colL=false;
 

@@ -161,7 +161,7 @@ int main(void)
     level = new Level();
     level->makeNewLevel(1);
     grid = new Grid(Y_Dem,X_Dem);
-    p1 = new Player(4, 253, 4);
+    p1 = new Player(6, 252, 0);
     b1= new Box();
     t1 = new Table();
     clock_gettime(CLOCK_REALTIME, &timePause);
@@ -651,7 +651,9 @@ void render(void)
 		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
 		glEnd();
     }
-
+#ifdef RENDERTEST
+    b1->gettable();
+#endif
 /*
     if(title_screen == true) {
 	    	renderTitleScreen();
