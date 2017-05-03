@@ -75,7 +75,7 @@ void interaction(Player *p1, Table *t1, Level *level)
 
 	cout << "Interaction\n";
 	// Table 1
-	if (p1->xPos() >= 220 && p1->xPos() <= 241) {
+	if (p1->xPos() >= 215 && p1->xPos() <= 241) {
 		if (p1->yPos() >= 232 && p1->yPos() <= 280) {
 			cout << "Box 1\n";
 			cout << t1->food1 << endl;
@@ -114,7 +114,7 @@ void interaction(Player *p1, Table *t1, Level *level)
 		}
 	}
 	// Table 3
-	if (p1->xPos() >= 220 && p1->xPos() <= 241 && p1->yPos() >= 28 &&
+	if (p1->xPos() >= 215 && p1->xPos() <= 241 && p1->yPos() >= 28 &&
 		p1->yPos() <=70) {
 		cout << "Box 3\n";
 	}
@@ -540,6 +540,7 @@ void imageConvert()
 	system("cp pixel-sprites/waiterholdinghotdog.png .");
 	system("cp pixel-sprites/waiterholdingpizza.png .");
 	system("cp pixel-sprites/waiterholdingsoda.png .");
+	system("cp pixel-sprites/thoughtbox.png .");
 	cout << "\n*** Copying images complete. ***\n\n";
 
 	// convert from png to ppm using terminal GIMP
@@ -591,6 +592,7 @@ void imageConvert()
 	system("convert waiterholdinghotdog.png waiterholdinghotdog.ppm");
 	system("convert waiterholdingpizza.png waiterholdingpizza.ppm");
 	system("convert waiterholdingsoda.png waiterholdingsoda.ppm");
+	system("convert thoughtbox.png thoughtbox.ppm");
 
 	cout << "\n*** Image conversion complete. ***\n\n";
 	return;
@@ -782,7 +784,11 @@ void cleanUp()
 	if (remove("waiterholdingsoda.png") != 0)
 		cout << "ERROR: could not remove 'waiterholdingsoda.png'\n";
 	if (remove("waiterholdingsoda.ppm") != 0)
-		cout << "ERROR: coul dnot remove 'waiterholdingsoda.ppm'\n";
+		cout << "ERROR: could not remove 'waiterholdingsoda.ppm'\n";
+	if (remove("thoughtbox.png") != 0)
+		cout << "ERROR: could not remove 'thoughtbox.png'\n";
+	if (remove("thoughtbox.ppm") != 0)
+		cout << "ERROR: could not remove 'thoughtbox.ppm'\n";
 	cout << "\n*** Image clean up complete. ***\n\n";
 	return;
 }

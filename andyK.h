@@ -31,6 +31,7 @@ class Customer
 		bool leave;
 		bool assignSeat;
 		bool moveToSeat;
+		bool startTimer;
 
 	public:
 		Customer();
@@ -42,6 +43,7 @@ class Customer
 		void setFinishFood (bool a);
 		void addPauseTotal(double a);
 		void renderModel(bool &line, bool seat[]);
+		void renderThoughtBox();
         int returnSeat();
         int returnFood();
 };
@@ -55,6 +57,7 @@ class Level
 		int custCount;
 		double custMultiplier;
 		double gameLength;
+		double pauseTotal;
         bool start;
 		bool complete;
 		bool lineOccupied;
@@ -93,6 +96,7 @@ class Level
 		void addPauseTotal();
 		void calcPauseTime();
 		void renderCountdown();
+		void setHasFood(int n);
         int getSeatNum(int n);
         int getFoodId(int n);
 };

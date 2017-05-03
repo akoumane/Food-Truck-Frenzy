@@ -51,6 +51,8 @@ Ppmimage *seven = NULL;
 Ppmimage *eight = NULL;
 Ppmimage *nine = NULL;
 
+Ppmimage *thoughtbox = NULL;
+
 GLuint customer1Texture;
 GLuint customer2Texture;
 GLuint customer3Texture;
@@ -72,6 +74,8 @@ GLuint sevenTexture;
 GLuint eightTexture;
 GLuint nineTexture;
 
+GLuint thoughtboxTexture;
+
 Customer::Customer()
 {
 	xPos1 = 74;
@@ -89,6 +93,7 @@ Customer::Customer()
 	finishFood = false;
 	leave = true;
 	assignSeat = true;
+	startTimer = false;
 	moveToSeat = false;
 
 }
@@ -110,6 +115,7 @@ void Customer::reset()
     finishFood = false;
     leave = true;
     assignSeat = true;
+	startTimer = false;
     moveToSeat = false;
 }
 
@@ -142,6 +148,48 @@ void Customer::addPauseTotal(double a)
 {
 	if (inLine == true || inSeat == true)
 		pauseTotal += a;
+}
+
+void Customer::renderThoughtBox()
+{
+	if (isEating == false) {
+        glPushMatrix();
+        glEnable(GL_TEXTURE_2D);
+
+        glBindTexture(GL_TEXTURE_2D, thoughtboxTexture);
+
+        glBegin(GL_QUADS);
+
+        switch(seatNum) {
+            case 1:
+                glTexCoord2f(0.0f, 1.0f); glVertex2i(216, 355);
+                glTexCoord2f(0.0f, 0.0f); glVertex2i(216, 418);
+                glTexCoord2f(1.0f, 0.0f); glVertex2i(279, 418);
+                glTexCoord2f(1.0f, 1.0f); glVertex2i(279, 355);
+                break;
+            case 2:
+                glTexCoord2f(0.0f, 1.0f); glVertex2i(488, 355);
+                glTexCoord2f(0.0f, 0.0f); glVertex2i(488, 418);
+                glTexCoord2f(1.0f, 0.0f); glVertex2i(551, 418);
+                glTexCoord2f(1.0f, 1.0f); glVertex2i(551, 355);
+                break;
+            case 3:
+                glTexCoord2f(0.0f, 1.0f); glVertex2i(216, 151);
+                glTexCoord2f(0.0f, 0.0f); glVertex2i(216, 214);
+                glTexCoord2f(1.0f, 0.0f); glVertex2i(279, 214);
+                glTexCoord2f(1.0f, 1.0f); glVertex2i(279, 151);
+                break;
+            case 4:
+                glTexCoord2f(0.0f, 1.0f); glVertex2i(488, 151);
+                glTexCoord2f(0.0f, 0.0f); glVertex2i(488, 214);
+                glTexCoord2f(1.0f, 0.0f); glVertex2i(551, 214);
+                glTexCoord2f(1.0f, 1.0f); glVertex2i(551, 151);
+                break;
+        }
+
+        glEnd();
+        glPopMatrix();
+    }
 }
 
 void Customer::renderModel(bool &line, bool seat[])
@@ -231,6 +279,7 @@ void Customer::renderModel(bool &line, bool seat[])
 
 		if (inSeat) {
             //glDisable(GL_TEXTURE_2D);
+			renderThoughtBox();
             glPushMatrix();
             glEnable(GL_TEXTURE_2D);
 
@@ -294,17 +343,29 @@ void Customer::renderModel(bool &line, bool seat[])
                     break;
             }
 
+			if (hasFood == true) {
+                clock_gettime(CLOCK_REALTIME, &custStart);
+                clock_gettime(CLOCK_REALTIME, &custCurrent);
+                startTime = (double)custStart.tv_sec;
+                currentTime = (double)custCurrent.tv_sec;
+                pauseTotal = 0;
+                hasFood = false;
+                isEating = true;
+            }
 
+            if (isEating == true) {
+                if (waitTime < 5.001) {
+                    clock_gettime(CLOCK_REALTIME, &custCurrent);
+                    currentTime = (double)custCurrent.tv_sec;
+                }
+                else {
+                    finishFood = true;
+                }
+            }
 
             if (finishFood) {
 				seat[seatNum-1] = false;
 				reset();
-                //inLine = true;
-				/*glTexCoord2f(0.0f, 0.0f);
-				glTexCoord2f(0.0f, 0.0f);
-				glTexCoord2f(0.0f, 0.0f);
-				glTexCoord2f(0.0f, 0.0f);*/
-				glDisable(GL_TEXTURE_2D);
                 leave = true;
             }
 
@@ -370,6 +431,12 @@ void Level::setCustomerLeave(int n)
 	customers[n].setFinishFood(true);
 }
 
+void Level::setHasFood(int n)
+{
+    customers[n].setHasFood(true);
+}
+
+
 bool Level::checkLine()
 {
 	return lineOccupied;
@@ -433,6 +500,7 @@ void Level::addPauseTotal()
 	startPauseTimer = true;
 
 	if (addTime == true) {
+		pauseTotal += pauseWaitTime;
 		for (int i = 0; i < 5; i++) {
 			customers[i].addPauseTotal(pauseWaitTime);
 		}
@@ -474,7 +542,7 @@ void Level::renderCountdown()
 	clock_gettime(CLOCK_REALTIME, &countdownEnd);
 	countdownEndTime = (double)countdownEnd.tv_sec;
 
-	length = countdownEndTime - countdownStartTime;
+	length = countdownEndTime - countdownStartTime - pauseTotal;
 	countdown = gameLength - length;
 
 	glPushMatrix();
@@ -684,6 +752,9 @@ void makeCustomers()
     glGenTextures(1, &customer3SittingTexture);
     glGenTextures(1, &customer4SittingTexture);
 
+	thoughtbox = ppm6GetImage("thoughtbox.ppm");
+    glGenTextures(1, &thoughtboxTexture);
+
     //customer1
     glBindTexture(GL_TEXTURE_2D, customer1Texture);
     //
@@ -760,6 +831,17 @@ void makeCustomers()
     glTexImage2D(GL_TEXTURE_2D, 0, 3,
 	    customer4Sitting->width, customer4Sitting->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, customer4Sitting->data);
+
+	//thoughtbox
+    glBindTexture(GL_TEXTURE_2D, thoughtboxTexture);
+    //
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *thoughtboxData = buildAlphaData2(thoughtbox, col);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+        thoughtbox->width, thoughtbox->height,
+        0, GL_RGBA, GL_UNSIGNED_BYTE, thoughtboxData);
+    free(thoughtboxData);
 }
 
 void makeNumbers()

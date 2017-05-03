@@ -201,6 +201,8 @@ int main(void)
 	}
 	//Always render every frame.
 
+	render();
+	
 	if(title_screen == true) {
 	    renderTitleScreen();
 	    TitleScreen();
@@ -217,7 +219,33 @@ int main(void)
 	    }
 	    else {
 			level->addPauseTotal();
-			render();
+			if (t1->food1 == true) {
+				//cout << "Food ID: " << t1->tableID[0] << endl;
+				t1->f1->renderFood(1, 1, t1->tableID[0]);
+				if (p1->resetWaiter == true) {
+					p1->foodChoice = 0;
+					makeWaiter(p1->foodChoice);
+					p1->resetWaiter = false;
+				}
+				//t1->f1->renderFood(1, 1, 3);
+			}
+			if (t1->food2) {
+
+			}
+			if (t1->food3) {
+
+			}
+			if (t1->food4) {
+
+			}
+			if (t1->food5) {
+
+			}
+			if (t1->food6) {
+
+			}
+
+			//b1->gettable(); //need it when acture use
 			renderWaiter(p1->ypos, p1->xpos);
 			if (boo) {
 
@@ -465,6 +493,7 @@ void checkKeys(XEvent *e)
 		#ifdef USE_OPENAL_SOUND
 		    playSound(b.alSourceBeep);
 		#endif
+			level->startGame(true);
 		    }
 		    title_screen = false;
 		    break;
@@ -528,7 +557,6 @@ void checkKeys(XEvent *e)
 			break;
 		#ifdef RENDERTEST
 		case XK_q:
-			level->startGame(true);
        		break;
     	case XK_w:
 			level->printLine();
@@ -537,19 +565,19 @@ void checkKeys(XEvent *e)
 			level->printSeat();
 			break;
 		case XK_r:
-			level->setCustomerLeave(0);
+			level->setHasFood(0);
 			break;
 		case XK_t:
-			level->setCustomerLeave(1);
+			level->setHasFood(1);
 			break;
 		case XK_y:
-			level->setCustomerLeave(2);
+			level->setHasFood(2);
 			break;
 		case XK_u:
-			level->setCustomerLeave(3);
+			level->setHasFood(3);
 			break;
 		case XK_i:
-			level->setCustomerLeave(4);
+			level->setHasFood(4);
 			break;
 		case XK_o:
 			cout << title_screen << endl;
@@ -607,33 +635,6 @@ void render(void)
 		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
 		glEnd();
     }
-	if (t1->food1 == true) {
-		//cout << "Food ID: " << t1->tableID[0] << endl;
-		t1->f1->renderFood(1, 1, t1->tableID[0]);
-		if (p1->resetWaiter == true) {
-			p1->foodChoice = 0;
-			makeWaiter(p1->foodChoice);
-			p1->resetWaiter = false;
-		}
-		//t1->f1->renderFood(1, 1, 3);
-	}
-	if (t1->food2) {
-
-	}
-	if (t1->food3) {
-
-	}
-	if (t1->food4) {
-
-	}
-	if (t1->food5) {
-
-	}
-	if (t1->food6) {
-
-	}
-
-	//b1->gettable(); //need it when acture use
 
 /*
     if(title_screen == true) {
