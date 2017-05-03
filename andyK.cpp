@@ -389,8 +389,8 @@ int Customer::returnFood()
 
 Level::Level()
 {
-	custCount = 2;
-	gameLength = 920;
+	custCount = 15;
+	gameLength = 999;
 	customers = new Customer[5];
 	startPauseTimer = true;
 	startCountdownTimer = true;
@@ -422,6 +422,7 @@ void Level::makeNewLevel(int n)
 void Level::startGame()
 {
 	renderCountdown();
+	renderServeCounter();
 	renderCustomers();
 }
 
@@ -738,6 +739,99 @@ void Level::renderCountdown()
 		start = false;
 		complete = true;
 	}
+}
+
+void Level::renderServeCounter()
+{
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+
+	if (serveCount > 9) {
+		switch(serveCount - (serveCount % 10)) {
+			case 10:
+				glBindTexture(GL_TEXTURE_2D, oneTexture);
+				break;
+			case 20:
+				glBindTexture(GL_TEXTURE_2D, twoTexture);
+				break;
+			case 30:
+				glBindTexture(GL_TEXTURE_2D, threeTexture);
+				break;
+			case 40:
+				glBindTexture(GL_TEXTURE_2D, fourTexture);
+				break;
+			case 50:
+				glBindTexture(GL_TEXTURE_2D, fiveTexture);
+				break;
+			case 60:
+				glBindTexture(GL_TEXTURE_2D, sixTexture);
+				break;
+			case 70:
+				glBindTexture(GL_TEXTURE_2D, sevenTexture);
+				break;
+			case 80:
+				glBindTexture(GL_TEXTURE_2D, eightTexture);
+				break;
+			case 90:
+				glBindTexture(GL_TEXTURE_2D, nineTexture);
+				break;
+		}
+	}
+	else	
+		glBindTexture(GL_TEXTURE_2D, zeroTexture);
+	
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(701, 736);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(701, 767);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(732, 767);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(732, 736);
+	glEnd();
+	glPopMatrix();
+	
+	
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+
+	switch(serveCount % 10) {
+		case 0:
+			glBindTexture(GL_TEXTURE_2D, zeroTexture);
+			break;
+		case 1:
+			glBindTexture(GL_TEXTURE_2D, oneTexture);
+			break;
+		case 2:
+			glBindTexture(GL_TEXTURE_2D, twoTexture);
+			break;
+		case 3:
+			glBindTexture(GL_TEXTURE_2D, threeTexture);
+			break;
+		case 4:
+			glBindTexture(GL_TEXTURE_2D, fourTexture);
+			break;
+		case 5:
+			glBindTexture(GL_TEXTURE_2D, fiveTexture);
+			break;
+		case 6:
+			glBindTexture(GL_TEXTURE_2D, sixTexture);
+			break;
+		case 7:
+			glBindTexture(GL_TEXTURE_2D, sevenTexture);
+			break;
+		case 8:
+			glBindTexture(GL_TEXTURE_2D, eightTexture);
+			break;
+		case 9:
+			glBindTexture(GL_TEXTURE_2D, nineTexture);
+			break;
+	}
+	
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(732, 736);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(732, 767);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(763, 767);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(763, 736);
+	glEnd();
+	glPopMatrix();
 }
 
 unsigned char *buildAlphaData2(Ppmimage *img, unsigned char col[3])

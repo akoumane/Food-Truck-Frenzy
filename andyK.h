@@ -98,6 +98,7 @@ class Level
 		void addPauseTotal();
 		void calcPauseTime();
 		void renderCountdown();
+		void renderServeCounter();
 		void setHasFood(int n);
 		void setComplete(bool a);
 		void setGameOver(bool a);
