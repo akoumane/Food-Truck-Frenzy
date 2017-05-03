@@ -54,23 +54,25 @@ void interaction(Player *p1, Table *t1, Level *level)
 {
 	cout << "Interaction\n";
 	// Table 1
-	if (p1->xPos() >= 235 && p1->xPos() <= 241 && p1->yPos() >= 232 &&
-		p1->yPos() <= 280) {
-		cout << "Box 1\n";
-		for (int i=0; i<5; i++) {
-			if (level->getSeatNum(i) == 1) {
-				if (level->getFoodId(i) == p1->getFoodId()) {
-					cout << "MATCH\n";
-					t1->food1 = true;
-					p1->foodChoice = 0;
-					makeWaiter(p1->foodChoice);
+	if (p1->xPos() >= 229 && p1->xPos() <= 241) {
+		if (p1->yPos() >= 232 && p1->yPos() <= 280) {
+			cout << "Box 1\n";
+			for (int i=0; i<5; i++) {
+				if (level->getSeatNum(i) == 1) {
+					if (level->getFoodId(i) == p1->getFoodId()) {
+						cout << "MATCH\n";
+						t1->food1 = true;
+						p1->foodChoice = 0;
+						makeWaiter(p1->foodChoice);
+					}
 				}
-			}
+
 			cout << i << "   " << level->getSeatNum(i) << "   Food ID: " << level->getFoodId(i) << endl;
-
+			}
 		}
-
 	}
+
+		
 
 	// Table 2
 	if (p1->xPos() >= 427 && p1->xPos() <= 433 && p1->yPos() >= 232 &&
