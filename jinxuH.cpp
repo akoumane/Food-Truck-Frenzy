@@ -33,13 +33,13 @@ Box::Box() {
     col = false;
     //x1pos for table
     tablexpos1[0]=13;
-    tablexpos1[1]=536;
+    tablexpos1[1]=558;
     tablexpos1[2]=13;
-    tablexpos1[3]=536;
+    tablexpos1[3]=558;
     //x2pos for table
-    tablexpos2[0]=225;
+    tablexpos2[0]=213;
     tablexpos2[1]=754;
-    tablexpos2[2]=225;
+    tablexpos2[2]=213;
     tablexpos2[3]=754;
     //y1pos for table
     tableypos1[0]=225;
@@ -125,31 +125,43 @@ void Box::gettable()
 	switch (i)
 	{
 	    case 0:
-		makebox(13, 225, 225, 370);
+		makebox(tablexpos1[0], tablexpos2[0], tableypos1[0], tableypos2[0]);
 		break;
 	    case 1:
-		makebox(536, 754, 224, 370);
+		makebox(tablexpos1[1], tablexpos2[1], tableypos1[1], tableypos2[1]);
+	//	makebox(536, 754, 224, 370);
 		break;
 	    case 2:
-		makebox(13, 225, 25, 170);
+		makebox(tablexpos1[2], tablexpos2[2], tableypos1[2], tableypos2[2]);
+	//	makebox(13, 225, 25, 170);
 		break;
 	    case 3:
-		makebox(536, 754, 24, 170);
+		makebox(tablexpos1[3], tablexpos2[3], tableypos1[3], tableypos2[3]);
+		//makebox(536, 754, 24, 170);
 		break;
 
 	}
     }
 
     //drawtablebox
-		drawtable(13, 225,225, 370);
-		drawtable(536, 754, 224, 370);
-		drawtable(13, 225, 25, 170);
-		drawtable(536, 754, 24, 170);
+		drawtable(tablexpos1[0], tablexpos2[0],tableypos1[0], tableypos2[0]);
+		drawtable(tablexpos1[1], tablexpos2[1],tableypos1[1], tableypos2[1]);
+		drawtable(tablexpos1[2], tablexpos2[2],tableypos1[2], tableypos2[2]);
+		drawtable(tablexpos1[3], tablexpos2[3],tableypos1[3], tableypos2[3]);
+		//drawtable(13, 225,225, 370);
+		//drawtable(536, 754, 224, 370);
+		//drawtable(13, 225, 25, 170);
+		//drawtable(536, 754, 24, 170);
     //make and draw side table
-    makebox(467, 584, 533, 623);
-    makebox(585, 705, 533, 623);
-    drawtable(467, 584, 533, 623);
-    drawtable(585, 705, 533, 623);
+    //
+		makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
+		makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
+    //makebox(467, 584, 533, 623);
+    //makebox(585, 705, 533, 623);
+		drawtable(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
+		drawtable(stablexpos1[1], stablexpos2[1], stableypos1[1], stableypos2[1]);
+    //drawtable(467, 584, 533, 623);
+    //drawtable(585, 705, 533, 623);
     drawwaiter(wxpos1, wypos1);
 
 
@@ -164,7 +176,7 @@ bool Box::colwithRight()
     //int wxpos2=wxpos1+95;
     int wypos2=wypos1+95;
     for(int i=0; i<4; i++){
-	if((wxpos1>tablexpos1[i]+5 && wxpos1 < tablexpos2[i]+5)&&
+	if((wxpos1>=tablexpos1[i]+5 && wxpos1 <= tablexpos2[i]+5)&&
 		((wypos1>tableypos1[i]+5 && wypos1 <tableypos2[i]+5)||
 		 (wypos2>tableypos1[i]+5 && wypos2 < tableypos2[i]+5)))
 	{
@@ -179,7 +191,7 @@ bool Box::colwithLeft()
     int wypos2=wypos1+95;
     for(int i=0; i<4;i++)
     {
-	if((wxpos2>tablexpos1[i]-5 && wxpos2 < tablexpos2[i])&&
+	if((wxpos2>=tablexpos1[i]-5 && wxpos2 <= tablexpos2[i])&&
 		((wypos1>tableypos1[i] && wypos1 <tableypos2[i])||
 		 (wypos2>tableypos1[i] && wypos2 < tableypos2[i])))
 	{
@@ -195,7 +207,7 @@ bool Box::colwithUp()
     //int wypos2=wypos1+95;
     for(int i=0; i<4; i++)
     {
-	if((wypos1>tableypos1[i] && wypos1<tableypos2[i]+8) &&
+	if((wypos1>=tableypos1[i] && wypos1<=tableypos2[i]+8) &&
 		((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
 		 (wxpos2>tablexpos1[i]&&wxpos2<tablexpos2[i])))
 	{
@@ -211,7 +223,7 @@ bool Box::colwithDown()
     int wypos2=wypos1+95;
     for(int i=0; i<4; i++)
     {
-	if((wypos2>tableypos1[i] && wypos2<tableypos2[i]) &&
+	if((wypos2>=tableypos1[i] && wypos2<=tableypos2[i]) &&
 		((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
 		 (wypos2>tablexpos1[i]&& wxpos2<tablexpos2[i])))
 	{
@@ -221,7 +233,7 @@ bool Box::colwithDown()
 	{ //for sidebox only col down
 	    for(int j=0; j<2; j++)
 	    {
-		if((wypos2>stableypos1[j] && wypos2<stableypos2[j]) &&
+		if((wypos2>=stableypos1[j] && wypos2<=stableypos2[j]) &&
 			((wxpos1>stablexpos1[j] && wxpos1<stablexpos2[j])||
 			 (wxpos2>stablexpos1[j]&& wxpos2<stablexpos2[j])))
 		{
