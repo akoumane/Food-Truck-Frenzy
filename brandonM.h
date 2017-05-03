@@ -7,6 +7,8 @@
 void printBrandonName();
 void TitleScreen();
 void renderTitleScreen();
+void Level_Menu();
+void renderLevelScreen();
 void Pause_Menu();
 void renderPauseScreen();
 void input_title_screen();
