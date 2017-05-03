@@ -483,7 +483,7 @@ void checkKeys(XEvent *e)
 		return;
     }
     switch(key) {
-		case XK_m:
+		case XK_p:
 		    if (title_screen == false)
 		    	state_menu ^= 1;
 		    break;
