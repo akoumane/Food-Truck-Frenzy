@@ -607,8 +607,12 @@ void render(void)
 		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
 		glEnd();
     }
-	if (t1->food1) {
+	if (t1->food1 == true) {
+		cout << "Food ID: " << p1->getFoodId() << endl;
 		t1->f1->renderFood(1, 1, p1->getFoodId());
+		p1->foodChoice = 0;
+		makeWaiter(p1->foodChoice);
+		//t1->f1->renderFood(1, 1, 3);
 	}
 	if (t1->food2) {
 

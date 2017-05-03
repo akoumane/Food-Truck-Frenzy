@@ -52,18 +52,33 @@ Table::Table()
 
 void interaction(Player *p1, Table *t1, Level *level)
 {
+	/**
+	 * Tables should each have their own food ID's.
+	 *
+	 * Your render function keeps trying to use the
+	 * waiter's foodChoice when rendering the foods, but
+	 * if you reset the waiter, then it will always pass in 0. That's
+	 * why you should store that in the Table's food ID.
+	 *
+	 * You also need to render in the soda, because when the ID is 4,
+	 * it won't render anything.
+	 *
+	 * Please hurry up, Brandon.
+	 */
+
 	cout << "Interaction\n";
 	// Table 1
-	if (p1->xPos() >= 229 && p1->xPos() <= 241) {
+	if (p1->xPos() >= 220 && p1->xPos() <= 241) {
 		if (p1->yPos() >= 232 && p1->yPos() <= 280) {
 			cout << "Box 1\n";
+			cout << t1->food1 << endl;
 			for (int i=0; i<5; i++) {
 				if (level->getSeatNum(i) == 1) {
 					if (level->getFoodId(i) == p1->getFoodId()) {
 						cout << "MATCH\n";
 						t1->food1 = true;
-						p1->foodChoice = 0;
-						makeWaiter(p1->foodChoice);
+						//p1->foodChoice = 0;
+						//makeWaiter(p1->foodChoice);
 					}
 				}
 
@@ -90,7 +105,7 @@ void interaction(Player *p1, Table *t1, Level *level)
 		}
 	}
 	// Table 3
-	if (p1->xPos() >= 235 && p1->xPos() <= 241 && p1->yPos() >= 28 &&
+	if (p1->xPos() >= 220 && p1->xPos() <= 241 && p1->yPos() >= 28 &&
 		p1->yPos() <=70) {
 		cout << "Box 3\n";
 	}
@@ -299,6 +314,7 @@ void Food::renderFood(bool in_seat, int seat_num, int food_id)
             glPopMatrix();
             break;
 		case 3:
+		case 4:
 			glPushMatrix();
 			glEnable(GL_TEXTURE_2D);
 			if (on_side)
