@@ -9,6 +9,8 @@ void TitleScreen();
 void renderTitleScreen();
 void Level_Menu();
 void renderLevelScreen();
+void Victory_Menu();
+void renderVictoryScreen();
 void Pause_Menu();
 void renderPauseScreen();
 void input_title_screen();

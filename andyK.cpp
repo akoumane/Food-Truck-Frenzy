@@ -389,7 +389,7 @@ int Customer::returnFood()
 
 Level::Level()
 {
-	custCount = 10;
+	custCount = 2;
 	gameLength = 920;
 	customers = new Customer[5];
 	startPauseTimer = true;
@@ -397,6 +397,7 @@ Level::Level()
 	addTime = false;
 	complete = false;
 	gameOver = false;
+	win = false;
 }
 
 void Level::makeNewLevel(int n)
@@ -449,6 +450,10 @@ void Level::setGameOver(bool a)
     gameOver = a;
 }
 
+void Level::setWin(bool a)
+{
+    win = a;
+}
 
 bool Level::checkLine()
 {
@@ -478,6 +483,10 @@ bool Level::getComplete()
 bool Level::getGameOver()
 {
     return gameOver;
+}
+bool Level::getWin()
+{
+    return win;
 }
 
 int Level::getCustomerGoal()

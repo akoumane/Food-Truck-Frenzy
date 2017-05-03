@@ -229,7 +229,7 @@ void renderHelpScreen()
 void Victory_Menu()
 {
     unsigned char col[] = {0, 255, 0};
-    VictoryMenu = ppm6GetImage("victory_help.ppm");
+    VictoryMenu = ppm6GetImage("menu_victory.ppm");
     glGenTextures(1, &VictoryMenuTexture1);
     glBindTexture(GL_TEXTURE_2D, VictoryMenuTexture1);
 

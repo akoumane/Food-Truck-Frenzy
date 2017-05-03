@@ -114,6 +114,8 @@ int xres=768, yres=768;
 int state_menu=0;
 int help_menu=0;
 bool title_screen=true;
+bool defeat_screen=false;
+bool victory_screen=false;
 const int X_Dem = 7;	// Dimension for Grid
 const int Y_Dem = 5;	// Dimension for Grid
 bool boo = false;
@@ -168,13 +170,15 @@ int main(void)
     while (level->getComplete() == false) {
 
 	if (done == 1) {
-	    level->setComplete(true);
+	    defeat_screen = true;
+	    //level->setComplete(true);
 	    level->setGameOver(true);
+	    done = 0;
 	}
 
 	if (level->getServeCount() == level->getCustomerGoal()) {
-	    level->setComplete(true);
-	    cout << "YOU WIN!" << endl;
+	    level->setWin(true);
+	    victory_screen = true;
 	}
 
 	while (XPending(dpy)) {
@@ -200,6 +204,16 @@ int main(void)
 		renderPauseScreen();
 		Pause_Menu();
 		level->calcPauseTime();
+	    }
+	    else if (level->getGameOver() == true) {
+		cout << "YOU LOSE!" << endl;
+		renderDefeatScreen();
+		Defeat_Menu();
+	    }
+	    else if (level->getWin() == true) {
+		cout << "YOU WIN!" << endl;
+		renderVictoryScreen();
+		Victory_Menu();
 	    }
 	    else {
 		level->addPauseTotal();
@@ -257,15 +271,6 @@ int main(void)
 	glXSwapBuffers(dpy, win);
     }
 
-    if (level->getGameOver() == true) {
-	cout << "YOU LOSE!" << endl;
-	renderDefeatScreen();
-	Defeat_Menu();
-    }
-    else {
-	renderVictoryScreen();
-	Victory_Menu();
-    }
 #ifdef USE_OPENAL_SOUND
 	cleanupSound();
 #endif
@@ -466,9 +471,9 @@ void checkMouse(XEvent *e)
 void checkKeys(XEvent *e)
 {
     //keyboard input?
-    //static int shift=0;
+    static int shift=0;
     int key = XLookupKeysym(&e->xkey, 0);
-    /*
+    
     if (e->type == KeyRelease) {
 	if (key == XK_Shift_L || key == XK_Shift_R)
 	    shift=0;
@@ -480,10 +485,9 @@ void checkKeys(XEvent *e)
 	    return;
 	}
     } else {
-		return;
-		
+		return;		
     }
-    */
+    
     switch(key) {
 		case XK_p:
 		    if (title_screen == false)
@@ -495,9 +499,16 @@ void checkKeys(XEvent *e)
 		#ifdef USE_OPENAL_SOUND
 		    playSound(b.alSourceBeep);
 		#endif
-			level->startGame(true);
+				level->startGame(true);
+			
+		    	title_screen = false;
 		    }
-		    title_screen = false;
+		    else if (victory_screen == true) {
+				level->setComplete(true);
+		    }
+		    else if (defeat_screen == true) {
+				level->setComplete(true);
+		    }
 		    break;
 
 		case XK_h:

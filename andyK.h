@@ -61,6 +61,7 @@ class Level
         bool start;
 		bool complete;
 		bool gameOver;
+		bool win;
 		bool lineOccupied;
 		bool seatOccupied[4];
 		bool startPauseTimer;
@@ -101,6 +102,8 @@ class Level
 		void setComplete(bool a);
 		void setGameOver(bool a);
 		int getServeCount();
+		void setWin(bool a);
+		bool getWin();
 		int getCustomerGoal();
 		bool getComplete();
 		bool getGameOver();
