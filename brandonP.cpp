@@ -54,25 +54,6 @@ Table::Table()
 
 void interaction(Player *p1, Table *t1, Level *level)
 {
-	/**
-	 * Tables should each have their own food ID's.
-	 *
-	 * Your render function keeps trying to use the
-	 * waiter's foodChoice when rendering the foods, but
-	 * if you reset the waiter, then it will always pass in 0. That's
-	 * why you should store that in the Table's food ID. I made it for you
-	 * as an array already.
-	 *
-	 * I made a bool in your Player class called resetWaiter, so whenever the table matches
-  	 * it will set it to true, and then change the foodChoice to 0 and makes the waiter. I also put that
-	 * in the main where it checks if food1 is true.
-	 *
-	 * You also need to render in the soda, because when the ID is 4,
-	 * it won't render anything.
-	 *
-	 * Please hurry up, Brandon.
-	 */
-
 	cout << "Interaction\n";
 	// Table 1
 	if (p1->xPos() >= 215 && p1->xPos() <= 241) {
@@ -96,7 +77,7 @@ void interaction(Player *p1, Table *t1, Level *level)
 		}
 	}
 
-		
+
 
 	// Table 2
 	if (p1->xPos() >= 427 && p1->xPos() <= 433 && p1->yPos() >= 232 &&
