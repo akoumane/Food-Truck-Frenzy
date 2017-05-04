@@ -471,17 +471,17 @@ void checkMouse(XEvent *e)
 void checkKeys(XEvent *e)
 {
     //keyboard input?
-    static int shift=0;
+    //static int shift=0;
     int key = XLookupKeysym(&e->xkey, 0);
     
     if (e->type == KeyRelease) {
 	if (key == XK_Shift_L || key == XK_Shift_R)
-	    shift=0;
+	   // shift=0;
 	return;
     }
     if (e->type == KeyPress) {
 	if (key == XK_Shift_L || key == XK_Shift_R) {
-	    shift=1;
+	    //shift=1;
 	    return;
 	}
     } else {
@@ -568,7 +568,7 @@ void checkKeys(XEvent *e)
 		case XK_k:
 			t1->f1->set_moving();
 			break;
-		#ifdef RENDERTEST
+		//#ifdef RENDERTEST
 		case XK_q:
        		break;
     	case XK_w:
@@ -592,13 +592,13 @@ void checkKeys(XEvent *e)
 		case XK_i:
 			level->setHasFood(4);
 			break;
-		case XK_o:
+		/*case XK_o:
 			cout << title_screen << endl;
-			break;
+			break;*/
 		case XK_n:
 			cout << level->getCustomerGoal() << endl;
 			break;
-		#endif
+		//#endif
 		case XK_Escape:
 	    	done=1;
 	    break;
