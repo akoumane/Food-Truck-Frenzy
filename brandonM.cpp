@@ -7,6 +7,8 @@
 //Start menu added PRESS A to turn on and off
 //temp turned off on start
 //more render functions added
+//Last of the menus implemented
+//Sound implemented along with a looping sounds
 //************************
 #include <iostream>
 #include <cstdlib>
@@ -57,24 +59,29 @@ Ppmimage *LevelMenu = NULL;
 GLuint LevelMenuTexture1;
 
 #ifdef USE_OPENAL_SOUND
-struct Global {
+struct Global
+{
     ALuint alBufferBeep, alBufferButton, alBufferZone;
     ALuint alSourceBeep, alSourceButton, alSourceZone;
 } b; 
 #endif
 
-extern "C" {
+extern "C"
+{
 #include "fonts.h"
 }
-struct Vec {
+struct Vec
+{
     float x,y,z;
 };
-struct Shape {
+struct Shape
+{
     float width, height;
     float radius;
     Vec center;
 };
-struct Game {
+struct Game
+{
     Shape box[5];
     int n;
     int mouse[2];
@@ -96,7 +103,7 @@ unsigned char *Transparent(Ppmimage *img, unsigned char col[3])
 	*(ptr+1) = b;
 	*(ptr+2) = c;
 	*(ptr+3) = 1;
-	if (	a == col[0] &&
+	if (a == col[0] &&
 		b == col[1] && 
 		c == col[2]) {
 	    * (ptr+3) = 0;
@@ -121,7 +128,7 @@ void TitleScreen()
 	    StartMenu->width, StartMenu->height,
 	    0, GL_RGBA, GL_UNSIGNED_BYTE, StartMenuData);
     free(StartMenuData);
-	
+
 
 #ifdef BOXES
     //Boxes to use for menu input
@@ -156,8 +163,7 @@ void TitleScreen()
 
     float w, h;
 
-    for(int i=0; i<=5; i++)
-    {
+    for(int i=0; i<=5; i++) {
 	Shape *s;
 	glColor3ub(90,140,90);
 	s = game.box[i];
@@ -182,8 +188,8 @@ void renderTitleScreen()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, StartMenuTexture1);
     glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glColor4ub(255,255,255,255);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
     glBegin(GL_QUADS); 
     glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
     glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
@@ -215,8 +221,8 @@ void renderHelpScreen()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, HelpMenuTexture1);
     glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glColor4ub(255,255,255,255);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
     glBegin(GL_QUADS); 
     glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
     glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
@@ -248,8 +254,8 @@ void renderVictoryScreen()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, VictoryMenuTexture1);
     glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glColor4ub(255,255,255,255);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
     glBegin(GL_QUADS); 
     glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
     glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
@@ -260,7 +266,7 @@ void renderVictoryScreen()
 }
 
 void Defeat_Menu() 
-{	
+{
     unsigned char col[] = {0, 255, 0};
     DefeatMenu = ppm6GetImage("menu_defeat.ppm");
     glGenTextures(1, &DefeatMenuTexture1);
@@ -282,8 +288,8 @@ void renderDefeatScreen()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, DefeatMenuTexture1);
     glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glColor4ub(255,255,255,255);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
     glBegin(GL_QUADS); 
     glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
     glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
@@ -294,7 +300,7 @@ void renderDefeatScreen()
 }
 
 void Pause_Menu() 
-{	
+{
     unsigned char col[] = {0, 255, 0};
     PauseMenu = ppm6GetImage("menu_pause.ppm");
     glGenTextures(1, &PauseMenuTexture1);
@@ -316,8 +322,8 @@ void renderPauseScreen()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, PauseMenuTexture1);
     glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glColor4ub(255,255,255,255);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
     glBegin(GL_QUADS); 
     glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
     glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
@@ -328,7 +334,7 @@ void renderPauseScreen()
 }
 
 void Credit_Menu() 
-{	
+{
     unsigned char col[] = {0, 255, 0};
     CreditMenu = ppm6GetImage("menu_credit.ppm");
     glGenTextures(1, &CreditMenuTexture1);
@@ -350,8 +356,8 @@ void renderCreditScreen()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, CreditMenuTexture1);
     glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glColor4ub(255,255,255,255);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
     glBegin(GL_QUADS); 
     glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
     glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
@@ -361,7 +367,7 @@ void renderCreditScreen()
 }
 
 void Level_Menu() 
-{	
+{
     unsigned char col[] = {0, 255, 0};
     LevelMenu = ppm6GetImage("menu_level.ppm");
     glGenTextures(1, &LevelMenuTexture1);
@@ -383,8 +389,8 @@ void renderLevelScreen()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, LevelMenuTexture1);
     glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glColor4ub(255,255,255,255);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
     glBegin(GL_QUADS); 
     glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
     glTexCoord2f(0.0f, 0.0f); glVertex2i(0, 768);
@@ -478,4 +484,3 @@ void playSound(ALuint source)
 }
 
 #endif //USE_OPENAL_SOUND
-
