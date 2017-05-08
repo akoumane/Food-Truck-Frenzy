@@ -7,13 +7,13 @@ unsigned char *buildAlphaData2(Ppmimage *img, unsigned char col[3]);
 
 class Customer
 {
-    private:
-        int xPos1, xPos2, yPos1, yPos2;
-        //random number will be chosen for foodChoice
-        int foodChoice;
+	private:
+		int xPos1, xPos2, yPos1, yPos2;
+		//random number will be chosen for foodChoice
+		int foodChoice;
 
-        //random number will be chosen for model
-        int modelNum;
+		//random number will be chosen for model
+		int modelNum;
 
 		//random number will be chosen for seat
 		int seatNum;
@@ -23,11 +23,11 @@ class Customer
 
 		double waitTime, startTime, currentTime, pauseTotal;
 
-        bool inLine;
-        bool inSeat;
-        bool hasFood;
-        bool isEating;
-        bool finishFood;
+		bool inLine;
+		bool inSeat;
+		bool hasFood;
+		bool isEating;
+		bool finishFood;
 		bool leave;
 		bool assignSeat;
 		bool moveToSeat;
@@ -44,21 +44,21 @@ class Customer
 		void addPauseTotal(double a);
 		void renderModel(bool &line, bool seat[], int &count);
 		void renderThoughtBox();
-        int returnSeat();
-        int returnFood();
+		int returnSeat();
+		int returnFood();
 };
 
 class Level
 {
-    private:
-        int levelNum;
+	private:
+		int levelNum;
 		int customerGoal;
-        int serveCount;
+		int serveCount;
 		int custCount;
 		double custMultiplier;
 		double gameLength;
 		double pauseTotal;
-        bool start;
+		bool start;
 		bool complete;
 		bool gameOver;
 		bool win;
@@ -78,8 +78,8 @@ class Level
 
 		Customer *customers;
 
-    public:
-        Level();
+	public:
+		Level();
 		void makeNewLevel(int n);
 		void startGame();
 		Customer getCustomer(int n);
@@ -87,7 +87,7 @@ class Level
 		bool checkLine();
 		bool checkTables();
 		void renderCustomers();
-        void renderFood();
+		void renderFood();
 		void increaseServeCount();
 		void setLine(bool a);
 		bool getStart();
@@ -108,6 +108,6 @@ class Level
 		int getCustomerGoal();
 		bool getComplete();
 		bool getGameOver();
-        int getSeatNum(int n);
-        int getFoodId(int n);
+		int getSeatNum(int n);
+		int getFoodId(int n);
 };
