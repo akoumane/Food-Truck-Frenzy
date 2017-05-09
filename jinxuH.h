@@ -9,7 +9,7 @@
   };*/
 void setscore();
 void showsocre();
-int score;
+int score=0;
 class Box
 {
     private:
