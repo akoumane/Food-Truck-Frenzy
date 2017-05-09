@@ -1,6 +1,15 @@
 //Andy Koumane
 //andyK.cpp
 
+
+/**
+ * My portion of the code dealt with the game logic/AI.
+ * It involves a class for the whole level and the customers.
+ * The level class contains the elements that allow the game to progress
+ * including starting the game, ending the game, the timer, and even the 
+ * customers themselves.
+ */
+
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -21,6 +30,8 @@
 #include <time.h>
 using namespace std;
 
+//These are for the sprites of the customers, the numbers
+//and the thoughtbox
 Ppmimage *customer1 = NULL;
 Ppmimage *customer2 = NULL;
 Ppmimage *customer3 = NULL;
@@ -42,8 +53,14 @@ Ppmimage *seven = NULL;
 Ppmimage *eight = NULL;
 Ppmimage *nine = NULL;
 
+//The thoughtbox is a blank box that frames
+//the food that the customer wants to indicate
+//to the waiter what food should be served to that
+//customer
 Ppmimage *thoughtbox = NULL;
 
+//Textures for the customers, numbers and
+//thoughtbox
 GLuint customer1Texture;
 GLuint customer2Texture;
 GLuint customer3Texture;
@@ -67,8 +84,11 @@ GLuint nineTexture;
 
 GLuint thoughtboxTexture;
 
+//code that initializes the customers and thoughtbox 
+//sprites
 void makeCustomers()
 {
+	//we used pure green for transparency
 	unsigned char col[] = {0, 255, 0};
 
 	customer1 = ppm6GetImage("customer1.ppm");
@@ -182,6 +202,8 @@ void makeCustomers()
 }
 
 #ifdef RENDERTEST
+//This is a test function to render all the customers in the places
+//that they will spawn
 void renderCustomers()
 {
 	glPushMatrix();
@@ -256,6 +278,7 @@ void renderCustomers()
 }
 #endif
 
+//initializes the number sprites
 void makeNumbers()
 {
 	zero = ppm6GetImage("0.ppm");
@@ -371,6 +394,7 @@ void makeNumbers()
 		0, GL_RGB, GL_UNSIGNED_BYTE, nine->data);
 }
 
+//used to make alpha data for the sprites
 unsigned char *buildAlphaData2(Ppmimage *img, unsigned char col[3])
 {
 	//col - color that should be transparent
@@ -400,6 +424,7 @@ unsigned char *buildAlphaData2(Ppmimage *img, unsigned char col[3])
 	return newdata;
 }
 
+//Initializes customers upon creation
 Customer::Customer()
 {
 	xPos1 = 74;
@@ -421,6 +446,8 @@ Customer::Customer()
 	moveToSeat = false;
 }
 
+//Resets the customer data. Used when the customer is finished
+//eating
 void Customer::reset()
 {
 	xPos1 = 74;
@@ -442,6 +469,9 @@ void Customer::reset()
 	moveToSeat = false;
 }
 
+//Sets the value for "inLine" which checks
+//if the spot in front of the truck is occupied.
+//This makes sure that customers don't spawn on top of each other
 void Customer::setInLine(bool a)
 {
 	inLine = a;
@@ -467,14 +497,25 @@ void Customer::setFinishFood (bool a)
 	finishFood = a;
 }
 
+//Adds the pause time from when game is paused to the overall
+//timer of the customer so that it allows timer to account for
+//time when paused
 void Customer::addPauseTotal(double a)
 {
 	if (inLine == true || inSeat == true)
-	pauseTotal += a;
+		pauseTotal += a;
 }
+
+/**
+ * The renderModel function is the important aspect of the Cusomter class.
+ * It's basically the AI of the customers. 
+ */
 
 void Customer::renderModel(bool &line, bool seat[], int &count)
 {
+	//This checks if the customer has spawned at all. If the line
+	//isn't occupied, then the customer will spawn in front of the truck
+	//and their timer will start
 	if (inSeat == false && inLine == false) {
 		if (!line) {
 			inLine = true;
@@ -496,13 +537,15 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 
 
 	if (leave == false) {
+		//Spawns the character sprite based off the data made during the
+		//initialization.
 		if (inLine) {
 			line = true;
 			finishFood = false;
 			glPushMatrix();
 			glEnable(GL_TEXTURE_2D);
 
-			switch(modelNum) {
+			switch (modelNum) {
 				case 1:
 					glBindTexture(GL_TEXTURE_2D, customer1Texture);
 					break;
@@ -529,12 +572,18 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 			glPopMatrix();
 		}
 
-
+		//This is the timer for how long they wait in front of the truck.
+		//The customer will wait for about 5 seconds, then move to the next
+		//available seat
 		if (waitTime < 5.0) {
 			clock_gettime(CLOCK_REALTIME, &custCurrent);
 			currentTime = (double)custCurrent.tv_sec;
 		}
 		else {
+			//This checks if they have a seat assigned or not.
+			//It will give them the next seat available, and if all the
+			//seats are occupied, then it will continuously cycle through every
+			//seat until the next one is available.
 			if (assignSeat) {
 				if (seat[seatNum-1] == false) {
 					seat[seatNum-1] = true;
@@ -546,6 +595,7 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 						seatNum = 1;
 				}
 			}
+			//Once they have a seat, they will move to their seat
 			if (assignSeat == false && seat[seatNum-1] == true) {
 				inLine = false;
 				if (moveToSeat == false) {
@@ -556,13 +606,16 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 			}
 		}
 
+		//This portion deals with the customer once they've taken a seat
 		if (inSeat) {
-			//glDisable(GL_TEXTURE_2D);
+			//The thoughtbox will contain the food that the customer desires.
+			//Once they receive their food, it will disappear.
 			renderThoughtBox();
+
 			glPushMatrix();
 			glEnable(GL_TEXTURE_2D);
 
-			switch(modelNum) {
+			switch (modelNum) {
 				case 1:
 					glBindTexture(GL_TEXTURE_2D, customer1SittingTexture);
 					break;
@@ -579,7 +632,7 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 
 			glBegin(GL_QUADS);
 
-			switch(seatNum) {
+			switch (seatNum) {
 				case 1:
 					xPos1 = 3;
 					xPos2 = 98;
@@ -622,6 +675,7 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 					break;
 			}
 
+			//Once the customer receives their food, a new timer will start
 			if (hasFood == true) {
 				clock_gettime(CLOCK_REALTIME, &custStart);
 				clock_gettime(CLOCK_REALTIME, &custCurrent);
@@ -632,6 +686,7 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 				isEating = true;
 			}
 
+			//The customer will eat their food for around 5 secs, then leave
 			if (isEating == true) {
 				if (waitTime < 5.5) {
 					clock_gettime(CLOCK_REALTIME, &custCurrent);
@@ -641,6 +696,7 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 					finishFood = true;
 			}
 
+			//Once the customer eats their food, their object will reset
 			if (finishFood) {
 				count++;
 				seat[seatNum-1] = false;
@@ -654,6 +710,7 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 	}
 }
 
+//Renders the thoughtbox for each character
 void Customer::renderThoughtBox()
 {
 	if (isEating == false) {
@@ -664,7 +721,7 @@ void Customer::renderThoughtBox()
 
 		glBegin(GL_QUADS);
 
-		switch(seatNum) {
+		switch (seatNum) {
 			case 1:
 				glTexCoord2f(0.0f, 1.0f); glVertex2i(216, 355);
 				glTexCoord2f(0.0f, 0.0f); glVertex2i(216, 418);
@@ -706,6 +763,8 @@ int Customer::returnFood()
 	return foodChoice;
 }
 
+
+//Initializes level. Currently set to only one level
 Level::Level()
 {
 	custCount = 15;
@@ -724,6 +783,7 @@ Customer Level::getCustomer(int n)
 	return customers[n];
 }
 
+//This will set level goals based off the level number
 void Level::makeNewLevel(int n)
 {
 	levelNum = n;
@@ -740,6 +800,7 @@ void Level::makeNewLevel(int n)
 		seatOccupied[i] = false;
 }
 
+//This will go through the game itself
 void Level::startGame()
 {
 	renderCountdown();
@@ -780,6 +841,9 @@ void Level::setStartTimer(bool a)
 	startPauseTimer = a;
 }
 
+//This is the overall add function for the pause time.
+//It will add the pause time to each customer, plus the level
+//pause time.
 void Level::addPauseTotal()
 {
 	startPauseTimer = true;
@@ -796,6 +860,8 @@ void Level::addPauseTotal()
 	//cout << pauseTotal << endl;
 }
 
+//This will constantly add the time to a variable until the
+//game is unpaused, which is then added to the pause total
 void Level::calcPauseTime()
 {
 	if (startPauseTimer == true) {
@@ -813,12 +879,13 @@ void Level::calcPauseTime()
 	addTime = true;
 }
 
+//This is the timer for the level. Once it reaches 0, it's game over
 void Level::renderCountdown()
 {
 	int countdown;
 	double length;
 
-	if (startCountdownTimer == true){
+	if (startCountdownTimer == true) {
 		clock_gettime(CLOCK_REALTIME, &countdownStart);
 		countdownStartTime = (double)countdownStart.tv_sec;
 
@@ -834,7 +901,8 @@ void Level::renderCountdown()
 	glPushMatrix();
 	glEnable(GL_TEXTURE_2D);
 
-	switch(countdown % 10) {
+	//Far right number
+	switch (countdown % 10) {
 		case 0:
 			glBindTexture(GL_TEXTURE_2D, zeroTexture);
 			break;
@@ -875,6 +943,7 @@ void Level::renderCountdown()
 	glEnd();
 	glPopMatrix();
 
+	//Middle Number
 	if (countdown > 9 ) {
 		glPushMatrix();
 		glEnable(GL_TEXTURE_2D);
@@ -882,7 +951,7 @@ void Level::renderCountdown()
 		if ((countdown % 100) < 10)
 			glBindTexture(GL_TEXTURE_2D, zeroTexture);
 		else {
-			switch((countdown % 100) - (countdown % 10)) {
+			switch ((countdown % 100) - (countdown % 10)) {
 				case 10:
 					glBindTexture(GL_TEXTURE_2D, oneTexture);
 					break;
@@ -925,6 +994,7 @@ void Level::renderCountdown()
 	glEnd();
 	glPopMatrix();
 
+	//Far left number
 	if (countdown > 99 ) {
 		glPushMatrix();
 		glEnable(GL_TEXTURE_2D);
@@ -932,7 +1002,7 @@ void Level::renderCountdown()
 		if (countdown <= 109 && countdown >= 101)
 			glBindTexture(GL_TEXTURE_2D, oneTexture);
 		else {
-			switch(countdown - (countdown % 100)) {
+			switch (countdown - (countdown % 100)) {
 				case 100:
 					glBindTexture(GL_TEXTURE_2D, oneTexture);
 					break;
@@ -982,13 +1052,16 @@ void Level::renderCountdown()
 	}
 }
 
+//This is the customer served counter. It increments every time
+//a customer finishes their food
 void Level::renderServeCounter()
 {
 	glPushMatrix();
 	glEnable(GL_TEXTURE_2D);
 
+	//Right number
 	if (serveCount > 9) {
-		switch(serveCount - (serveCount % 10)) {
+		switch (serveCount - (serveCount % 10)) {
 			case 10:
 				glBindTexture(GL_TEXTURE_2D, oneTexture);
 				break;
@@ -1033,7 +1106,8 @@ void Level::renderServeCounter()
 	glPushMatrix();
 	glEnable(GL_TEXTURE_2D);
 
-	switch(serveCount % 10) {
+	//Left Number
+	switch (serveCount % 10) {
 		case 0:
 			glBindTexture(GL_TEXTURE_2D, zeroTexture);
 			break;
