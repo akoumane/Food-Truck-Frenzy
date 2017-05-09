@@ -36,8 +36,10 @@ Table::Table()
 	for (int i=0; i<6; i++) {
 		arr[i] = 0;
 	}
+
 	for (int j = 0; j < 4; j++)
 		tableID[j] = 0;
+
 	f1 = new Food();
 	f2 = new Food();
 	f3 = new Food();
@@ -422,34 +424,40 @@ Player::Player(int y, int x, int choice)
 	foodChoice = choice;
 	resetWaiter = false;
 }
+
 void Player::moveLeft()
 {
 	if (xpos - STEP_SIZE < XMIN)
 		return;
 	xpos = xpos - STEP_SIZE;
 }
+
 void Player::moveRight()
 {
 	if (xpos + STEP_SIZE >= XMAX)
 		return;
 	xpos = xpos + STEP_SIZE;
 }
+
 void Player::moveUp()
 {
 	if (ypos + STEP_SIZE >= YMAX)
 		return;
 	ypos = ypos + STEP_SIZE;
 }
+
 void Player::moveDown()
 {
 	if (ypos - STEP_SIZE < YMIN)
 		return;
 	ypos = ypos - STEP_SIZE;
 }
+
 int Player::xPos()
 {
 	return xpos;
 }
+
 int Player::yPos()
 {
 	return ypos;
@@ -813,6 +821,7 @@ Grid::Grid(int y, int x)
 	}
 	grid[0][1] =0;
 }
+
 void Grid::printGrid()
 {
 	// Press 'g' in game to view in terminal
@@ -824,15 +833,18 @@ void Grid::printGrid()
 	}
 	cout << "\n\n\n";
 }
+
 void Grid::gridItem(int y, int x, int id)
 {
 	grid[y][x] = id;
 	return;
 }
+
 int Grid::xdem()
 {
 	return xres;
 }
+
 int Grid::ydem()
 {
 	return yres;
