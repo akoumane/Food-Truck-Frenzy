@@ -24,7 +24,7 @@ using namespace std;
 #define YDB 0 //Ymax down
 #define XRB 668 //xmax left
 #define XLB 8 //xmax Right
-
+score = 0;
 Box::Box() {
     xPos1 = 100;
     xPos2 = 100;
@@ -153,7 +153,6 @@ void Box::gettable()
     //drawtable(13, 225, 25, 170);
     //drawtable(536, 754, 24, 170);
     //make and draw side table
-    //
     makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
     makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
     //makebox(467, 584, 533, 623);
@@ -181,6 +180,7 @@ bool Box::colwithRight()
 		 (wypos2>tableypos1[i] && wypos2 < tableypos2[i])))
 	{
 	    colR = true;
+	    col = true;
 	}
     }
     return colR;
@@ -196,6 +196,7 @@ bool Box::colwithLeft()
 		 (wypos2>=tableypos1[i] && wypos2 <= tableypos2[i])))
 	{
 	    colL = true;
+	    col = true;
 	}
     }
     return colL;
@@ -212,6 +213,7 @@ bool Box::colwithUp()
 		 (wxpos2>tablexpos1[i]&&wxpos2<tablexpos2[i])))
 	{
 	    colU = true;
+	    col = true;
 	}
     }
     return colU;
@@ -228,6 +230,7 @@ bool Box::colwithDown()
 		 (wypos2>tablexpos1[i]&& wxpos2<tablexpos2[i])))
 	{
 	    colD = true;
+	    col = true;
 	}
 	else
 	{ //for sidebox only col down
@@ -238,6 +241,7 @@ bool Box::colwithDown()
 			 (wxpos2>stablexpos1[j]&& wxpos2<stablexpos2[j])))
 		{
 		    colD = true;
+		    col = true;
 		}
 	    }
 	}
@@ -311,6 +315,17 @@ void Box::movewRight()
 	// &moveRight();
     }
     colL=false;
+
+}
+
+void setscore(bool a, bool b, bool c)
+{
+    if(a)
+	score = score+5;
+    else if(b)
+	score = score+3;
+    else if(c)
+	score=score+1;
 
 }
 

@@ -7,6 +7,9 @@
   public:
   int getposition(int x1, int x2, int y1, int y2);
   };*/
+void setscore();
+void showsocre();
+int score;
 class Box
 {
     private:
@@ -50,57 +53,5 @@ class Box
 	void movewLeft();
 	void movewRight();
 
-	/*
-	   int gettx1()
-	   {
-	   return *tablexpos1;
-	   }
-	   int gettx2()
-	   {
-	   return *tablexpos2;
-	   }
-	   int getty1()
-	   {
-	   return *tableypos1;
-	   }
-	   int getty2()
-	   {
-	   return *tableypos2;
-	   }
-
-	//
-	int getstx1()
-	{
-	return *stablexpos1;
-	}
-	int getstx2()
-	{
-	return *stablexpos2;
-	}
-	int getsty1()
-	{
-	return *stableypos1;
-	}
-	int getsty2()
-	{
-	return *stableypos2;
-	}
-	//
-	// int getwx1()
-	{
-	return wxpos1;
-	}
-	//int getwx2()
-	//{
-	//    return wxpos2;
-	// }
-	// int getwy1()
-	// {
-	//     return wypos1;
-	// }
-	// int getwy2()
-	// {
-	//     return wypos2;
-	// }*/
 };
 #endif
