@@ -56,7 +56,7 @@ void interaction(Player *p1, Table *t1, Level *level)
 {
 	cout << "Interaction\n";
 	// Table 1
-	if (p1->xPos() >= 215 && p1->xPos() <= 241) {
+	if (p1->xPos() >= 215 && p1->xPos() <= 246) {
 		if (p1->yPos() >= 232 && p1->yPos() <= 280) {
 			cout << "Box 1\n";
 			cout << t1->food1 << endl;
@@ -72,15 +72,14 @@ void interaction(Player *p1, Table *t1, Level *level)
 					}
 				}
 
-			cout << i << "   " << level->getSeatNum(i) << "   Food ID: " << level->getFoodId(i) << endl;
+			cout << i << "   " << level->getSeatNum(i) << "   Food ID: " <<
+			level->getFoodId(i) << endl;
 			}
 		}
 	}
 
-
-
 	// Table 2
-	if (p1->xPos() >= 427 && p1->xPos() <= 433 && p1->yPos() >= 232 &&
+	if (p1->xPos() >= 426 && p1->xPos() <= 456 && p1->yPos() >= 232 &&
 		p1->yPos() <=280) {
 		cout << "Box 2\n";
 		for (int i=0; i<5; i++) {
@@ -90,17 +89,18 @@ void interaction(Player *p1, Table *t1, Level *level)
 
 				}
 			}
-			cout << i << "   " << level->getSeatNum(i) << "   Food ID: " << level->getFoodId(i) << endl;
+			cout << i << "   " << level->getSeatNum(i) << "   Food ID: " <<
+			level->getFoodId(i) << endl;
 
 		}
 	}
 	// Table 3
-	if (p1->xPos() >= 215 && p1->xPos() <= 241 && p1->yPos() >= 28 &&
+	if (p1->xPos() >= 215 && p1->xPos() <= 246 && p1->yPos() >= 28 &&
 		p1->yPos() <=70) {
 		cout << "Box 3\n";
 	}
 	// Table 4
-	if (p1->xPos() >= 427 && p1->xPos() <= 433 && p1->yPos() >= 28 &&
+	if (p1->xPos() >= 427 && p1->xPos() <= 456 && p1->yPos() >= 28 &&
 		p1->yPos() <=70) {
 		cout << "Box 4\n";
 	}
@@ -766,6 +766,16 @@ void cleanUp()
 		cout << "ERROR: could not remove 'waiterholdingsoda.png'\n";
 	if (remove("waiterholdingsoda.ppm") != 0)
 		cout << "ERROR: could not remove 'waiterholdingsoda.ppm'\n";
+	if (remove("burgeronplateonside.png") != 0)
+		cout << "ERROR: could not remove 'burgeronplateonside.png'\n";
+	if (remove("hotdogonplateonside.png") != 0)
+		cout << "ERROR: could not remove 'hotdogonplateonside.png'\n";
+	if (remove("menu_level.png") != 0)
+		cout << "ERROR: could not remove 'menu_level.png'\n";
+	if (remove("menu_level.ppm") != 0)
+		cout << "ERROR: could not remove 'menu_level.ppm'\n";
+	if (remove("pizzaonplateonside.png") != 0)
+		cout << "ERROR: could not remove 'pizzaonplateonside.png'\n";
 	cout << "\n*** Image clean up complete. ***\n\n";
 	return;
 }
