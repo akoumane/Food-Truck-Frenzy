@@ -1,3 +1,6 @@
+#ifndef ANDYK_H
+#define ANDYK_H
+
 void makeCustomers();
 void renderCustomers();
 void makeNumbers();
@@ -111,3 +114,4 @@ class Level
 		int getSeatNum(int n);
 		int getFoodId(int n);
 };
+#endif
