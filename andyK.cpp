@@ -67,6 +67,339 @@ GLuint nineTexture;
 
 GLuint thoughtboxTexture;
 
+void makeCustomers()
+{
+	unsigned char col[] = {0, 255, 0};
+
+	customer1 = ppm6GetImage("customer1.ppm");
+	customer2 = ppm6GetImage("customer2.ppm");
+	customer3 = ppm6GetImage("customer3.ppm");
+	customer4 = ppm6GetImage("customer4.ppm");
+	glGenTextures(1, &customer1Texture);
+	glGenTextures(1, &customer2Texture);
+	glGenTextures(1, &customer3Texture);
+	glGenTextures(1, &customer4Texture);
+
+	customer1Sitting = ppm6GetImage("customer1sitting.ppm");
+	customer2Sitting = ppm6GetImage("customer2sitting.ppm");
+	customer3Sitting = ppm6GetImage("customer3sitting.ppm");
+	customer4Sitting = ppm6GetImage("customer4sitting.ppm");
+	glGenTextures(1, &customer1SittingTexture);
+	glGenTextures(1, &customer2SittingTexture);
+	glGenTextures(1, &customer3SittingTexture);
+	glGenTextures(1, &customer4SittingTexture);
+
+	thoughtbox = ppm6GetImage("thoughtbox.ppm");
+	glGenTextures(1, &thoughtboxTexture);
+
+	//customer1
+	glBindTexture(GL_TEXTURE_2D, customer1Texture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	unsigned char *customer1Data = buildAlphaData2(customer1, col);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		customer1->width, customer1->height,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, customer1Data);
+	free(customer1Data);
+	//customer2
+	glBindTexture(GL_TEXTURE_2D, customer2Texture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	unsigned char *customer2Data = buildAlphaData2(customer2, col);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		customer2->width, customer2->height,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, customer2Data);
+	free(customer2Data);
+	//customer3
+	glBindTexture(GL_TEXTURE_2D, customer3Texture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	unsigned char *customer3Data = buildAlphaData2(customer3, col);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		customer3->width, customer3->height,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, customer3Data);
+	free(customer3Data);
+	//customer4
+	glBindTexture(GL_TEXTURE_2D, customer4Texture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	unsigned char *customer4Data = buildAlphaData2(customer4, col);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		customer4->width, customer4->height,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, customer4Data);
+	free(customer4Data);
+
+	//customer1sitting
+	glBindTexture(GL_TEXTURE_2D, customer1SittingTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		customer1Sitting->width, customer1Sitting->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, customer1Sitting->data);
+
+	//customer2sitting
+	glBindTexture(GL_TEXTURE_2D, customer2SittingTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		customer2Sitting->width, customer2Sitting->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, customer2Sitting->data);
+
+	//customer3sitting
+	glBindTexture(GL_TEXTURE_2D, customer3SittingTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		customer3Sitting->width, customer3Sitting->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, customer3Sitting->data);
+
+	//customer4sitting
+	glBindTexture(GL_TEXTURE_2D, customer4SittingTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		customer4Sitting->width, customer4Sitting->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, customer4Sitting->data);
+
+	//thoughtbox
+	glBindTexture(GL_TEXTURE_2D, thoughtboxTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	unsigned char *thoughtboxData = buildAlphaData2(thoughtbox, col);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		thoughtbox->width, thoughtbox->height,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, thoughtboxData);
+	free(thoughtboxData);
+}
+
+#ifdef RENDERTEST
+void renderCustomers()
+{
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, customer1Texture);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0f);
+	glColor4ub(255,255,255,255);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(74, 498);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(74, 594);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(170, 594);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(170, 498);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, customer1Texture);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0f);
+	glColor4ub(255,255,255,255);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(4, 253);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(4, 347);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(98, 347);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 253);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, customer2Texture);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0f);
+	glColor4ub(255,255,255,255);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(526, 253);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(526, 347);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(620, 347);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(620, 253);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, customer3Texture);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0f);
+	glColor4ub(255,255,255,255);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(4, 48);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(4, 142);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(98, 142);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 48);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, customer4Texture);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0f);
+	glColor4ub(255,255,255,255);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(526, 48);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(526, 142);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(620, 142);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(620, 48);
+	glEnd();
+	glPopMatrix();
+}
+#endif
+
+void makeNumbers()
+{
+	zero = ppm6GetImage("0.ppm");
+	one = ppm6GetImage("1.ppm");
+	two = ppm6GetImage("2.ppm");
+	three = ppm6GetImage("3.ppm");
+	four = ppm6GetImage("4.ppm");
+	five = ppm6GetImage("5.ppm");
+	six = ppm6GetImage("6.ppm");
+	seven = ppm6GetImage("7.ppm");
+	eight = ppm6GetImage("8.ppm");
+	nine = ppm6GetImage("9.ppm");
+
+	glGenTextures(1, &zeroTexture);
+	glGenTextures(1, &oneTexture);
+	glGenTextures(1, &twoTexture);
+	glGenTextures(1, &threeTexture);
+	glGenTextures(1, &fourTexture);
+	glGenTextures(1, &fiveTexture);
+	glGenTextures(1, &sixTexture);
+	glGenTextures(1, &sevenTexture);
+	glGenTextures(1, &eightTexture);
+	glGenTextures(1, &nineTexture);
+
+	//0
+	glBindTexture(GL_TEXTURE_2D, zeroTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		zero->width, zero->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, zero->data);
+
+	//1
+	glBindTexture(GL_TEXTURE_2D, oneTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		one->width, one->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, one->data);
+
+	//2
+	glBindTexture(GL_TEXTURE_2D, twoTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		two->width, two->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, two->data);
+
+	//3
+	glBindTexture(GL_TEXTURE_2D, threeTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		three->width, three->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, three->data);
+
+	//4
+	glBindTexture(GL_TEXTURE_2D, fourTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		four->width, four->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, four->data);
+	
+	//5
+	glBindTexture(GL_TEXTURE_2D, fiveTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		five->width, five->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, five->data);
+
+	//6
+	glBindTexture(GL_TEXTURE_2D, sixTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		six->width, six->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, six->data);
+
+	//7
+	glBindTexture(GL_TEXTURE_2D, sevenTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		seven->width, seven->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, seven->data);
+
+	//8
+	glBindTexture(GL_TEXTURE_2D, eightTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		eight->width, eight->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, eight->data);
+
+	//9
+	glBindTexture(GL_TEXTURE_2D, nineTexture);
+	//
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		nine->width, nine->height,
+		0, GL_RGB, GL_UNSIGNED_BYTE, nine->data);
+}
+
+unsigned char *buildAlphaData2(Ppmimage *img, unsigned char col[3])
+{
+	//col - color that should be transparent
+	//add 4th component to RGB stream...
+	int i;
+	int a,b,c;
+	unsigned char *newdata, *ptr;
+	unsigned char *data = (unsigned char *)img->data;
+	newdata = (unsigned char *)malloc(img->width * img->height * 4);
+	ptr = newdata;
+	for (i=0; i<img->width * img->height * 3; i+=3) {
+		a = *(data+0);
+		b = *(data+1);
+		c = *(data+2);
+		*(ptr+0) = a;
+		*(ptr+1) = b;
+		*(ptr+2) = c;
+		//continue to use glEnable(GL_ALPHA_TEST);
+		//andglAlphaFunc(GL_GREATER, 0.0f);i
+		*(ptr+3) = 1;
+		if (a == col[0] && b == col[1] && c == col[2])
+			*(ptr+3) = 0;
+
+		ptr += 4;
+		data += 3;
+	}
+	return newdata;
+}
+
 Customer::Customer()
 {
 	xPos1 = 74;
@@ -138,48 +471,6 @@ void Customer::addPauseTotal(double a)
 {
 	if (inLine == true || inSeat == true)
 	pauseTotal += a;
-}
-
-void Customer::renderThoughtBox()
-{
-	if (isEating == false) {
-		glPushMatrix();
-		glEnable(GL_TEXTURE_2D);
-
-		glBindTexture(GL_TEXTURE_2D, thoughtboxTexture);
-
-		glBegin(GL_QUADS);
-
-		switch(seatNum) {
-			case 1:
-				glTexCoord2f(0.0f, 1.0f); glVertex2i(216, 355);
-				glTexCoord2f(0.0f, 0.0f); glVertex2i(216, 418);
-				glTexCoord2f(1.0f, 0.0f); glVertex2i(279, 418);
-				glTexCoord2f(1.0f, 1.0f); glVertex2i(279, 355);
-				break;
-			case 2:
-				glTexCoord2f(0.0f, 1.0f); glVertex2i(488, 355);
-				glTexCoord2f(0.0f, 0.0f); glVertex2i(488, 418);
-				glTexCoord2f(1.0f, 0.0f); glVertex2i(551, 418);
-				glTexCoord2f(1.0f, 1.0f); glVertex2i(551, 355);
-				break;
-			case 3:
-				glTexCoord2f(0.0f, 1.0f); glVertex2i(216, 151);
-				glTexCoord2f(0.0f, 0.0f); glVertex2i(216, 214);
-				glTexCoord2f(1.0f, 0.0f); glVertex2i(279, 214);
-				glTexCoord2f(1.0f, 1.0f); glVertex2i(279, 151);
-				break;
-			case 4:
-				glTexCoord2f(0.0f, 1.0f); glVertex2i(488, 151);
-				glTexCoord2f(0.0f, 0.0f); glVertex2i(488, 214);
-				glTexCoord2f(1.0f, 0.0f); glVertex2i(551, 214);
-				glTexCoord2f(1.0f, 1.0f); glVertex2i(551, 151);
-				break;
-		}
-
-		glEnd();
-		glPopMatrix();
-	}
 }
 
 void Customer::renderModel(bool &line, bool seat[], int &count)
@@ -363,6 +654,48 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 	}
 }
 
+void Customer::renderThoughtBox()
+{
+	if (isEating == false) {
+		glPushMatrix();
+		glEnable(GL_TEXTURE_2D);
+
+		glBindTexture(GL_TEXTURE_2D, thoughtboxTexture);
+
+		glBegin(GL_QUADS);
+
+		switch(seatNum) {
+			case 1:
+				glTexCoord2f(0.0f, 1.0f); glVertex2i(216, 355);
+				glTexCoord2f(0.0f, 0.0f); glVertex2i(216, 418);
+				glTexCoord2f(1.0f, 0.0f); glVertex2i(279, 418);
+				glTexCoord2f(1.0f, 1.0f); glVertex2i(279, 355);
+				break;
+			case 2:
+				glTexCoord2f(0.0f, 1.0f); glVertex2i(488, 355);
+				glTexCoord2f(0.0f, 0.0f); glVertex2i(488, 418);
+				glTexCoord2f(1.0f, 0.0f); glVertex2i(551, 418);
+				glTexCoord2f(1.0f, 1.0f); glVertex2i(551, 355);
+				break;
+			case 3:
+				glTexCoord2f(0.0f, 1.0f); glVertex2i(216, 151);
+				glTexCoord2f(0.0f, 0.0f); glVertex2i(216, 214);
+				glTexCoord2f(1.0f, 0.0f); glVertex2i(279, 214);
+				glTexCoord2f(1.0f, 1.0f); glVertex2i(279, 151);
+				break;
+			case 4:
+				glTexCoord2f(0.0f, 1.0f); glVertex2i(488, 151);
+				glTexCoord2f(0.0f, 0.0f); glVertex2i(488, 214);
+				glTexCoord2f(1.0f, 0.0f); glVertex2i(551, 214);
+				glTexCoord2f(1.0f, 1.0f); glVertex2i(551, 151);
+				break;
+		}
+
+		glEnd();
+		glPopMatrix();
+	}
+}
+
 int Customer::returnSeat()
 {
 	return seatNum;
@@ -384,6 +717,11 @@ Level::Level()
 	complete = false;
 	gameOver = false;
 	win = false;
+}
+
+Customer Level::getCustomer(int n)
+{
+	return customers[n];
 }
 
 void Level::makeNewLevel(int n)
@@ -409,89 +747,9 @@ void Level::startGame()
 	renderCustomers();
 }
 
-Customer Level::getCustomer(int n)
-{
-	return customers[n];
-}
-
 void Level::setCustomerLeave(int n)
 {
 	customers[n].setFinishFood(true);
-}
-
-void Level::setHasFood(int n)
-{
-	customers[n].setHasFood(true);
-}
-
-void Level::setComplete(bool a)
-{
-	complete = a;
-}
-
-void Level::setGameOver(bool a)
-{
-	gameOver = a;
-}
-
-void Level::setWin(bool a)
-{
-	win = a;
-}
-
-bool Level::checkLine()
-{
-	return lineOccupied;
-}
-
-bool Level::checkTables()
-{
-	return seatOccupied;
-}
-
-bool Level::getStart()
-{
-	return start;
-}
-
-int Level::getServeCount()
-{
-	return serveCount;
-}
-
-bool Level::getComplete()
-{
-	return complete;
-}
-
-bool Level::getGameOver()
-{
-	return gameOver;
-}
-
-bool Level::getWin()
-{
-	return win;
-}
-
-int Level::getCustomerGoal()
-{
-	return customerGoal;
-}
-
-int Level::getSeatNum(int n)
-{
-	return customers[n].returnSeat();
-}
-
-int Level::getFoodId(int n)
-{
-	return customers[n].returnFood();
-}
-
-void Level::startGame(bool a)
-{
-	start = a;
 }
 
 void Level::renderCustomers()
@@ -817,336 +1075,77 @@ void Level::renderServeCounter()
 	glPopMatrix();
 }
 
-unsigned char *buildAlphaData2(Ppmimage *img, unsigned char col[3])
+void Level::setHasFood(int n)
 {
-	//col - color that should be transparent
-	//add 4th component to RGB stream...
-	int i;
-	int a,b,c;
-	unsigned char *newdata, *ptr;
-	unsigned char *data = (unsigned char *)img->data;
-	newdata = (unsigned char *)malloc(img->width * img->height * 4);
-	ptr = newdata;
-	for (i=0; i<img->width * img->height * 3; i+=3) {
-		a = *(data+0);
-		b = *(data+1);
-		c = *(data+2);
-		*(ptr+0) = a;
-		*(ptr+1) = b;
-		*(ptr+2) = c;
-		//continue to use glEnable(GL_ALPHA_TEST);
-		//andglAlphaFunc(GL_GREATER, 0.0f);i
-		*(ptr+3) = 1;
-		if (a == col[0] && b == col[1] && c == col[2])
-			*(ptr+3) = 0;
-
-		ptr += 4;
-		data += 3;
-	}
-	return newdata;
+	customers[n].setHasFood(true);
 }
 
-void makeCustomers()
+void Level::setComplete(bool a)
 {
-
-	unsigned char col[] = {0, 255, 0};
-
-	customer1 = ppm6GetImage("customer1.ppm");
-	customer2 = ppm6GetImage("customer2.ppm");
-	customer3 = ppm6GetImage("customer3.ppm");
-	customer4 = ppm6GetImage("customer4.ppm");
-	glGenTextures(1, &customer1Texture);
-	glGenTextures(1, &customer2Texture);
-	glGenTextures(1, &customer3Texture);
-	glGenTextures(1, &customer4Texture);
-
-	customer1Sitting = ppm6GetImage("customer1sitting.ppm");
-	customer2Sitting = ppm6GetImage("customer2sitting.ppm");
-	customer3Sitting = ppm6GetImage("customer3sitting.ppm");
-	customer4Sitting = ppm6GetImage("customer4sitting.ppm");
-	glGenTextures(1, &customer1SittingTexture);
-	glGenTextures(1, &customer2SittingTexture);
-	glGenTextures(1, &customer3SittingTexture);
-	glGenTextures(1, &customer4SittingTexture);
-
-	thoughtbox = ppm6GetImage("thoughtbox.ppm");
-	glGenTextures(1, &thoughtboxTexture);
-
-	//customer1
-	glBindTexture(GL_TEXTURE_2D, customer1Texture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	unsigned char *customer1Data = buildAlphaData2(customer1, col);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-		customer1->width, customer1->height,
-		0, GL_RGBA, GL_UNSIGNED_BYTE, customer1Data);
-	free(customer1Data);
-	//customer2
-	glBindTexture(GL_TEXTURE_2D, customer2Texture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	unsigned char *customer2Data = buildAlphaData2(customer2, col);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-		customer2->width, customer2->height,
-		0, GL_RGBA, GL_UNSIGNED_BYTE, customer2Data);
-	free(customer2Data);
-	//customer3
-	glBindTexture(GL_TEXTURE_2D, customer3Texture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	unsigned char *customer3Data = buildAlphaData2(customer3, col);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-		customer3->width, customer3->height,
-		0, GL_RGBA, GL_UNSIGNED_BYTE, customer3Data);
-	free(customer3Data);
-	//customer4
-	glBindTexture(GL_TEXTURE_2D, customer4Texture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	unsigned char *customer4Data = buildAlphaData2(customer4, col);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-		customer4->width, customer4->height,
-		0, GL_RGBA, GL_UNSIGNED_BYTE, customer4Data);
-	free(customer4Data);
-
-	//customer1sitting
-	glBindTexture(GL_TEXTURE_2D, customer1SittingTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		customer1Sitting->width, customer1Sitting->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, customer1Sitting->data);
-
-	//customer2sitting
-	glBindTexture(GL_TEXTURE_2D, customer2SittingTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		customer2Sitting->width, customer2Sitting->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, customer2Sitting->data);
-
-	//customer3sitting
-	glBindTexture(GL_TEXTURE_2D, customer3SittingTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		customer3Sitting->width, customer3Sitting->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, customer3Sitting->data);
-
-	//customer4sitting
-	glBindTexture(GL_TEXTURE_2D, customer4SittingTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		customer4Sitting->width, customer4Sitting->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, customer4Sitting->data);
-
-	//thoughtbox
-	glBindTexture(GL_TEXTURE_2D, thoughtboxTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	unsigned char *thoughtboxData = buildAlphaData2(thoughtbox, col);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-		thoughtbox->width, thoughtbox->height,
-		0, GL_RGBA, GL_UNSIGNED_BYTE, thoughtboxData);
-	free(thoughtboxData);
+	complete = a;
 }
 
-void makeNumbers()
+void Level::setGameOver(bool a)
 {
-	zero = ppm6GetImage("0.ppm");
-	one = ppm6GetImage("1.ppm");
-	two = ppm6GetImage("2.ppm");
-	three = ppm6GetImage("3.ppm");
-	four = ppm6GetImage("4.ppm");
-	five = ppm6GetImage("5.ppm");
-	six = ppm6GetImage("6.ppm");
-	seven = ppm6GetImage("7.ppm");
-	eight = ppm6GetImage("8.ppm");
-	nine = ppm6GetImage("9.ppm");
-
-	glGenTextures(1, &zeroTexture);
-	glGenTextures(1, &oneTexture);
-	glGenTextures(1, &twoTexture);
-	glGenTextures(1, &threeTexture);
-	glGenTextures(1, &fourTexture);
-	glGenTextures(1, &fiveTexture);
-	glGenTextures(1, &sixTexture);
-	glGenTextures(1, &sevenTexture);
-	glGenTextures(1, &eightTexture);
-	glGenTextures(1, &nineTexture);
-
-	//0
-	glBindTexture(GL_TEXTURE_2D, zeroTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		zero->width, zero->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, zero->data);
-
-	//1
-	glBindTexture(GL_TEXTURE_2D, oneTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		one->width, one->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, one->data);
-
-	//2
-	glBindTexture(GL_TEXTURE_2D, twoTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		two->width, two->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, two->data);
-
-	//3
-	glBindTexture(GL_TEXTURE_2D, threeTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		three->width, three->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, three->data);
-
-	//4
-	glBindTexture(GL_TEXTURE_2D, fourTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		four->width, four->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, four->data);
-	
-	//5
-	glBindTexture(GL_TEXTURE_2D, fiveTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		five->width, five->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, five->data);
-
-	//6
-	glBindTexture(GL_TEXTURE_2D, sixTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		six->width, six->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, six->data);
-
-	//7
-	glBindTexture(GL_TEXTURE_2D, sevenTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		seven->width, seven->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, seven->data);
-
-	//8
-	glBindTexture(GL_TEXTURE_2D, eightTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		eight->width, eight->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, eight->data);
-
-	//9
-	glBindTexture(GL_TEXTURE_2D, nineTexture);
-	//
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3,
-		nine->width, nine->height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, nine->data);
+	gameOver = a;
 }
 
-
-
-void renderCustomers()
+void Level::setWin(bool a)
 {
-	glPushMatrix();
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, customer1Texture);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.0f);
-	glColor4ub(255,255,255,255);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f); glVertex2i(74, 498);
-	glTexCoord2f(0.0f, 0.0f); glVertex2i(74, 594);
-	glTexCoord2f(1.0f, 0.0f); glVertex2i(170, 594);
-	glTexCoord2f(1.0f, 1.0f); glVertex2i(170, 498);
-	glEnd();
-	glPopMatrix();
+	win = a;
+}
 
-	glPushMatrix();
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, customer1Texture);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.0f);
-	glColor4ub(255,255,255,255);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f); glVertex2i(4, 253);
-	glTexCoord2f(0.0f, 0.0f); glVertex2i(4, 347);
-	glTexCoord2f(1.0f, 0.0f); glVertex2i(98, 347);
-	glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 253);
-	glEnd();
-	glPopMatrix();
+void Level::startGame(bool a)
+{
+	start = a;
+}
 
-	glPushMatrix();
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, customer2Texture);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.0f);
-	glColor4ub(255,255,255,255);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f); glVertex2i(526, 253);
-	glTexCoord2f(0.0f, 0.0f); glVertex2i(526, 347);
-	glTexCoord2f(1.0f, 0.0f); glVertex2i(620, 347);
-	glTexCoord2f(1.0f, 1.0f); glVertex2i(620, 253);
-	glEnd();
-	glPopMatrix();
+bool Level::checkLine()
+{
+	return lineOccupied;
+}
 
-	glPushMatrix();
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, customer3Texture);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.0f);
-	glColor4ub(255,255,255,255);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f); glVertex2i(4, 48);
-	glTexCoord2f(0.0f, 0.0f); glVertex2i(4, 142);
-	glTexCoord2f(1.0f, 0.0f); glVertex2i(98, 142);
-	glTexCoord2f(1.0f, 1.0f); glVertex2i(98, 48);
-	glEnd();
-	glPopMatrix();
+bool Level::checkTables()
+{
+	return seatOccupied;
+}
 
-	glPushMatrix();
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, customer4Texture);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.0f);
-	glColor4ub(255,255,255,255);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f); glVertex2i(526, 48);
-	glTexCoord2f(0.0f, 0.0f); glVertex2i(526, 142);
-	glTexCoord2f(1.0f, 0.0f); glVertex2i(620, 142);
-	glTexCoord2f(1.0f, 1.0f); glVertex2i(620, 48);
-	glEnd();
-	glPopMatrix();
+bool Level::getStart()
+{
+	return start;
+}
+
+bool Level::getWin()
+{
+	return win;
+}
+
+bool Level::getComplete()
+{
+	return complete;
+}
+
+bool Level::getGameOver()
+{
+	return gameOver;
+}
+
+int Level::getServeCount()
+{
+	return serveCount;
+}
+
+int Level::getCustomerGoal()
+{
+	return customerGoal;
+}
+
+int Level::getSeatNum(int n)
+{
+	return customers[n].returnSeat();
+}
+
+int Level::getFoodId(int n)
+{
+	return customers[n].returnFood();
 }
