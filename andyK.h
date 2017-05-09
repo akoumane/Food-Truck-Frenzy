@@ -100,7 +100,7 @@ class Level
 		void setComplete(bool a);
 		void setGameOver(bool a);
 		void setWin(bool a);
-		void setStartGame(bool a);
+		void startGame(bool a);
 		
 		bool checkLine();
 		bool checkTables();
