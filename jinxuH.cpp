@@ -24,7 +24,6 @@ using namespace std;
 #define YDB 0 //Ymax down
 #define XRB 668 //xmax left
 #define XLB 8 //xmax Right
-score = 0;
 Box::Box() {
     xPos1 = 100;
     xPos2 = 100;
