@@ -89,10 +89,6 @@ class Level
 		void startGame();
 		void setCustomerLeave(int n);
 		void renderCustomers();
-		void renderFood();
-		void increaseServeCount();
-		void setLine(bool a);
-		void startGame(bool a);
 		void printLine();
 		void printSeat();
 		void setStartTimer(bool a);
@@ -104,6 +100,7 @@ class Level
 		void setComplete(bool a);
 		void setGameOver(bool a);
 		void setWin(bool a);
+		void setStartGame(bool a);
 		
 		bool checkLine();
 		bool checkTables();
