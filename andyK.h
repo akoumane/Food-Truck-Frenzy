@@ -45,6 +45,7 @@ class Customer
 		void addPauseTotal(double a);
 		void renderModel(bool &line, bool seat[], int &count);
 		void renderThoughtBox();
+	
 		int returnSeat();
 		int returnFood();
 };
@@ -56,11 +57,13 @@ class Level
 		int customerGoal;
 		int serveCount;
 		int custCount;
+	
 		double custMultiplier;
 		double gameLength;
 		double pauseTotal;
 		double pauseStartTime, pauseEndTime, pauseWaitTime;
 		double countdownStartTime, countdownEndTime;
+	
 		bool start;
 		bool complete;
 		bool gameOver;
