@@ -1,7 +1,5 @@
-void makeFoods();
 void makeCustomers();
 void renderCustomers();
-void renderFoods();
 void makeNumbers();
 unsigned char *buildAlphaData2(Ppmimage *img, unsigned char col[3]);
 
@@ -58,6 +56,8 @@ class Level
 		double custMultiplier;
 		double gameLength;
 		double pauseTotal;
+		double pauseStartTime, pauseEndTime, pauseWaitTime;
+		double countdownStartTime, countdownEndTime;
 		bool start;
 		bool complete;
 		bool gameOver;
@@ -73,24 +73,19 @@ class Level
 		struct timespec countdownStart;
 		struct timespec countdownEnd;
 
-		double pauseStartTime, pauseEndTime, pauseWaitTime;
-		double countdownStartTime, countdownEndTime;
-
 		Customer *customers;
 
 	public:
 		Level();
+		Customer getCustomer(int n);
+		
 		void makeNewLevel(int n);
 		void startGame();
-		Customer getCustomer(int n);
 		void setCustomerLeave(int n);
-		bool checkLine();
-		bool checkTables();
 		void renderCustomers();
 		void renderFood();
 		void increaseServeCount();
 		void setLine(bool a);
-		bool getStart();
 		void startGame(bool a);
 		void printLine();
 		void printSeat();
@@ -102,12 +97,17 @@ class Level
 		void setHasFood(int n);
 		void setComplete(bool a);
 		void setGameOver(bool a);
-		int getServeCount();
 		void setWin(bool a);
+		
+		bool checkLine();
+		bool checkTables();
+		bool getStart();
 		bool getWin();
-		int getCustomerGoal();
 		bool getComplete();
 		bool getGameOver();
+		
+		int getServeCount();
+		int getCustomerGoal();
 		int getSeatNum(int n);
 		int getFoodId(int n);
 };
