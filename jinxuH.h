@@ -7,9 +7,10 @@
   public:
   int getposition(int x1, int x2, int y1, int y2);
   };*/
-void setscore();
+//void setscore(bool, bool, bool);
 void showsocre();
-int score=0;
+//extern int score;
+void renderNumber();
 class Box
 {
 	private:

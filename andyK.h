@@ -1,6 +1,31 @@
 #ifndef ANDYK_H
 #define ANDYK_H
 
+extern Ppmimage *zero;
+extern Ppmimage *one;
+extern Ppmimage *two;
+extern Ppmimage *three;
+extern Ppmimage *four;
+extern Ppmimage *five;
+extern Ppmimage *six;
+extern Ppmimage *seven;
+extern Ppmimage *eight;
+extern Ppmimage *nine;
+
+extern GLuint zeroTexture;
+extern GLuint oneTexture;
+extern GLuint twoTexture;
+extern GLuint threeTexture;
+extern GLuint fourTexture;
+extern GLuint fiveTexture;
+extern GLuint sixTexture;
+extern GLuint sevenTexture;
+extern GLuint eightTexture;
+extern GLuint nineTexture;
+
+extern Ppmimage *number;
+extern GLuint numberTexture;
+
 void makeCustomers();
 void renderCustomers();
 void makeNumbers();

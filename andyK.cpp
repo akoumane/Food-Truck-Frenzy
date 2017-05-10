@@ -53,6 +53,7 @@ Ppmimage *seven = NULL;
 Ppmimage *eight = NULL;
 Ppmimage *nine = NULL;
 
+
 //The thoughtbox is a blank box that frames
 //the food that the customer wants to indicate
 //to the waiter what food should be served to that
@@ -81,6 +82,7 @@ GLuint sixTexture;
 GLuint sevenTexture;
 GLuint eightTexture;
 GLuint nineTexture;
+
 
 GLuint thoughtboxTexture;
 
@@ -292,6 +294,7 @@ void makeNumbers()
 	eight = ppm6GetImage("8.ppm");
 	nine = ppm6GetImage("9.ppm");
 
+
 	glGenTextures(1, &zeroTexture);
 	glGenTextures(1, &oneTexture);
 	glGenTextures(1, &twoTexture);
@@ -302,6 +305,7 @@ void makeNumbers()
 	glGenTextures(1, &sevenTexture);
 	glGenTextures(1, &eightTexture);
 	glGenTextures(1, &nineTexture);
+	
 
 	//0
 	glBindTexture(GL_TEXTURE_2D, zeroTexture);
