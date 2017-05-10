@@ -119,7 +119,7 @@ bool victory_screen=false;
 const int X_Dem = 7;	// Dimension for Grid
 const int Y_Dem = 5;	// Dimension for Grid
 bool boo = false;
-
+int score=0;
 //Customer *customer;
 Level *level;
 Ppmimage *backgroundImage = NULL;
@@ -217,7 +217,7 @@ int main(void)
 	    }
 	    else {
 		level->addPauseTotal();
-		if (t1->food1 == true) {
+		/*if (t1->food1 == true) {
 		    //cout << "Food ID: " << t1->tableID[0] << endl;
 		    t1->f1->renderFood(1, 1, t1->tableID[0]);
 		    if (p1->resetWaiter == true) {
@@ -246,7 +246,7 @@ int main(void)
 
 		if (t1->food6) {
 
-		}
+		}*/
 
 		//b1->gettable(); //need it when acture use
 		renderWaiter(p1->ypos, p1->xpos);
@@ -260,6 +260,10 @@ int main(void)
 		if (level->getStart()) {
 		    level->startGame();
 		}
+		score+=setscore(level->getInSeat(0), level->getWaitTime(0), level->getHasFood(0),
+			level->customers[0].score);
+		cout <<"Your Score: " << score <<endl;
+		
 
 		//b1->showItem();
 

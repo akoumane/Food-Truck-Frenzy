@@ -7,7 +7,7 @@
   public:
   int getposition(int x1, int x2, int y1, int y2);
   };*/
-//void setscore(bool, bool, bool);
+int setscore(bool, double, bool, bool &getScore);
 void showsocre();
 //extern int score;
 void renderNumber();

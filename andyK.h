@@ -60,6 +60,8 @@ class Customer
 		bool startTimer;
 
 	public:
+		bool score;
+		
 		Customer();
 		void reset();
 		void setInLine(bool a);
@@ -70,9 +72,14 @@ class Customer
 		void addPauseTotal(double a);
 		void renderModel(bool &line, bool seat[], int &count);
 		void renderThoughtBox();
+
+		bool getInSeat();
+		bool getHasFood();
+		bool getScore();
 	
 		int returnSeat();
 		int returnFood();
+		double getWaitTime();
 };
 
 class Level
@@ -104,9 +111,9 @@ class Level
 		struct timespec countdownStart;
 		struct timespec countdownEnd;
 
-		Customer *customers;
 
 	public:
+		Customer *customers;
 		Level();
 		Customer getCustomer(int n);
 		
@@ -133,10 +140,14 @@ class Level
 		bool getWin();
 		bool getComplete();
 		bool getGameOver();
+		bool getInSeat(int n);
+		bool getHasFood(int n);
+		bool getScore(int n);
 		
 		int getServeCount();
 		int getCustomerGoal();
 		int getSeatNum(int n);
 		int getFoodId(int n);
+		double getWaitTime(int n);
 };
 #endif

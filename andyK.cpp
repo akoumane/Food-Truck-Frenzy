@@ -27,6 +27,7 @@
 #include "log.h"
 #include "ppm.h"
 #include "andyK.h"
+#include "jinxuH.h"
 #include <time.h>
 using namespace std;
 
@@ -448,6 +449,7 @@ Customer::Customer()
 	assignSeat = true;
 	startTimer = false;
 	moveToSeat = false;
+	score=false;
 }
 
 //Resets the customer data. Used when the customer is finished
@@ -614,6 +616,8 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 		if (inSeat) {
 			//The thoughtbox will contain the food that the customer desires.
 			//Once they receive their food, it will disappear.
+			clock_gettime(CLOCK_REALTIME, &custCurrent);
+			currentTime = (double)custCurrent.tv_sec;
 			renderThoughtBox();
 
 			glPushMatrix();
@@ -688,11 +692,12 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 				pauseTotal = 0;
 				hasFood = false;
 				isEating = true;
+				score=true;
 			}
 
 			//The customer will eat their food for around 5 secs, then leave
 			if (isEating == true) {
-				if (waitTime < 5.5) {
+				if (waitTime < 6) {
 					clock_gettime(CLOCK_REALTIME, &custCurrent);
 					currentTime = (double)custCurrent.tv_sec;
 				}
@@ -757,6 +762,21 @@ void Customer::renderThoughtBox()
 	}
 }
 
+bool Customer::getInSeat()
+{
+	return inSeat;
+}
+
+bool Customer::getHasFood()
+{
+	return hasFood;
+}
+
+bool Customer::getScore()
+{
+	return score;
+}
+
 int Customer::returnSeat()
 {
 	return seatNum;
@@ -765,6 +785,11 @@ int Customer::returnSeat()
 int Customer::returnFood()
 {
 	return foodChoice;
+}
+
+double Customer::getWaitTime()
+{
+	return waitTime;
 }
 
 
@@ -810,6 +835,8 @@ void Level::startGame()
 	renderCountdown();
 	renderServeCounter();
 	renderCustomers();
+	//setscore(customers[0].getInSeat(), customers[0].getWaitTime(),
+	//	customers[0].getHasFood(), customers[0].score);
 }
 
 void Level::setCustomerLeave(int n)
@@ -819,10 +846,10 @@ void Level::setCustomerLeave(int n)
 
 void Level::renderCustomers()
 {
-	for (int i = 0; i < 5; i++)
-		customers[i].renderModel(lineOccupied, seatOccupied, serveCount);
+	//for (int i = 0; i < 5; i++)
+	//	customers[i].renderModel(lineOccupied, seatOccupied, serveCount);
 
-	//customers[0].renderModel(lineOccupied, seatOccupied);
+	customers[0].renderModel(lineOccupied, seatOccupied, serveCount);
 }
 
 void Level::printLine()
@@ -1208,6 +1235,21 @@ bool Level::getGameOver()
 	return gameOver;
 }
 
+bool Level::getInSeat(int n)
+{
+	return customers[n].getInSeat();
+}
+
+bool Level::getHasFood(int n)
+{
+	return customers[n].getHasFood();
+}
+
+bool Level::getScore(int n)
+{
+	return customers[n].getScore();
+}
+
 int Level::getServeCount()
 {
 	return serveCount;
@@ -1226,4 +1268,9 @@ int Level::getSeatNum(int n)
 int Level::getFoodId(int n)
 {
 	return customers[n].returnFood();
+}
+
+double Level::getWaitTime(int n)
+{
+	return customers[n].getWaitTime();
 }

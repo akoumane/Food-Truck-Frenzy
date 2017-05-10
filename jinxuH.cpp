@@ -336,15 +336,30 @@ void Box::movewRight()
 
 }
 
-/*void setscore(bool a, bool b, bool c)
-  {
-  if(a)
-  score = score+5;
-  else if(b)
-  score = score+3;
-  else if(c)
-  score=score+1;
-  }*/
+int setscore(bool inSeat, double waitTime, bool hasFood, bool &getScore)
+{
+    static int score;
+    cout << "Wait Time: "<< waitTime<<endl;
+    if (inSeat==true && hasFood==false)
+    {
+	if(waitTime<=10)
+	    score=10;
+	else if(waitTime>10 && waitTime<=20)
+	    score=5;
+	else if(waitTime>20)
+	    score=1;
+    }
+    cout << "score: " << score << endl;
+    if(getScore==true)
+    {
+	getScore=false;
+	return score;
+    }
+    else
+    {
+	return 0;
+    }
+}
 
 
 #ifdef RENDERTEST
