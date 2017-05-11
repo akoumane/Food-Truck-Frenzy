@@ -21,7 +21,7 @@
 #include <GL/glx.h>
 #include "log.h"
 #include "ppm.h"
-//#include "brandonP.h"     *DO NOT REMOVE THIS COMMENT
+//#include "brandonP.h" *DO NOT REMOVE THIS COMMENT
 #include "jinxuH.h"
 #include "andyK.h"
 #include <time.h>
@@ -157,11 +157,11 @@ void Box::gettable()
 		break;
 	    case 1:
 		makebox(tablexpos1[1], tablexpos2[1], tableypos1[1], tableypos2[1]);
-		//	makebox(536, 754, 224, 370);
+		//makebox(536, 754, 224, 370);
 		break;
 	    case 2:
 		makebox(tablexpos1[2], tablexpos2[2], tableypos1[2], tableypos2[2]);
-		//	makebox(13, 225, 25, 170);
+		//makebox(13, 225, 25, 170);
 		break;
 	    case 3:
 		makebox(tablexpos1[3], tablexpos2[3], tableypos1[3], tableypos2[3]);
@@ -432,12 +432,11 @@ void renderScore(int s)
     glEnd();
     glPopMatrix();
 
-
     //second number
+
     glPushMatrix();
     glEnable(GL_TEXTURE_2D);
 
-    //right Number
     switch (s % 10) {
 	case 0:
 	    glBindTexture(GL_TEXTURE_2D, zeroTexture);

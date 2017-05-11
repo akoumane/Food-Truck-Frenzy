@@ -48,7 +48,7 @@ typedef double Vec[3];
 #define random(a) (rand()%a)
 #define MakeVector(x, y, z, v) (v)[0]=(x),(v)[1]=(y),(v)[2]=(z)
 #define VecCopy(a,b) (b)[0]=(a)[0];(b)[1]=(a)[1];(b)[2]=(a)[2]
-#define VecDot(a,b)	((a)[0]*(b)[0]+(a)[1]*(b)[1]+(a)[2]*(b)[2])
+#define VecDot(a,b)((a)[0]*(b)[0]+(a)[1]*(b)[1]+(a)[2]*(b)[2])
 #define VecSub(a,b,c) (c)[0]=(a)[0]-(b)[0]; \
 			     (c)[1]=(a)[1]-(b)[1]; \
 (c)[2]=(a)[2]-(b)[2]
@@ -116,8 +116,8 @@ int help_menu=0;
 bool title_screen=true;
 bool defeat_screen=false;
 bool victory_screen=false;
-const int X_Dem = 7;	// Dimension for Grid
-const int Y_Dem = 5;	// Dimension for Grid
+const int X_Dem = 7;// Dimension for Grid
+const int Y_Dem = 5;// Dimension for Grid
 bool boo = false;
 int score=0;
 //Customer *customer;
@@ -218,14 +218,14 @@ int main(void)
 	    else {
 		level->addPauseTotal();
 		/*if (t1->food1 == true) {
-		    //cout << "Food ID: " << t1->tableID[0] << endl;
-		    t1->f1->renderFood(1, 1, t1->tableID[0]);
-		    if (p1->resetWaiter == true) {
-			p1->foodChoice = 0;
-			makeWaiter(p1->foodChoice);
-			p1->resetWaiter = false;
-		    }
-		    //t1->f1->renderFood(1, 1, 3);
+		//cout << "Food ID: " << t1->tableID[0] << endl;
+		t1->f1->renderFood(1, 1, t1->tableID[0]);
+		if (p1->resetWaiter == true) {
+		p1->foodChoice = 0;
+		makeWaiter(p1->foodChoice);
+		p1->resetWaiter = false;
+		}
+		//t1->f1->renderFood(1, 1, 3);
 		}
 
 		if (t1->food2) {
@@ -261,10 +261,10 @@ int main(void)
 		    level->startGame();
 		}
 		for (int i=0; i<5; i++) {
-			score+=setscore(level->getInSeat(i), level->getWaitTime(i), level->getHasFood(i),
-				level->customers[i].score);
+		    score+=setscore(level->getInSeat(i), level->getWaitTime(i), level->getHasFood(i),
+			    level->customers[i].score);
 		}
-			renderScore(score);	
+		renderScore(score);
 		//b1->showItem();
 
 		//renderCustomers();
@@ -276,16 +276,16 @@ int main(void)
     }
 
 #ifdef USE_OPENAL_SOUND
-	cleanupSound();
+    cleanupSound();
 #endif
     cleanupXWindows();
     cleanup_fonts();
     cleanUp();
     logClose();
 
-	free(level);
+    free(level);
 
-    // 	DEBUGGING FOR GRID
+    // DEBUGGING FOR GRID
     /*
        Game *g = new Game(40,40);
        g->printGrid();
@@ -372,9 +372,9 @@ unsigned char *buildAlphaData(Ppmimage *img)
 	*(ptr+2) = c;
 	//get largest color component...
 	//*(ptr+3) = (unsigned char)((
-	//		(int)*(ptr+0) +
-	//		(int)*(ptr+1) +
-	//		(int)*(ptr+2)) / 3);
+	//(int)*(ptr+0) +
+	//(int)*(ptr+1) +
+	//(int)*(ptr+2)) / 3);
 	//d = a;
 	//if (b >= a && b >= c) d = b;
 	//if (c >= a && c >= b) d = c;
@@ -418,10 +418,10 @@ void initOpengl(void)
 	    backgroundImage->width, backgroundImage->height,
 	    0, GL_RGB, GL_UNSIGNED_BYTE, backgroundImage->data);
 
-	makeNumbers();
-	makeCustomers();
+    makeNumbers();
+    makeCustomers();
     //makeFoods();
-	makeWaiter(3);
+    makeWaiter(3);
 }
 
 void checkResize(XEvent *e)
@@ -477,11 +477,11 @@ void checkKeys(XEvent *e)
     //keyboard input?
     //static int shift=0;
     int key = XLookupKeysym(&e->xkey, 0);
-    
+
     if (e->type == KeyRelease) {
 	if (key == XK_Shift_L || key == XK_Shift_R)
-	   // shift=0;
-	return;
+	    // shift=0;
+	    return;
     }
     if (e->type == KeyPress) {
 	if (key == XK_Shift_L || key == XK_Shift_R) {
@@ -489,122 +489,122 @@ void checkKeys(XEvent *e)
 	    return;
 	}
     } else {
-		return;		
+	return;
     }
-    
+
     switch(key) {
-		case XK_p:
-		    if (title_screen == false)
-		    	state_menu ^= 1;
-		    break;
+	case XK_p:
+	    if (title_screen == false)
+		state_menu ^= 1;
+	    break;
 
-		case XK_a:
-		    if (title_screen == true) {
-		#ifdef USE_OPENAL_SOUND
-		    playSound(b.alSourceBeep);
-		#endif
-				level->startGame(true);
-			
-		    	title_screen = false;
-		    }
-		    else if (victory_screen == true) {
-				level->setComplete(true);
-		    }
-		    else if (defeat_screen == true) {
-				level->setComplete(true);
-		    }
-		    break;
+	case XK_a:
+	    if (title_screen == true) {
+#ifdef USE_OPENAL_SOUND
+		playSound(b.alSourceBeep);
+#endif
+		level->startGame(true);
 
-		case XK_h:
-		    if (title_screen == true) {
-		#ifdef USE_OPENAL_SOUND
-		    playSound(b.alSourceBeep);
-		#endif
-		    help_menu ^= 1;
-		    }
-		    break;
-		case XK_Return:
-			interaction(p1, t1, level);
-			break;
-		case XK_Left:
-			b1->movewLeft();
-		    if  (b1->colwithRight()==false) {
-			p1->moveLeft();
-		    }
-			cout << "Move Left\n";
-			cout << "xpos: " << p1->xpos;
-			cout <<"\nypos: " << p1->ypos << "\n\n";
-			break;
-		case XK_Right:
-			b1->movewRight();
-			if (b1->colwithLeft()==false) {
-			p1->moveRight();
-			}
-			cout << "Move Right\n";
-			cout << "xpos: " << p1->xpos;
-			cout <<"\nypos: " << p1->ypos << "\n\n";
-			break;
-		case XK_Up:
-			b1->movewUp();
-			if (b1->colwithDown()==false) {
-			p1->moveUp();
-			}
-			cout << "Move Down\n";
-			cout << "xpos: " << p1->xpos;
-			cout <<"\nypos: " << p1->ypos << "\n\n";
-			break;
-		case XK_Down:
-			b1->movewDown();
-			if (b1->colwithUp() == false) {
-			p1->moveDown();
-			}
-			//swapped down with Up
-			cout << "Move Down\n";
-			cout << "xpos: " << p1->xpos;
-			cout <<"\nypos: " << p1->ypos << "\n\n";
-			break;
-		case XK_g:
-			grid->printGrid();
-			break;
-		case XK_f:				// ******************************************
-			boo = !boo;
-			break;
-		case XK_k:
-			t1->f1->set_moving();
-			break;
-		//#ifdef RENDERTEST
-		case XK_q:
-       		break;
-    	case XK_w:
-			level->printLine();
-			break;
-		case XK_e:
-			level->printSeat();
-			break;
-		case XK_r:
-			level->setHasFood(0);
-			break;
-		case XK_t:
-			level->setHasFood(1);
-			break;
-		case XK_y:
-			level->setHasFood(2);
-			break;
-		case XK_u:
-			level->setHasFood(3);
-			break;
-		case XK_i:
-			level->setHasFood(4);
-			break;
-		/*case XK_o:
-			cout << title_screen << endl;
-			break;*/
-		case XK_n:
-			cout << level->getCustomerGoal() << endl;
-			break;
-		//#endif
-		case XK_Escape:
-	    	done=1;
+		title_screen = false;
+	    }
+	    else if (victory_screen == true) {
+		level->setComplete(true);
+	    }
+	    else if (defeat_screen == true) {
+		level->setComplete(true);
+	    }
+	    break;
+
+	case XK_h:
+	    if (title_screen == true) {
+#ifdef USE_OPENAL_SOUND
+		playSound(b.alSourceBeep);
+#endif
+		help_menu ^= 1;
+	    }
+	    break;
+	case XK_Return:
+	    interaction(p1, t1, level);
+	    break;
+	case XK_Left:
+	    b1->movewLeft();
+	    if  (b1->colwithRight()==false) {
+		p1->moveLeft();
+	    }
+	    cout << "Move Left\n";
+	    cout << "xpos: " << p1->xpos;
+	    cout <<"\nypos: " << p1->ypos << "\n\n";
+	    break;
+	case XK_Right:
+	    b1->movewRight();
+	    if (b1->colwithLeft()==false) {
+		p1->moveRight();
+	    }
+	    cout << "Move Right\n";
+	    cout << "xpos: " << p1->xpos;
+	    cout <<"\nypos: " << p1->ypos << "\n\n";
+	    break;
+	case XK_Up:
+	    b1->movewUp();
+	    if (b1->colwithDown()==false) {
+		p1->moveUp();
+	    }
+	    cout << "Move Down\n";
+	    cout << "xpos: " << p1->xpos;
+	    cout <<"\nypos: " << p1->ypos << "\n\n";
+	    break;
+	case XK_Down:
+	    b1->movewDown();
+	    if (b1->colwithUp() == false) {
+		p1->moveDown();
+	    }
+	    //swapped down with Up
+	    cout << "Move Down\n";
+	    cout << "xpos: " << p1->xpos;
+	    cout <<"\nypos: " << p1->ypos << "\n\n";
+	    break;
+	case XK_g:
+	    grid->printGrid();
+	    break;
+	case XK_f:// ******************************************
+	    boo = !boo;
+	    break;
+	case XK_k:
+	    t1->f1->set_moving();
+	    break;
+	    //#ifdef RENDERTEST
+	case XK_q:
+	    break;
+	case XK_w:
+	    level->printLine();
+	    break;
+	case XK_e:
+	    level->printSeat();
+	    break;
+	case XK_r:
+	    level->setHasFood(0);
+	    break;
+	case XK_t:
+	    level->setHasFood(1);
+	    break;
+	case XK_y:
+	    level->setHasFood(2);
+	    break;
+	case XK_u:
+	    level->setHasFood(3);
+	    break;
+	case XK_i:
+	    level->setHasFood(4);
+	    break;
+	    /*case XK_o:
+	      cout << title_screen << endl;
+	      break;*/
+	case XK_n:
+	    cout << level->getCustomerGoal() << endl;
+	    break;
+	    //#endif
+	case XK_Escape:
+	    done=1;
 	    break;
     }
 }
@@ -647,33 +647,33 @@ void render(void)
     //float wid = 120.0f;
     //glColor3f(1.0, 1.0, 1.0);
     if (background) {
-		glBindTexture(GL_TEXTURE_2D, backgroundTexture);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
-		glTexCoord2f(0.0f, 0.0f); glVertex2i(0, yres);
-		glTexCoord2f(1.0f, 0.0f); glVertex2i(xres, yres);
-		glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
-		glEnd();
+	glBindTexture(GL_TEXTURE_2D, backgroundTexture);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(0, 0);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(0, yres);
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(xres, yres);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(xres, 0);
+	glEnd();
     }
 #ifdef RENDERTEST
     b1->gettable();
 #endif
-/*
-    if(title_screen == true) {
-	    	renderTitleScreen();
-		TitleScreen();
-	if (help_menu == 1) {
-	  renderHelpScreen();
-	  Help_Menu();
-	  }
-    }
-    */
     /*
-    if(title_screen == false) {
-	if (state_menu == 1) {
-	  renderPauseScreen();
-	  Pause_Menu();
-	  }
-    }
-    */
+       if(title_screen == true) {
+       renderTitleScreen();
+       TitleScreen();
+       if (help_menu == 1) {
+       renderHelpScreen();
+       Help_Menu();
+       }
+       }
+       */
+    /*
+       if(title_screen == false) {
+       if (state_menu == 1) {
+       renderPauseScreen();
+       Pause_Menu();
+       }
+       }
+       */
 }
