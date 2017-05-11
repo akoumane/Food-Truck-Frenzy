@@ -1,4 +1,10 @@
 //Jinxu Han
+/*
+The task I have for this project is to make the collision box 
+and the collision function between the waiter and the tables.
+The way I did the collision function is using the four corner 
+instead the mid point
+*/
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -98,7 +104,7 @@ void Box::makebox(int x1, int x2, int y1, int y2)
     glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
 }
 
-
+//make the waiter box
 void Box::makewaiter(int x1, int y1)
 {
     xPos1=x1;
@@ -108,6 +114,8 @@ void Box::makewaiter(int x1, int y1)
     glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1+95);
     glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1);
 }
+
+//function to draw the table 
 void Box::drawtable(int x1, int x2, int y1, int y2)
 {
     glPushMatrix();
@@ -122,6 +130,8 @@ void Box::drawtable(int x1, int x2, int y1, int y2)
 
 
 }
+
+//function to draw the waiter
 void Box::drawwaiter(int x1, int y1)
 {
     glPushMatrix();
@@ -134,6 +144,7 @@ void Box::drawwaiter(int x1, int y1)
     glEnd();
     glPopMatrix();
 }
+
 void Box::gettable()
 {
     //draw table
@@ -182,14 +193,18 @@ void Box::gettable()
 
 
 }
+
 void Box::getwaiter()
 {
     makewaiter(wxpos1, wypos1);
 }
 
+//waiter box collision with the right side of the table box
 bool Box::colwithRight()
 {
     //int wxpos2=wxpos1+95;
+	//if the left corners positions are in between the posion right side corner  
+	//for the table box then it's true
     int wypos2=wypos1+95;
     for(int i=0; i<4; i++)
     {
@@ -203,8 +218,12 @@ bool Box::colwithRight()
     }
     return colR;
 }
+
+
 bool Box::colwithLeft()
 {
+	//if the right corners positions are in between the posion of left side corner  
+	//for the table box then it's true
     int wxpos2=wxpos1+95;
     int wypos2=wypos1+95;
     for(int i=0; i<4;i++)
@@ -222,6 +241,8 @@ bool Box::colwithLeft()
 
 bool Box::colwithUp()
 {
+	//if the down corners positions are in between the posion of up side corner  
+	//for the table box then it's true
     int wxpos2=wxpos1+95;
     //int wypos2=wypos1+95;
     for(int i=0; i<4; i++)
@@ -239,6 +260,8 @@ bool Box::colwithUp()
 
 bool Box::colwithDown()
 {
+	//if the up corners positions are in between the posion of down side corner  
+	//for the table box then it's true
     int wxpos2=wxpos1+95;
     int wypos2=wypos1+95;
     for(int i=0; i<4; i++)
