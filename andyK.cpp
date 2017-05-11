@@ -697,7 +697,7 @@ void Customer::renderModel(bool &line, bool seat[], int &count)
 
 			//The customer will eat their food for around 5 secs, then leave
 			if (isEating == true) {
-				if (waitTime < 6) {
+				if (waitTime < 8) {
 					clock_gettime(CLOCK_REALTIME, &custCurrent);
 					currentTime = (double)custCurrent.tv_sec;
 				}
@@ -846,10 +846,10 @@ void Level::setCustomerLeave(int n)
 
 void Level::renderCustomers()
 {
-	//for (int i = 0; i < 5; i++)
-	//	customers[i].renderModel(lineOccupied, seatOccupied, serveCount);
+	for (int i = 0; i < 5; i++)
+		customers[i].renderModel(lineOccupied, seatOccupied, serveCount);
 
-	customers[0].renderModel(lineOccupied, seatOccupied, serveCount);
+	//customers[0].renderModel(lineOccupied, seatOccupied, serveCount);
 }
 
 void Level::printLine()
@@ -1090,7 +1090,7 @@ void Level::renderServeCounter()
 	glPushMatrix();
 	glEnable(GL_TEXTURE_2D);
 
-	//Right number
+	//left number
 	if (serveCount > 9) {
 		switch (serveCount - (serveCount % 10)) {
 			case 10:
@@ -1137,7 +1137,7 @@ void Level::renderServeCounter()
 	glPushMatrix();
 	glEnable(GL_TEXTURE_2D);
 
-	//Left Number
+	//right Number
 	switch (serveCount % 10) {
 		case 0:
 			glBindTexture(GL_TEXTURE_2D, zeroTexture);

@@ -1,10 +1,10 @@
 //Jinxu Han
 /*
-The task I have for this project is to make the collision box 
-and the collision function between the waiter and the tables.
-The way I did the collision function is using the four corner 
-instead the mid point
-*/
+   The task I have for this project is to make the collision box 
+   and the collision function between the waiter and the tables.
+   The way I did the collision function is using the four corner 
+   instead the mid point
+   */
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -203,8 +203,8 @@ void Box::getwaiter()
 bool Box::colwithRight()
 {
     //int wxpos2=wxpos1+95;
-	//if the left corners positions are in between the posion right side corner  
-	//for the table box then it's true
+    //if the left corners positions are in between the posion right side corner  
+    //for the table box then it's true
     int wypos2=wypos1+95;
     for(int i=0; i<4; i++)
     {
@@ -222,8 +222,8 @@ bool Box::colwithRight()
 
 bool Box::colwithLeft()
 {
-	//if the right corners positions are in between the posion of left side corner  
-	//for the table box then it's true
+    //if the right corners positions are in between the posion of left side corner  
+    //for the table box then it's true
     int wxpos2=wxpos1+95;
     int wypos2=wypos1+95;
     for(int i=0; i<4;i++)
@@ -241,8 +241,8 @@ bool Box::colwithLeft()
 
 bool Box::colwithUp()
 {
-	//if the down corners positions are in between the posion of up side corner  
-	//for the table box then it's true
+    //if the down corners positions are in between the posion of up side corner  
+    //for the table box then it's true
     int wxpos2=wxpos1+95;
     //int wypos2=wypos1+95;
     for(int i=0; i<4; i++)
@@ -260,8 +260,8 @@ bool Box::colwithUp()
 
 bool Box::colwithDown()
 {
-	//if the up corners positions are in between the posion of down side corner  
-	//for the table box then it's true
+    //if the up corners positions are in between the posion of down side corner  
+    //for the table box then it's true
     int wxpos2=wxpos1+95;
     int wypos2=wypos1+95;
     for(int i=0; i<4; i++)
@@ -365,11 +365,11 @@ int setscore(bool inSeat, double waitTime, bool hasFood, bool &getScore)
     cout << "Wait Time: "<< waitTime<<endl;
     if (inSeat==true && hasFood==false)
     {
-	if(waitTime<=10)
-	    score=10;
-	else if(waitTime>10 && waitTime<=20)
-	    score=5;
-	else if(waitTime>20)
+	if(waitTime<=15)
+	    score=3;
+	else if(waitTime>15 && waitTime<=25)
+	    score=2;
+	else if(waitTime>25)
 	    score=1;
     }
     cout << "score: " << score << endl;
@@ -383,6 +383,106 @@ int setscore(bool inSeat, double waitTime, bool hasFood, bool &getScore)
 	return 0;
     }
 }
+
+void renderScore(int s)
+{
+
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+    //first number
+    if (s > 9) {
+	switch (s - (s % 10)) {
+	    case 10:
+		glBindTexture(GL_TEXTURE_2D, oneTexture);
+		break;
+	    case 20:
+		glBindTexture(GL_TEXTURE_2D, twoTexture);
+		break;
+	    case 30:
+		glBindTexture(GL_TEXTURE_2D, threeTexture);
+		break;
+	    case 40:
+		glBindTexture(GL_TEXTURE_2D, fourTexture);
+		break;
+	    case 50:
+		glBindTexture(GL_TEXTURE_2D, fiveTexture);
+		break;
+	    case 60:
+		glBindTexture(GL_TEXTURE_2D, sixTexture);
+		break;
+	    case 70:
+		glBindTexture(GL_TEXTURE_2D, sevenTexture);
+		break;
+	    case 80:
+		glBindTexture(GL_TEXTURE_2D, eightTexture);
+		break;
+	    case 90:
+		glBindTexture(GL_TEXTURE_2D, nineTexture);
+		break;
+	}
+    }
+    else
+	glBindTexture(GL_TEXTURE_2D, zeroTexture);
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(31, 737);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(31, 768);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(62, 768);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(62, 737);
+    glEnd();
+    glPopMatrix();
+
+
+    //second number
+    glPushMatrix();
+    glEnable(GL_TEXTURE_2D);
+
+    //right Number
+    switch (s % 10) {
+	case 0:
+	    glBindTexture(GL_TEXTURE_2D, zeroTexture);
+	    break;
+	case 1:
+	    glBindTexture(GL_TEXTURE_2D, oneTexture);
+	    break;
+	case 2:
+	    glBindTexture(GL_TEXTURE_2D, twoTexture);
+	    break;
+	case 3:
+	    glBindTexture(GL_TEXTURE_2D, threeTexture);
+	    break;
+	case 4:
+	    glBindTexture(GL_TEXTURE_2D, fourTexture);
+	    break;
+	case 5:
+	    glBindTexture(GL_TEXTURE_2D, fiveTexture);
+	    break;
+	case 6:
+	    glBindTexture(GL_TEXTURE_2D, sixTexture);
+	    break;
+	case 7:
+	    glBindTexture(GL_TEXTURE_2D, sevenTexture);
+	    break;
+	case 8:
+	    glBindTexture(GL_TEXTURE_2D, eightTexture);
+	    break;
+	case 9:
+	    glBindTexture(GL_TEXTURE_2D, nineTexture);
+	    break;
+    }
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f); glVertex2i(62, 737);
+    glTexCoord2f(0.0f, 0.0f); glVertex2i(62, 768);
+    glTexCoord2f(1.0f, 0.0f); glVertex2i(93, 768);
+    glTexCoord2f(1.0f, 1.0f); glVertex2i(93, 737);
+    glEnd();
+    glPopMatrix();
+
+
+
+}
+
 
 
 #ifdef RENDERTEST

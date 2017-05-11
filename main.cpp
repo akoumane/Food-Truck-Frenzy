@@ -260,11 +260,11 @@ int main(void)
 		if (level->getStart()) {
 		    level->startGame();
 		}
-		score+=setscore(level->getInSeat(0), level->getWaitTime(0), level->getHasFood(0),
-			level->customers[0].score);
-		cout <<"Your Score: " << score <<endl;
-		
-
+		for (int i=0; i<5; i++) {
+			score+=setscore(level->getInSeat(i), level->getWaitTime(i), level->getHasFood(i),
+				level->customers[i].score);
+		}
+			renderScore(score);	
 		//b1->showItem();
 
 		//renderCustomers();

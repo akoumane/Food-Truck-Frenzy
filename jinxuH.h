@@ -10,7 +10,7 @@
 int setscore(bool, double, bool, bool &getScore);
 void showsocre();
 //extern int score;
-void renderNumber();
+void renderScore(int);
 class Box
 {
 	private:
