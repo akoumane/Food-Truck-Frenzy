@@ -42,10 +42,10 @@ void renderNumber()
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 1.0f); glVertex2i(74, 498);
 	glTexCoord2f(0.0f, 0.0f); glVertex2i(74, 594);
-	lTexCoord2f(1.0f, 0.0f); glVertex2i(170, 594);
-	lTexCoord2f(1.0f, 1.0f); glVertex2i(170, 498);
-	lEnd();
-	lPopMatrix();
+	glTexCoord2f(1.0f, 0.0f); glVertex2i(170, 594);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(170, 498);
+	glEnd();
+	glPopMatrix();
 
 }
 Box::Box() {
@@ -56,9 +56,9 @@ Box::Box() {
 	col = false;
 	//x1pos for table
 	tablexpos1[0]=13;
-	ablexpos1[1]=558;
-	ablexpos1[2]=13;
-	ablexpos1[3]=558;
+	tablexpos1[1]=558;
+	tablexpos1[2]=13;
+	tablexpos1[3]=558;
 	//x2pos for table
 	tablexpos2[0]=213;
 	tablexpos2[1]=754;
@@ -148,10 +148,8 @@ void Box::drawwaiter(int x1, int y1)
 void Box::gettable()
 {
 	//draw table
-	for (int i=0; i<4; i++)
-	{
-		switch (i)
-		{
+	for (int i=0; i<4; i++) {
+		switch (i) {
 			case 0:
 				makebox(tablexpos1[0], tablexpos2[0], tableypos1[0], tableypos2[0]);
 				break;
@@ -205,8 +203,7 @@ bool Box::colwithRight()
 	//if the left corners positions are in between the posion right side corner  
 	//for the table box then it's true
 	int wypos2=wypos1+95;
-	for(int i=0; i<4; i++)
-	{
+	for(int i=0; i<4; i++) {
 		if((wxpos1>=tablexpos1[i]+5 && wxpos1 <= tablexpos2[i]+5)&&
 				((wypos1>tableypos1[i] && wypos1 <tableypos2[i])||
 				 (wypos2>tableypos1[i] && wypos2 < tableypos2[i])))
@@ -214,7 +211,7 @@ bool Box::colwithRight()
 			colR = true;
 			col = true;
 		}
-}
+	}
 	return colR;
 }
 
@@ -225,12 +222,10 @@ bool Box::colwithLeft()
 	//for the table box then it's true
 	int wxpos2=wxpos1+95;
 	int wypos2=wypos1+95;
-	for(int i=0; i<4;i++)
-	{
+	for(int i=0; i<4;i++) {
 		if((wxpos2>=tablexpos1[i]-5 && wxpos2 <= tablexpos2[i])&&
 				((wypos1>=tableypos1[i] && wypos1 <= tableypos2[i])||
- 				 (wypos2>=tableypos1[i] && wypos2 <= tableypos2[i])))
-		{
+ 				 (wypos2>=tableypos1[i] && wypos2 <= tableypos2[i]))) {
 			colL = true;
 			col = true;
     	}
@@ -244,12 +239,10 @@ bool Box::colwithUp()
 	//for the table box then it's true
 	int wxpos2=wxpos1+95;
 	//int wypos2=wypos1+95;
-	for(int i=0; i<4; i++)
-	{
+	for(int i=0; i<4; i++) {
 		if((wypos1>=tableypos1[i] && wypos1<=tableypos2[i]+8) &&
 				((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
-				 (wxpos2>tablexpos1[i]&&wxpos2<tablexpos2[i])))
-		{	
+				 (wxpos2>tablexpos1[i]&&wxpos2<tablexpos2[i]))) {	
 			colU = true;
 			col = true;
 		}
@@ -263,24 +256,19 @@ bool Box::colwithDown()
 	//for the table box then it's true
 	int wxpos2=wxpos1+95;
 	int wypos2=wypos1+95;
-	for(int i=0; i<4; i++)
-	{
+	for(int i=0; i<4; i++) {
 		if((wypos2>=tableypos1[i] && wypos2<=tableypos2[i]) &&
 				((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
-				 (wypos2>tablexpos1[i]&& wxpos2<tablexpos2[i])))
-		{
+				 (wypos2>tablexpos1[i]&& wxpos2<tablexpos2[i]))) {
 			colD = true;
 			col = true;
 		}
-		else
-		{ 
+		else { 
 			//for sidebox only col down
-			for(int j=0; j<2; j++)
-			{
+			for(int j=0; j<2; j++) {
 				if((wypos2>=stableypos1[j] && wypos2<=stableypos2[j]) &&
 						((wxpos1>stablexpos1[j] && wxpos1<stablexpos2[j])||
-						 (wxpos2>stablexpos1[j]&& wxpos2<stablexpos2[j])))
-				{
+						 (wxpos2>stablexpos1[j]&& wxpos2<stablexpos2[j]))) {
 					colD = true;
 					col = true;
 				}
@@ -293,14 +281,12 @@ bool Box::colwithDown()
 void Box::movewDown()
 {
 	//Player *p1;
-	if(colwithUp()==true)
-	{
+	if(colwithUp()==true) {
 		wypos1=wypos1;
 	}
 	else if (wypos1-6<YDB)
 		return;
-	else
-	{
+	else {
 		wypos1 = wypos1-6;
 		//&moveDown();
 	}
@@ -310,14 +296,12 @@ void Box::movewDown()
 void Box::movewUp()
 {
 	//Player *p1;
-	if(colwithDown()==true)
-	{
+	if(colwithDown()==true) {
 		wypos1=wypos1;
 	}
 	else if (wypos1+6 >=YUB)
 		return;
-	else
-	{
+	else {
 		wypos1 = wypos1+6;
 		// &moveUp();
 	}
@@ -333,8 +317,7 @@ void Box::movewLeft()
 	}
 	else if(wxpos1-6 < XLB)
 		return;
-	else
-	{
+	else {
 		wxpos1 = wxpos1-6;
 		//&moveLeft();
 	}
@@ -344,14 +327,12 @@ void Box::movewLeft()
 void Box::movewRight()
 {
 	//Player *p1;
-	if(colwithLeft()==true)
-	{
+	if(colwithLeft()==true) {
 		wxpos1 = wxpos1;
 	}
 	else if(wxpos1+6>=XRB)
 		return;
-	else
-	{
+	else {
 		wxpos1 = wxpos1+6;
 		// &moveRight();
 	}
@@ -363,8 +344,7 @@ int setscore(bool inSeat, double waitTime, bool hasFood, bool &getScore)
 {
 	static int score;
 	cout << "Wait Time: "<< waitTime<<endl;
-	if (inSeat==true && hasFood==false)
-	{
+	if (inSeat==true && hasFood==false) {
 		if(waitTime<=15)
 			score=3;
 		else if(waitTime>15 && waitTime<=25)
@@ -374,13 +354,11 @@ int setscore(bool inSeat, double waitTime, bool hasFood, bool &getScore)
 	}	
 	cout << "score: " << score << endl;
 
-	if(getScore==true)
-	{
+	if(getScore==true) {
 		getScore=false;
 		return score;
 	}
-	else
-	{
+	else {
 		return 0;
 	}
 }
