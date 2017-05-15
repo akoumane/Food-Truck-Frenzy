@@ -1,10 +1,10 @@
 //Jinxu Han
 /*
-   The task I have for this project is to make the collision box 
-   and the collision function between the waiter and the tables.
-   The way I did the collision function is using the four corner 
-   instead the mid point
-   */
+The task I have for this project is to make the collision box 
+and the collision function between the waiter and the tables.
+The way I did the collision function is using the four corner 
+instead the mid point
+*/
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -33,100 +33,100 @@ using namespace std;
 #define XLB 8 //xmax Right
 void renderNumber()
 {
-    glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, zeroTexture);
-    glEnable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.0f);
-    glColor4ub(255,255,255,255);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f); glVertex2i(74, 498);
-    glTexCoord2f(0.0f, 0.0f); glVertex2i(74, 594);
-    glTexCoord2f(1.0f, 0.0f); glVertex2i(170, 594);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(170, 498);
-    glEnd();
-    glPopMatrix();
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, zeroTexture);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0f);
+	glColor4ub(255,255,255,255);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f); glVertex2i(74, 498);
+	glTexCoord2f(0.0f, 0.0f); glVertex2i(74, 594);
+	lTexCoord2f(1.0f, 0.0f); glVertex2i(170, 594);
+	lTexCoord2f(1.0f, 1.0f); glVertex2i(170, 498);
+	lEnd();
+	lPopMatrix();
 
 }
 Box::Box() {
-    xPos1 = 100;
-    xPos2 = 100;
-    yPos1 = 100;
-    yPos2 = 100;
-    col = false;
-    //x1pos for table
-    tablexpos1[0]=13;
-    tablexpos1[1]=558;
-    tablexpos1[2]=13;
-    tablexpos1[3]=558;
-    //x2pos for table
-    tablexpos2[0]=213;
-    tablexpos2[1]=754;
-    tablexpos2[2]=213;
-    tablexpos2[3]=754;
-    //y1pos for table
-    tableypos1[0]=225;
-    tableypos1[1]=225;
-    tableypos1[2]=25;
-    tableypos1[3]=25;
-    //y2pos for table
-    tableypos2[0]=370;
-    tableypos2[1]=370;
-    tableypos2[2]=170;
-    tableypos2[3]=170;
-    //pos for stable;
-    //x1pos for stable
-    stablexpos1[0]=467;
-    stablexpos1[1]=585;
-    //x2pos for stable
-    stablexpos2[0]=584;
-    stablexpos2[1]=705;
-    //y1pos for stable
-    stableypos1[0]=533;
-    stableypos1[1]=533;
-    //y2pos for stable
-    stableypos2[0]=623;
-    stableypos2[1]=623;
-    //start pos for waiter
-    wxpos1=252;
-    wypos1=6;
+	xPos1 = 100;
+	xPos2 = 100;
+	yPos1 = 100;
+	yPos2 = 100;
+	col = false;
+	//x1pos for table
+	tablexpos1[0]=13;
+	ablexpos1[1]=558;
+	ablexpos1[2]=13;
+	ablexpos1[3]=558;
+	//x2pos for table
+	tablexpos2[0]=213;
+	tablexpos2[1]=754;
+	tablexpos2[2]=213;
+	tablexpos2[3]=754;
+	//y1pos for table
+	tableypos1[0]=225;
+	tableypos1[1]=225;
+	tableypos1[2]=25;
+	tableypos1[3]=25;
+	//y2pos for table
+	tableypos2[0]=370;
+	tableypos2[1]=370;
+	tableypos2[2]=170;
+	tableypos2[3]=170;
+	//pos for stable;
+	//x1pos for stable
+	stablexpos1[0]=467;
+	stablexpos1[1]=585;
+	//x2pos for stable
+	stablexpos2[0]=584;
+	stablexpos2[1]=705;
+	//y1pos for stable
+	stableypos1[0]=533;
+	stableypos1[1]=533;
+	//y2pos for stable
+	stableypos2[0]=623;
+	stableypos2[1]=623;
+	//start pos for waiter
+	wxpos1=252;
+	wypos1=6;
 }
 //make the box
 void Box::makebox(int x1, int x2, int y1, int y2)
 {
-    xPos1=x1;
-    xPos2=x2;
-    yPos1=y1;
-    yPos2=y2;
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos1);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos2);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos2);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
+	xPos1=x1;
+	xPos2=x2;
+	yPos1=y1;
+	yPos2=y2;
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos1);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos1, yPos2);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos2);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(xPos2, yPos1);
 }
 
 //make the waiter box
 void Box::makewaiter(int x1, int y1)
 {
-    xPos1=x1;
-    yPos1=y1;
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1+95);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1+95);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1);
+	xPos1=x1;
+	yPos1=y1;
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1+95);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1+95);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1);
 }
 
 //function to draw the table 
 void Box::drawtable(int x1, int x2, int y1, int y2)
 {
-    glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
-    glBegin(GL_QUADS);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x2, y1);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x2, y2);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y2);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
-    glEnd();
-    glPopMatrix();
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x2, y1);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x2, y2);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y2);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
+	glEnd();
+	glPopMatrix();
 
 
 }
@@ -134,352 +134,350 @@ void Box::drawtable(int x1, int x2, int y1, int y2)
 //function to draw the waiter
 void Box::drawwaiter(int x1, int y1)
 {
-    glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
-    glBegin(GL_QUADS);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1+95);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1+95);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1);
-    glEnd();
-    glPopMatrix();
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1, y1+95);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1+95);
+	glTexCoord2f(1.0f, 1.0f); glVertex2i(x1+95, y1);
+	glEnd();
+	glPopMatrix();
 }
 
 void Box::gettable()
 {
-    //draw table
-    for (int i=0; i<4; i++)
-    {
-	switch (i)
+	//draw table
+	for (int i=0; i<4; i++)
 	{
-	    case 0:
-		makebox(tablexpos1[0], tablexpos2[0], tableypos1[0], tableypos2[0]);
-		break;
-	    case 1:
-		makebox(tablexpos1[1], tablexpos2[1], tableypos1[1], tableypos2[1]);
-		//makebox(536, 754, 224, 370);
-		break;
-	    case 2:
-		makebox(tablexpos1[2], tablexpos2[2], tableypos1[2], tableypos2[2]);
-		//makebox(13, 225, 25, 170);
-		break;
-	    case 3:
-		makebox(tablexpos1[3], tablexpos2[3], tableypos1[3], tableypos2[3]);
-		//makebox(536, 754, 24, 170);
-		break;
+		switch (i)
+		{
+			case 0:
+				makebox(tablexpos1[0], tablexpos2[0], tableypos1[0], tableypos2[0]);
+				break;
+			case 1:
+				makebox(tablexpos1[1], tablexpos2[1], tableypos1[1], tableypos2[1]);
+				//makebox(536, 754, 224, 370);
+				break;
+			case 2:
+				makebox(tablexpos1[2], tablexpos2[2], tableypos1[2], tableypos2[2]);
+				//makebox(13, 225, 25, 170);
+				break;
+			case 3:
+				makebox(tablexpos1[3], tablexpos2[3], tableypos1[3], tableypos2[3]);
+				//makebox(536, 754, 24, 170);
+				break;
+		}
+}
 
-	}
-    }
-
-    //drawtablebox
-    drawtable(tablexpos1[0], tablexpos2[0],tableypos1[0], tableypos2[0]);
-    drawtable(tablexpos1[1], tablexpos2[1],tableypos1[1], tableypos2[1]);
-    drawtable(tablexpos1[2], tablexpos2[2],tableypos1[2], tableypos2[2]);
-    drawtable(tablexpos1[3], tablexpos2[3],tableypos1[3], tableypos2[3]);
-    //drawtable(13, 225,225, 370);
-    //drawtable(536, 754, 224, 370);
-    //drawtable(13, 225, 25, 170);
-    //drawtable(536, 754, 24, 170);
-    //make and draw side table
-    makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
-    makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
-    //makebox(467, 584, 533, 623);
-    //makebox(585, 705, 533, 623);
-    drawtable(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
-    drawtable(stablexpos1[1], stablexpos2[1], stableypos1[1], stableypos2[1]);
-    //drawtable(467, 584, 533, 623);
-    //drawtable(585, 705, 533, 623);
-    drawwaiter(wxpos1, wypos1);
+	//drawtablebox
+	drawtable(tablexpos1[0], tablexpos2[0],tableypos1[0], tableypos2[0]);
+	drawtable(tablexpos1[1], tablexpos2[1],tableypos1[1], tableypos2[1]);
+	drawtable(tablexpos1[2], tablexpos2[2],tableypos1[2], tableypos2[2]);
+	drawtable(tablexpos1[3], tablexpos2[3],tableypos1[3], tableypos2[3]);
+	//drawtable(13, 225,225, 370);
+	//drawtable(536, 754, 224, 370);
+	//drawtable(13, 225, 25, 170);
+	//drawtable(536, 754, 24, 170);
+	//make and draw side table
+	makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
+	makebox(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
+	//makebox(467, 584, 533, 623);
+	//makebox(585, 705, 533, 623);
+	drawtable(stablexpos1[0], stablexpos2[0], stableypos1[0], stableypos2[0]);
+	drawtable(stablexpos1[1], stablexpos2[1], stableypos1[1], stableypos2[1]);
+	//drawtable(467, 584, 533, 623);
+	//drawtable(585, 705, 533, 623);
+	drawwaiter(wxpos1, wypos1);
 
 
 }
 
 void Box::getwaiter()
 {
-    makewaiter(wxpos1, wypos1);
+	makewaiter(wxpos1, wypos1);
 }
 
 //waiter box collision with the right side of the table box
 bool Box::colwithRight()
 {
-    //int wxpos2=wxpos1+95;
-    //if the left corners positions are in between the posion right side corner  
-    //for the table box then it's true
-    int wypos2=wypos1+95;
-    for(int i=0; i<4; i++)
-    {
-	if((wxpos1>=tablexpos1[i]+5 && wxpos1 <= tablexpos2[i]+5)&&
-		((wypos1>tableypos1[i] && wypos1 <tableypos2[i])||
-		 (wypos2>tableypos1[i] && wypos2 < tableypos2[i])))
+	//int wxpos2=wxpos1+95;
+	//if the left corners positions are in between the posion right side corner  
+	//for the table box then it's true
+	int wypos2=wypos1+95;
+	for(int i=0; i<4; i++)
 	{
-	    colR = true;
-	    col = true;
-	}
-    }
-    return colR;
+		if((wxpos1>=tablexpos1[i]+5 && wxpos1 <= tablexpos2[i]+5)&&
+				((wypos1>tableypos1[i] && wypos1 <tableypos2[i])||
+				 (wypos2>tableypos1[i] && wypos2 < tableypos2[i])))
+		{
+			colR = true;
+			col = true;
+		}
+}
+	return colR;
 }
 
 
 bool Box::colwithLeft()
 {
-    //if the right corners positions are in between the posion of left side corner  
-    //for the table box then it's true
-    int wxpos2=wxpos1+95;
-    int wypos2=wypos1+95;
-    for(int i=0; i<4;i++)
-    {
-	if((wxpos2>=tablexpos1[i]-5 && wxpos2 <= tablexpos2[i])&&
-		((wypos1>=tableypos1[i] && wypos1 <= tableypos2[i])||
-		 (wypos2>=tableypos1[i] && wypos2 <= tableypos2[i])))
+	//if the right corners positions are in between the posion of left side corner  
+	//for the table box then it's true
+	int wxpos2=wxpos1+95;
+	int wypos2=wypos1+95;
+	for(int i=0; i<4;i++)
 	{
-	    colL = true;
-	    col = true;
+		if((wxpos2>=tablexpos1[i]-5 && wxpos2 <= tablexpos2[i])&&
+				((wypos1>=tableypos1[i] && wypos1 <= tableypos2[i])||
+ 				 (wypos2>=tableypos1[i] && wypos2 <= tableypos2[i])))
+		{
+			colL = true;
+			col = true;
+    	}
 	}
-    }
-    return colL;
+	return colL;
 }
 
 bool Box::colwithUp()
 {
-    //if the down corners positions are in between the posion of up side corner  
-    //for the table box then it's true
-    int wxpos2=wxpos1+95;
-    //int wypos2=wypos1+95;
-    for(int i=0; i<4; i++)
-    {
-	if((wypos1>=tableypos1[i] && wypos1<=tableypos2[i]+8) &&
-		((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
-		 (wxpos2>tablexpos1[i]&&wxpos2<tablexpos2[i])))
+	//if the down corners positions are in between the posion of up side corner  
+	//for the table box then it's true
+	int wxpos2=wxpos1+95;
+	//int wypos2=wypos1+95;
+	for(int i=0; i<4; i++)
 	{
-	    colU = true;
-	    col = true;
+		if((wypos1>=tableypos1[i] && wypos1<=tableypos2[i]+8) &&
+				((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
+				 (wxpos2>tablexpos1[i]&&wxpos2<tablexpos2[i])))
+		{	
+			colU = true;
+			col = true;
+		}
 	}
-    }
-    return colU;
+	return colU;
 }
 
 bool Box::colwithDown()
 {
-    //if the up corners positions are in between the posion of down side corner  
-    //for the table box then it's true
-    int wxpos2=wxpos1+95;
-    int wypos2=wypos1+95;
-    for(int i=0; i<4; i++)
-    {
-	if((wypos2>=tableypos1[i] && wypos2<=tableypos2[i]) &&
-		((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
-		 (wypos2>tablexpos1[i]&& wxpos2<tablexpos2[i])))
+	//if the up corners positions are in between the posion of down side corner  
+	//for the table box then it's true
+	int wxpos2=wxpos1+95;
+	int wypos2=wypos1+95;
+	for(int i=0; i<4; i++)
 	{
-	    colD = true;
-	    col = true;
-	}
-	else
-	{ //for sidebox only col down
-	    for(int j=0; j<2; j++)
-	    {
-		if((wypos2>=stableypos1[j] && wypos2<=stableypos2[j]) &&
-			((wxpos1>stablexpos1[j] && wxpos1<stablexpos2[j])||
-			 (wxpos2>stablexpos1[j]&& wxpos2<stablexpos2[j])))
+		if((wypos2>=tableypos1[i] && wypos2<=tableypos2[i]) &&
+				((wxpos1>tablexpos1[i] && wxpos1<tablexpos2[i])||
+				 (wypos2>tablexpos1[i]&& wxpos2<tablexpos2[i])))
 		{
-		    colD = true;
-		    col = true;
+			colD = true;
+			col = true;
 		}
-	    }
+		else
+		{ 
+			//for sidebox only col down
+			for(int j=0; j<2; j++)
+			{
+				if((wypos2>=stableypos1[j] && wypos2<=stableypos2[j]) &&
+						((wxpos1>stablexpos1[j] && wxpos1<stablexpos2[j])||
+						 (wxpos2>stablexpos1[j]&& wxpos2<stablexpos2[j])))
+				{
+					colD = true;
+					col = true;
+				}
+			}
+		}
 	}
-    }
-    return colD;
+	return colD;
 }
 
 void Box::movewDown()
 {
-    //Player *p1;
-    if(colwithUp()==true)
-    {
-	wypos1=wypos1;
-    }
-    else if (wypos1-6<YDB)
-	return;
-    else
-    {
-	wypos1 = wypos1-6;
-	//&moveDown();
-    }
-    colU=false;
+	//Player *p1;
+	if(colwithUp()==true)
+	{
+		wypos1=wypos1;
+	}
+	else if (wypos1-6<YDB)
+		return;
+	else
+	{
+		wypos1 = wypos1-6;
+		//&moveDown();
+	}
+	colU=false;
 }
 
 void Box::movewUp()
 {
-    //Player *p1;
-    if(colwithDown()==true)
-    {
-	wypos1=wypos1;
-    }
-    else if (wypos1+6 >=YUB)
-	return;
-    else
-    {
-	wypos1 = wypos1+6;
-	// &moveUp();
-    }
-    colD=false;
+	//Player *p1;
+	if(colwithDown()==true)
+	{
+		wypos1=wypos1;
+	}
+	else if (wypos1+6 >=YUB)
+		return;
+	else
+	{
+		wypos1 = wypos1+6;
+		// &moveUp();
+	}
+	colD=false;
 }
 
 void Box::movewLeft()
 {
-    //Player *p1;
-    if(colwithRight()==true)
-    {
-	wxpos1=wxpos1;
-    }
-    else if(wxpos1-6 < XLB)
-	return;
-    else
-    {
-	wxpos1 = wxpos1-6;
-	//&moveLeft();
-    }
-    colR=false;
+	//Player *p1;
+	if(colwithRight()==true)
+	{
+		wxpos1=wxpos1;
+	}
+	else if(wxpos1-6 < XLB)
+		return;
+	else
+	{
+		wxpos1 = wxpos1-6;
+		//&moveLeft();
+	}
+	colR=false;
 }
 
 void Box::movewRight()
 {
-    //Player *p1;
-    if(colwithLeft()==true)
-    {
-	wxpos1 = wxpos1;
-    }
-    else if(wxpos1+6>=XRB)
-	return;
-    else
-    {
-	wxpos1 = wxpos1+6;
-	// &moveRight();
-    }
-    colL=false;
+	//Player *p1;
+	if(colwithLeft()==true)
+	{
+		wxpos1 = wxpos1;
+	}
+	else if(wxpos1+6>=XRB)
+		return;
+	else
+	{
+		wxpos1 = wxpos1+6;
+		// &moveRight();
+	}
+	colL=false;
 
 }
 
 int setscore(bool inSeat, double waitTime, bool hasFood, bool &getScore)
 {
-    static int score;
-    cout << "Wait Time: "<< waitTime<<endl;
-    if (inSeat==true && hasFood==false)
-    {
-	if(waitTime<=15)
-	    score=3;
-	else if(waitTime>15 && waitTime<=25)
-	    score=2;
-	else if(waitTime>25)
-	    score=1;
-    }
-    cout << "score: " << score << endl;
-    if(getScore==true)
-    {
-	getScore=false;
-	return score;
-    }
-    else
-    {
-	return 0;
-    }
+	static int score;
+	cout << "Wait Time: "<< waitTime<<endl;
+	if (inSeat==true && hasFood==false)
+	{
+		if(waitTime<=15)
+			score=3;
+		else if(waitTime>15 && waitTime<=25)
+			score=2;
+		else if(waitTime>25)
+			score=1;
+	}	
+	cout << "score: " << score << endl;
+
+	if(getScore==true)
+	{
+		getScore=false;
+		return score;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 void renderScore(int s)
 {
 
-    glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
-    //first number
-    if (s > 9) {
-	switch (s - (s % 10)) {
-	    case 10:
-		glBindTexture(GL_TEXTURE_2D, oneTexture);
-		break;
-	    case 20:
-		glBindTexture(GL_TEXTURE_2D, twoTexture);
-		break;
-	    case 30:
-		glBindTexture(GL_TEXTURE_2D, threeTexture);
-		break;
-	    case 40:
-		glBindTexture(GL_TEXTURE_2D, fourTexture);
-		break;
-	    case 50:
-		glBindTexture(GL_TEXTURE_2D, fiveTexture);
-		break;
-	    case 60:
-		glBindTexture(GL_TEXTURE_2D, sixTexture);
-		break;
-	    case 70:
-		glBindTexture(GL_TEXTURE_2D, sevenTexture);
-		break;
-	    case 80:
-		glBindTexture(GL_TEXTURE_2D, eightTexture);
-		break;
-	    case 90:
-		glBindTexture(GL_TEXTURE_2D, nineTexture);
-		break;
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+	//first number
+	if (s > 9) {
+		switch (s - (s % 10)) {
+			case 10:
+				glBindTexture(GL_TEXTURE_2D, oneTexture);
+				break;
+			case 20:
+				glBindTexture(GL_TEXTURE_2D, twoTexture);
+				break;
+			case 30:
+				glBindTexture(GL_TEXTURE_2D, threeTexture);
+				break;
+			case 40:
+				glBindTexture(GL_TEXTURE_2D, fourTexture);
+				break;
+			case 50:
+				glBindTexture(GL_TEXTURE_2D, fiveTexture);
+				break;
+			case 60:
+				glBindTexture(GL_TEXTURE_2D, sixTexture);
+				break;
+			case 70:
+				glBindTexture(GL_TEXTURE_2D, sevenTexture);
+				break;
+			case 80:
+				glBindTexture(GL_TEXTURE_2D, eightTexture);
+				break;
+			case 90:
+				glBindTexture(GL_TEXTURE_2D, nineTexture);
+				break;
+		}
 	}
-    }
-    else
-	glBindTexture(GL_TEXTURE_2D, zeroTexture);
+	else
+		glBindTexture(GL_TEXTURE_2D, zeroTexture);
 
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f); glVertex2i(31, 737);
-    glTexCoord2f(0.0f, 0.0f); glVertex2i(31, 768);
-    glTexCoord2f(1.0f, 0.0f); glVertex2i(62, 768);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(62, 737);
-    glEnd();
-    glPopMatrix();
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 1.0f); glVertex2i(31, 737);
+		glTexCoord2f(0.0f, 0.0f); glVertex2i(31, 768);
+		glTexCoord2f(1.0f, 0.0f); glVertex2i(62, 768);
+		glTexCoord2f(1.0f, 1.0f); glVertex2i(62, 737);
+		glEnd();
+		glPopMatrix();
 
-    //second number
+		//second number
 
-    glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
+		glPushMatrix();
+		glEnable(GL_TEXTURE_2D);
 
-    switch (s % 10) {
-	case 0:
-	    glBindTexture(GL_TEXTURE_2D, zeroTexture);
-	    break;
-	case 1:
-	    glBindTexture(GL_TEXTURE_2D, oneTexture);
-	    break;
-	case 2:
-	    glBindTexture(GL_TEXTURE_2D, twoTexture);
-	    break;
-	case 3:
-	    glBindTexture(GL_TEXTURE_2D, threeTexture);
-	    break;
-	case 4:
-	    glBindTexture(GL_TEXTURE_2D, fourTexture);
-	    break;
-	case 5:
-	    glBindTexture(GL_TEXTURE_2D, fiveTexture);
-	    break;
-	case 6:
-	    glBindTexture(GL_TEXTURE_2D, sixTexture);
-	    break;
-	case 7:
-	    glBindTexture(GL_TEXTURE_2D, sevenTexture);
-	    break;
-	case 8:
-	    glBindTexture(GL_TEXTURE_2D, eightTexture);
-	    break;
-	case 9:
-	    glBindTexture(GL_TEXTURE_2D, nineTexture);
-	    break;
-    }
+		switch (s % 10) {
+			case 0:
+				glBindTexture(GL_TEXTURE_2D, zeroTexture);
+				break;
+			case 1:
+				glBindTexture(GL_TEXTURE_2D, oneTexture);
+				break;
+			case 2:
+				glBindTexture(GL_TEXTURE_2D, twoTexture);
+				break;
+			case 3:
+				glBindTexture(GL_TEXTURE_2D, threeTexture);
+				break;
+			case 4:
+				glBindTexture(GL_TEXTURE_2D, fourTexture);
+				break;
+			case 5:
+				glBindTexture(GL_TEXTURE_2D, fiveTexture);
+				break;
+			case 6:
+				glBindTexture(GL_TEXTURE_2D, sixTexture);
+				break;
+			case 7:
+				glBindTexture(GL_TEXTURE_2D, sevenTexture);
+				break;
+			case 8:
+				glBindTexture(GL_TEXTURE_2D, eightTexture);
+				break;
+			case 9:
+				glBindTexture(GL_TEXTURE_2D, nineTexture);
+				break;
+		}
 
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f); glVertex2i(62, 737);
-    glTexCoord2f(0.0f, 0.0f); glVertex2i(62, 768);
-    glTexCoord2f(1.0f, 0.0f); glVertex2i(93, 768);
-    glTexCoord2f(1.0f, 1.0f); glVertex2i(93, 737);
-    glEnd();
-    glPopMatrix();
-
-
-
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 1.0f); glVertex2i(62, 737);
+		glTexCoord2f(0.0f, 0.0f); glVertex2i(62, 768);
+		glTexCoord2f(1.0f, 0.0f); glVertex2i(93, 768);
+		glTexCoord2f(1.0f, 1.0f); glVertex2i(93, 737);
+		glEnd();
+		glPopMatrix();
 }
 
 
@@ -487,28 +485,26 @@ void renderScore(int s)
 #ifdef RENDERTEST
 void Box::showItem()
 {
-    for (int i=0; i<4; i++)
-    {
-	switch (i)
+	for (int i=0; i<4; i++)
 	{
-	    case 0:
-		drawtable(13, 225,225, 370);
-		break;
-	    case 1:
-		drawtable(536, 754, 224, 370);
-		break;
-	    case 2:
-		drawtable(13, 225, 25, 170);
-		break;
-	    case 3:
-		drawtable(536, 754, 24, 170);
-		break;
-
+		switch (i) {
+			case 0:
+				drawtable(13, 225,225, 370);
+				break;
+			case 1:
+				drawtable(536, 754, 224, 370);
+				break;
+			case 2:
+				drawtable(13, 225, 25, 170);
+				break;
+			case 3:
+				drawtable(536, 754, 24, 170);
+				break;
+		}
 	}
-    }
-    drawwaiter(253, 4);
-    drawwaiter(wxpos1, wypos1);
-    drawtable(467, 584, 533, 623);
-    drawtable(585, 705, 533, 623);
+	drawwaiter(253, 4);
+	drawwaiter(wxpos1, wypos1);
+	drawtable(467, 584, 533, 623);
+	drawtable(585, 705, 533, 623);
 }
 #endif
